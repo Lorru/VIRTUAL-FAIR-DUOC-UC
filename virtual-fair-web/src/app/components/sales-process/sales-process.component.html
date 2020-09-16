@@ -1,0 +1,126 @@
+<br>
+<div class="row">
+  <div class="col">
+    <select class="form-control" [(ngModel)]="idSalesProcessStatus">
+      <option *ngFor="let salesProcessStatus of salesProcessStatuss" [value]="salesProcessStatus.id">
+        {{ salesProcessStatus.name }}</option>
+    </select>
+  </div>
+  <div class="col">
+    <ng-container *ngFor="let purchaseRequestType of purchaseRequestTypes">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" [value]="purchaseRequestType.id"
+          [(ngModel)]="idPurchaseRequestType">
+        <label class="form-check-label">{{ purchaseRequestType.name }}</label>
+      </div>
+    </ng-container>
+  </div>
+  <div class="col">
+    <button class="btn btn-primary"><i class="fa fa-filter"></i> Aplicar filtro</button>
+  </div>
+  <div class="col">
+    <button class="btn btn-primary"><i class="fa fa-plus"></i> Crear proceso de venta</button>
+  </div>
+</div>
+<ng-container *ngIf="userConnect.idProfile == 3">
+  <br>
+  <div class="row">
+    <div class="col">
+      <h5><i class="fa fa-store"></i> Participando</h5>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive">
+        <table class="table table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th>ID</th>
+              <th>Solicitado por</th>
+              <th>Peso Total Kg</th>
+              <th>Fecha decisión</th>
+              <th>Estado</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody *ngIf="!loadingFindByIdProducerAndFindByIdSalesProcessStatusAndIdPurchaseRequestType && salesProcesssByIdProducer.length > 0">
+            <tr *ngIf="loadingFindByIdProducerAndFindByIdSalesProcessStatusAndIdPurchaseRequestType && salesProcesssByIdProducer.length > 0">
+              <td colspan="6" class="text-center"><i class="fa fa-circle-notch"></i> Cargando.</td>
+            </tr>
+            <tr *ngFor="let salesProcess of salesProcesssByIdProducer">
+              <td>{{ salesProcess.id }}</td>
+              <td>{{ salesProcess.purchaseRequest.client.fullName }}</td>
+              <td>{{ salesProcess.purchaseRequest.totalWeight }}</td>
+              <td>{{ salesProcess.creationDate | date:'dd/MM/yyyy' }}</td>
+              <td>{{ salesProcess.salesProcessStatus.name }}</td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary">Ver detalle</button>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="loadingFindByIdProducerAndFindByIdSalesProcessStatusAndIdPurchaseRequestType && salesProcesssByIdProducer.length == 0">
+            <tr>
+              <td colspan="6" class="text-center"><i class="fa fa-circle-notch"></i> Cargando.</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="!loadingFindByIdProducerAndFindByIdSalesProcessStatusAndIdPurchaseRequestType && salesProcesssByIdProducer.length == 0">
+            <tr>
+              <td colspan="6" class="text-center"><i class="fa fa-folder-open"></i> Sin resultados.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<br>
+<div class="row">
+  <div class="col">
+    <h5><i class="fa fa-store"></i> Procesos de Venta</h5>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col">
+    <div class="table-responsive">
+      <table class="table table-sm">
+        <thead class="thead-light">
+          <tr>
+            <th>ID</th>
+            <th>Solicitado por</th>
+            <th>Peso Total Kg</th>
+            <th>Fecha decisión</th>
+            <th>Estado</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="!loadingFindByIdSalesProcessStatusAndIdPurchaseRequestType && salesProcesss.length > 0">
+          <tr *ngIf="loadingFindByIdSalesProcessStatusAndIdPurchaseRequestType && salesProcesss.length > 0">
+            <td colspan="6" class="text-center"><i class="fa fa-circle-notch"></i> Cargando.</td>
+          </tr>
+          <tr *ngFor="let salesProcess of salesProcesss">
+            <td>{{ salesProcess.id }}</td>
+            <td>{{ salesProcess.purchaseRequest.client.fullName }}</td>
+            <td>{{ salesProcess.purchaseRequest.totalWeight }}</td>
+            <td>{{ salesProcess.creationDate | date:'dd/MM/yyyy' }}</td>
+            <td>{{ salesProcess.salesProcessStatus.name }}</td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary">Ver detalle</button>
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="loadingFindByIdSalesProcessStatusAndIdPurchaseRequestType && salesProcesss.length == 0">
+          <tr>
+            <td colspan="6" class="text-center"><i class="fa fa-circle-notch"></i> Cargando.</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="!loadingFindByIdSalesProcessStatusAndIdPurchaseRequestType && salesProcesss.length == 0">
+          <tr>
+            <td colspan="6" class="text-center"><i class="fa fa-folder-open"></i> Sin resultados.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
