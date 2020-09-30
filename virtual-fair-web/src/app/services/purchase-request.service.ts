@@ -42,4 +42,10 @@ export class PurchaseRequestService {
 
     return this.httpClient.get(URL_PURCHASE_REQUEST, { headers: this.httpHeaders.append('Authorization', JSON.parse(localStorage.getItem('sessionToken')).token) });
   }
+
+  create(createBody: any) : Observable<any>{
+    let URL_PURCHASE_REQUEST_CREATE: string = this.URL_API + 'create';
+
+    return this.httpClient.post(URL_PURCHASE_REQUEST_CREATE, createBody, { headers: this.httpHeaders.append('Authorization', JSON.parse(localStorage.getItem('sessionToken')).token) });
+  }
 }

@@ -13,12 +13,12 @@ import { TransportAuctionComponent } from '../transport-auction/transport-auctio
 import { SalesProcessComponent } from '../sales-process/sales-process.component';
 import { PurchaseRequestComponent } from '../purchase-request/purchase-request.component';
 import { ContractComponent } from '../contract/contract.component';
+import { PurchaseRequestModule } from '../purchase-request/purchase-request.module';
 
 @NgModule({
   declarations: [
     MenuComponent,
     HomeComponent,
-    PurchaseRequestComponent,
     SalesProcessComponent,
     TransportAuctionComponent,
     UserComponent,
@@ -39,6 +39,7 @@ import { ContractComponent } from '../contract/contract.component';
     CommonModule,
     MenuRoutingModule,
     FormsModule,
+    PurchaseRequestModule,
     NgbModule.forRoot(),
   ],
   entryComponents:[
