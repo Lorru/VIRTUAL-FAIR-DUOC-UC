@@ -6,26 +6,49 @@
 <div class="row add-product-row">
   <div class="col">
     <div class="input-group">
-      <input type="text" class="form-control" [(ngModel)]="productToAdd.name" placeholder="*Nombre producto" />
+      <select class="form-control" id="productToAdd" [(ngModel)]="productToAdd.object">
+        <option *ngFor="let product of productList" [ngValue]="product">
+          {{ product.name }}
+        </option>
+      </select>
     </div>
   </div>
   <div id="weight-input-col" class="col">
     <div class="input-group">
-      <input type="number" class="form-control" [(ngModel)]="productToAdd.weightKg" placeholder="*Peso Kg" />
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="productToAdd.weightKg"
+        placeholder="*Peso Kg"
+      />
     </div>
   </div>
   <div class="col-4">
     <div class="input-group">
-      <input type="text" class="form-control" [(ngModel)]="productToAdd.comment" placeholder="Comentario" />
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="productToAdd.comment"
+        placeholder="Comentario"
+      />
     </div>
   </div>
   <div class="col">
     <div class="input-group py-1">
-      <label class="align-middle"><input id="reqRefrigeration" [(ngModel)]="productToAdd.reqRefrigeration" type="checkbox" /> Requiere refrigeración</label>
+      <label class="align-middle"
+        ><input
+          id="reqRefrigeration"
+          [(ngModel)]="productToAdd.reqRefrigeration"
+          type="checkbox"
+        />
+        Requiere refrigeración</label
+      >
     </div>
   </div>
   <div class="col align-self-end text-right">
-    <button class="btn btn-primary" (click)="addProductToRequest()">Agregar</button>
+    <button class="btn btn-primary" (click)="addProductToRequest()">
+      Agregar
+    </button>
   </div>
 </div>
 <div class="row py-3">
@@ -43,30 +66,53 @@
         </thead>
         <tbody>
           <tr *ngFor="let productToRequest of productsToRequest">
-            <td>{{ productToRequest.name }}</td>
+            <td>{{ productToRequest.object.name }}</td>
             <td>{{ productToRequest.weightKg }}</td>
-            <td>{{ productToRequest.comment }}</td>     
-            <td><i class="far" [class.fa-square]="!productToRequest.reqRefrigeration" [class.fa-check-square]="productToRequest.reqRefrigeration"> </i></td>
+            <td>{{ productToRequest.comment || "-" }}</td>
             <td>
-              <button class="btn btn-sm btn-outline-danger" (click)="removeProductToRequest(productToRequest)">Remover</button>
+              <i
+                class="far"
+                [class.fa-square]="!productToRequest.reqRefrigeration"
+                [class.fa-check-square]="productToRequest.reqRefrigeration"
+              >
+              </i>
+            </td>
+            <td>
+              <button
+                class="btn btn-sm btn-outline-danger"
+                (click)="removeProductToRequest(productToRequest)"
+              >
+                Remover
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
-      <div *ngIf="productsToRequest.length === 0" class="col text-center py-4">Agrega productos a solicitar y se mostrarán aquí.</div>
+      <div *ngIf="productsToRequest.length === 0" class="col text-center py-4">
+        Agrega productos a solicitar y se mostrarán aquí.
+      </div>
     </div>
   </div>
 </div>
 <div class="row">
   <div class="col">
-    <div class="input-group align-middle justify-content-center align-items-center">
-      * Fecha deseada de entrega: 
-      <input id="date-input" type="date" class="form-control" [(ngModel)]="purchaseRequest.date" />
+    <div
+      class="input-group align-middle justify-content-center align-items-center"
+    >
+      * Fecha deseada de entrega:
+      <input
+        id="date-input"
+        type="date"
+        class="form-control"
+        [(ngModel)]="purchaseRequest.date"
+      />
     </div>
   </div>
 </div>
 <div class="row mt-4">
   <div class="col text-center">
-    <button class="btn btn-md btn-primary" (click)="sendPurchaseRequest()">Registrar solicitud de compra</button>
+    <button class="btn btn-md btn-primary" (click)="sendPurchaseRequest()">
+      Registrar solicitud de compra
+    </button>
   </div>
 </div>

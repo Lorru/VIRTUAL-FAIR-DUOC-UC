@@ -6,15 +6,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PurchaseRequestRoutingModule } from './purchase-request-routing.module';
 import { PurchaseRequestComponent } from './purchase-request.component';
 import { PurchaseRequestCreateComponent } from './purchase-request-create/purchase-request-create.component';
+import { PurchaseRequestViewComponent } from './purchase-request-view/purchase-request-view.component';
 
 @NgModule({
   declarations: [
     PurchaseRequestComponent,
-    PurchaseRequestCreateComponent
+    PurchaseRequestCreateComponent,
+    PurchaseRequestViewComponent
   ],
   exports:[
     PurchaseRequestComponent,
-    PurchaseRequestCreateComponent
+    PurchaseRequestCreateComponent,
+    PurchaseRequestViewComponent
   ],
   imports: [
     CommonModule,

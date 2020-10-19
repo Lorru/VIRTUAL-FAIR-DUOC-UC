@@ -7,10 +7,10 @@
 <div class="row">
   <div class="col">
     <div class="input-group">
-      <div class="input-group-prepend">
+      <input type="text" class="form-control" placeholder="Buscar solicitud" [(ngModel)]="searcher">
+      <div class="input-group-append">
         <div class="input-group-text" (click)="findByIdClient()"><i class="fa fa-search"></i></div>
       </div>
-      <input type="text" class="form-control" placeholder="Buscar solicitud" [(ngModel)]="searcher">
     </div>
   </div>
   <div class="col">
@@ -45,7 +45,7 @@
             <td>{{ purchaseRequest.updateDate | date:'dd/MM/yyyy' }}</td>
             <td>{{ purchaseRequest.purchaseRequestStatus.name }}</td>
             <td>
-              <button class="btn btn-sm btn-outline-primary">Ver detalle</button>
+              <button [routerLink]="['/menu/purchase-request/view', purchaseRequest.id]" class="btn btn-sm btn-outline-primary">Ver detalle</button>
             </td>
           </tr>
         </tbody>

@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
 
+declare var $:any;
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -73,5 +75,11 @@ export class UserComponent implements OnInit {
 
     });
 
+  }
+
+  registerUser() {
+    $('#myModal').on('shown.bs.modal', function () {
+      $('#myInput').trigger('focus')
+    })
   }
 }
