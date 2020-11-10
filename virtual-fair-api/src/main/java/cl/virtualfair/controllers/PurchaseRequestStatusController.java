@@ -54,7 +54,7 @@ public class PurchaseRequestStatusController {
 			
 			User user = sessionToken != null ? userService.findById(sessionToken.getIdUser()) : null;
 			
-			if(sessionToken != null && user != null && (user.getIdProfile() == 1 || user.getIdProfile() == 3) && user.getStatus() == 1) {
+			if(sessionToken != null && user != null && user.getStatus() == 1) {
 			
 				List<PurchaseRequestStatus> purchaseRequestStatus = purchaseRequestStatusService.findAll();
 				

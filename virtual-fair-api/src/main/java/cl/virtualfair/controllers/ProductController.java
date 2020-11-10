@@ -16,21 +16,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cl.virtualfair.models.virtualfair.EventLog;
-import cl.virtualfair.models.virtualfair.SalesProcessStatus;
+import cl.virtualfair.models.virtualfair.Product;
 import cl.virtualfair.models.virtualfair.SessionToken;
 import cl.virtualfair.models.virtualfair.User;
 import cl.virtualfair.services.virtualfair.EventLogService;
-import cl.virtualfair.services.virtualfair.SalesProcessStatusService;
+import cl.virtualfair.services.virtualfair.ProductService;
 import cl.virtualfair.services.virtualfair.SessionTokenService;
 import cl.virtualfair.services.virtualfair.UserService;
 
 @RestController
-@RequestMapping("/api/SalesProcessStatus/")
+@RequestMapping("/api/Product/")
 @CrossOrigin
-public class SalesProcessStatusController {
+public class ProductController {
 
 	@Autowired
-	private SalesProcessStatusService salesProcessStatusService;
+	private ProductService productService;
 	
 	@Autowired
 	private UserService userService;
@@ -40,7 +40,7 @@ public class SalesProcessStatusController {
 	
 	@Autowired
 	private EventLogService eventLogService;
-
+	
 	@GetMapping("findAll")
 	public ResponseEntity<Map<String, Object>> findAll(@RequestHeader(name = "Authorization", required = true)String token, HttpServletRequest httpServletRequest){
 		
@@ -54,11 +54,11 @@ public class SalesProcessStatusController {
 			
 			User user = sessionToken != null ? userService.findById(sessionToken.getIdUser()) : null;
 			
-			if(sessionToken != null && user != null && (user.getIdProfile() == 1 || user.getIdProfile() == 3) && user.getStatus() == 1) {
+			if(sessionToken != null && user != null && (user.getIdProfile() == 5 || user.getIdProfile() == 6) && user.getStatus() == 1) {
 			
-				List<SalesProcessStatus> salesProcessStatus = salesProcessStatusService.findAll();
+				List<Product> products = productService.findAll();
 				
-				if(salesProcessStatus.size() > 0) {
+				if(products.size() > 0) {
 
 					EventLog eventLog = new EventLog();
 					
@@ -71,16 +71,16 @@ public class SalesProcessStatusController {
 					
 					eventLogService.create(eventLog);
 					
-					map.put("salesProcessStatus", salesProcessStatus);
-					map.put("countRows", salesProcessStatus.size());
+					map.put("products", products);
+					map.put("countRows", products.size());
 					map.put("statusCode", HttpStatus.OK.value());
 					
 					return ResponseEntity.ok().body(map);
 					
 				}else {
 
-					map.put("salesProcessStatus", salesProcessStatus);
-					map.put("countRows", salesProcessStatus.size());
+					map.put("products", products);
+					map.put("countRows", products.size());
 					map.put("statusCode", HttpStatus.NO_CONTENT.value());
 				
 					return ResponseEntity.ok().body(map);

@@ -27,13 +27,10 @@ public class TransportAuction implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE ,generator="TRANSPORT_AUCTION_SEQ")
 	@SequenceGenerator(name="TRANSPORT_AUCTION_SEQ", sequenceName="TRANSPORT_AUCTION_SEQ", allocationSize=1)
 	@Column(name="ID")
-	private long Id;
+	private Long Id;
 	
 	@Column(name="ID_PURCHASE_REQUEST")
-	private long IdPurchaseRequest;
-	
-	@Column(name="ID_TRANSPORT_AUCTION_STATUS")
-	private long IdTransportAuctionStatus;
+	private Long IdPurchaseRequest;
 	
 	@Column(name="CREATION_DATE")
 	private LocalDateTime CreationDate;
@@ -41,55 +38,44 @@ public class TransportAuction implements Serializable {
 	@Column(name="UPDATE_DATE")
 	private LocalDateTime UpdateDate;
 	
+	@Column(name="IS_PUBLIC")
+	private Integer IsPublic;
+	
     @JoinColumn(name="ID_PURCHASE_REQUEST", referencedColumnName="ID", insertable=false, updatable=false)
     @ManyToOne(fetch=FetchType.LAZY)
 	private PurchaseRequest PurchaseRequest;
-    
-    @JoinColumn(name="ID_TRANSPORT_AUCTION_STATUS", referencedColumnName="ID", insertable=false, updatable=false)
-    @ManyToOne(fetch=FetchType.LAZY)
-	private TransportAuction TransportAuction;
 
 	public TransportAuction() {
 	}
     
-	public TransportAuction(long id) {
+	public TransportAuction(Long id) {
 		Id = id;
 	}
 
-	public TransportAuction(long id, long idPurchaseRequest, long idTransportAuctionStatus, LocalDateTime creationDate,
-			LocalDateTime updateDate, cl.virtualfair.models.virtualfair.PurchaseRequest purchaseRequest,
-			TransportAuction transportAuction) {
+	public TransportAuction(Long id, Long idPurchaseRequest, LocalDateTime creationDate, LocalDateTime updateDate,
+			Integer isPublic, cl.virtualfair.models.virtualfair.PurchaseRequest purchaseRequest) {
 		Id = id;
 		IdPurchaseRequest = idPurchaseRequest;
-		IdTransportAuctionStatus = idTransportAuctionStatus;
 		CreationDate = creationDate;
 		UpdateDate = updateDate;
+		IsPublic = isPublic;
 		PurchaseRequest = purchaseRequest;
-		TransportAuction = transportAuction;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return Id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		Id = id;
 	}
 
-	public long getIdPurchaseRequest() {
+	public Long getIdPurchaseRequest() {
 		return IdPurchaseRequest;
 	}
 
-	public void setIdPurchaseRequest(long idPurchaseRequest) {
+	public void setIdPurchaseRequest(Long idPurchaseRequest) {
 		IdPurchaseRequest = idPurchaseRequest;
-	}
-
-	public long getIdTransportAuctionStatus() {
-		return IdTransportAuctionStatus;
-	}
-
-	public void setIdTransportAuctionStatus(long idTransportAuctionStatus) {
-		IdTransportAuctionStatus = idTransportAuctionStatus;
 	}
 
 	public LocalDateTime getCreationDate() {
@@ -108,6 +94,14 @@ public class TransportAuction implements Serializable {
 		UpdateDate = updateDate;
 	}
 
+	public Integer getIsPublic() {
+		return IsPublic;
+	}
+
+	public void setIsPublic(Integer isPublic) {
+		IsPublic = isPublic;
+	}
+
 	public PurchaseRequest getPurchaseRequest() {
 		return PurchaseRequest;
 	}
@@ -116,11 +110,7 @@ public class TransportAuction implements Serializable {
 		PurchaseRequest = purchaseRequest;
 	}
 
-	public TransportAuction getTransportAuction() {
-		return TransportAuction;
-	}
-
-	public void setTransportAuction(TransportAuction transportAuction) {
-		TransportAuction = transportAuction;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }

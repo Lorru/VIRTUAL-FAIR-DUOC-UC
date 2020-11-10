@@ -12,38 +12,40 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cl.virtualfair.models.virtualfair.EventLog;
-import cl.virtualfair.models.virtualfair.SalesProcess;
+import cl.virtualfair.models.virtualfair.PurchaseRequestProduct;
 import cl.virtualfair.models.virtualfair.SessionToken;
 import cl.virtualfair.models.virtualfair.User;
 import cl.virtualfair.services.virtualfair.EventLogService;
-import cl.virtualfair.services.virtualfair.SalesProcessService;
+import cl.virtualfair.services.virtualfair.PurchaseRequestProductService;
 import cl.virtualfair.services.virtualfair.SessionTokenService;
 import cl.virtualfair.services.virtualfair.UserService;
 
 @RestController
-@RequestMapping("/api/SalesProcess/")
+@RequestMapping("/api/PurchaseRequestProduct/")
 @CrossOrigin
-public class SalesProcessController {
+public class PurchaseRequestProductController {
 
 	@Autowired
-	private UserService userService;
+	private PurchaseRequestProductService purchaseRequestProductService;
 	
 	@Autowired
-	private SalesProcessService salesProcessService;
+	private UserService userService;
 	
 	@Autowired
 	private SessionTokenService sessionTokenService;
 	
 	@Autowired
 	private EventLogService eventLogService;
-
-	@GetMapping("findByIdSalesProcessStatusAndIdPurchaseRequestType/{idSalesProcessStatus}/{idPurchaseRequestType}")
-	public ResponseEntity<Map<String, Object>> findByIdSalesProcessStatusAndIdPurchaseRequestType(@RequestHeader(name = "Authorization", required = true)String token, @PathVariable("idSalesProcessStatus")long idSalesProcessStatus, @PathVariable("idPurchaseRequestType")long idPurchaseRequestType, HttpServletRequest httpServletRequest){
+	
+	@GetMapping("findByIdPurchaseRequest/{idPurchaseRequest}")
+	public ResponseEntity<Map<String, Object>> findByIdPurchaseRequest(@RequestHeader(name = "Authorization", required = true)String token, @PathVariable("idPurchaseRequest") long idPurchaseRequest, HttpServletRequest httpServletRequest){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -55,11 +57,11 @@ public class SalesProcessController {
 			
 			User user = sessionToken != null ? userService.findById(sessionToken.getIdUser()) : null;
 			
-			if(sessionToken != null && user != null && (user.getIdProfile() == 1 || user.getIdProfile() == 4) && user.getStatus() == 1) {
+			if(sessionToken != null && user != null && user.getStatus() == 1) {
 			
-				List<SalesProcess> salesProcesses = salesProcessService.findByIdSalesProcessStatusAndIdPurchaseRequestType(idSalesProcessStatus, idPurchaseRequestType);
+				List<PurchaseRequestProduct> purchaseRequestProducts = purchaseRequestProductService.findByIdPurchaseRequest(idPurchaseRequest);
 				
-				if(salesProcesses.size() > 0) {
+				if(purchaseRequestProducts.size() > 0) {
 
 					EventLog eventLog = new EventLog();
 					
@@ -72,16 +74,16 @@ public class SalesProcessController {
 					
 					eventLogService.create(eventLog);
 					
-					map.put("salesProcesses", salesProcesses);
-					map.put("countRows", salesProcesses.size());
+					map.put("purchaseRequestProducts", purchaseRequestProducts);
+					map.put("countRows", purchaseRequestProducts.size());
 					map.put("statusCode", HttpStatus.OK.value());
 					
 					return ResponseEntity.ok().body(map);
 					
 				}else {
 
-					map.put("salesProcesses", salesProcesses);
-					map.put("countRows", salesProcesses.size());
+					map.put("purchaseRequestProducts", purchaseRequestProducts);
+					map.put("countRows", purchaseRequestProducts.size());
 					map.put("statusCode", HttpStatus.NO_CONTENT.value());
 				
 					return ResponseEntity.ok().body(map);
@@ -117,8 +119,8 @@ public class SalesProcessController {
 		}
 	}
 	
-	@GetMapping("findByIdProducerAndIdSalesProcessStatusAndIdPurchaseRequestType/{idProducer}/{idSalesProcessStatus}/{idPurchaseRequestType}")
-	public ResponseEntity<Map<String, Object>> findByIdProducerAndIdSalesProcessStatusAndIdPurchaseRequestType(@RequestHeader(name = "Authorization", required = true)String token, @PathVariable("idProducer")long idProducer, @PathVariable("idSalesProcessStatus")long idSalesProcessStatus, @PathVariable("idPurchaseRequestType")long idPurchaseRequestType, HttpServletRequest httpServletRequest){
+	@PutMapping("updateMassiveAgreedPrice")
+	public ResponseEntity<Map<String, Object>> updateMassiveAgreedPrice(@RequestHeader(name = "Authorization", required = true)String token, @RequestBody List<PurchaseRequestProduct> purchaseRequestProducts, HttpServletRequest httpServletRequest){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -130,12 +132,27 @@ public class SalesProcessController {
 			
 			User user = sessionToken != null ? userService.findById(sessionToken.getIdUser()) : null;
 			
-			if(sessionToken != null && user != null && (user.getIdProfile() == 1 || user.getIdProfile() == 4) && user.getStatus() == 1) {
+			if(sessionToken != null && user != null && user.getIdProfile() == 1 && user.getStatus() == 1) {
 			
-				List<SalesProcess> salesProcesses = salesProcessService.findByIdProducerAndIdSalesProcessStatusAndIdPurchaseRequestType(idProducer, idSalesProcessStatus, idPurchaseRequestType);
+				if(purchaseRequestProducts.size() == 0) {
+					
+					map.put("message", "La cantidad mínima para los productos es 1.");
+					map.put("statusCode", HttpStatus.NO_CONTENT.value());
 				
-				if(salesProcesses.size() > 0) {
-
+					return ResponseEntity.ok().body(map);
+					
+				}else {
+					
+					for (PurchaseRequestProduct purchaseRequestProduct : purchaseRequestProducts) {
+						
+						if(purchaseRequestProduct.getId() != null) {
+							
+							purchaseRequestProductService.updateAgreedPriceById(purchaseRequestProduct.getId());
+							
+						}
+						
+					}
+					
 					EventLog eventLog = new EventLog();
 					
 					eventLog.setIdEventType(1);
@@ -147,19 +164,11 @@ public class SalesProcessController {
 					
 					eventLogService.create(eventLog);
 					
-					map.put("salesProcesses", salesProcesses);
-					map.put("countRows", salesProcesses.size());
+					map.put("message", "se actualizaron con éxito los productos.");
 					map.put("statusCode", HttpStatus.OK.value());
-					
-					return ResponseEntity.ok().body(map);
-					
-				}else {
-
-					map.put("salesProcesses", salesProcesses);
-					map.put("countRows", salesProcesses.size());
-					map.put("statusCode", HttpStatus.NO_CONTENT.value());
 				
 					return ResponseEntity.ok().body(map);
+					
 				}
 				
 			}else {

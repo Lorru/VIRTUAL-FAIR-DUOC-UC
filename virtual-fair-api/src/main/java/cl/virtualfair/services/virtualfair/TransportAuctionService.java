@@ -1,15 +1,13 @@
 package cl.virtualfair.services.virtualfair;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import cl.virtualfair.models.virtualfair.TransportAuction;
-import cl.virtualfair.models.virtualfair.TransportAuctionCarrier;
 import cl.virtualfair.repositories.ITransportAuctionRepository;
-import org.springframework.stereotype.Service;
 
 @Service
 public class TransportAuctionService {
@@ -17,32 +15,62 @@ public class TransportAuctionService {
 	@Autowired
 	private ITransportAuctionRepository iTransportAuctionRepository;
 	
-	@Autowired
-	private TransportAuctionCarrierService transportAuctionCarrierService;
-	
 	public TransportAuctionService() {
 		
 	}
 	
-	public List<TransportAuction> findAll(String searcher){
+	public List<TransportAuction> findAll(){
 		
-		List<TransportAuction> transportAuctions = new ArrayList<TransportAuction>();
-		
-		transportAuctions = iTransportAuctionRepository.findAll();
+		List<TransportAuction> transportAuctions = iTransportAuctionRepository.findAll();
 		
 		return transportAuctions;
 	}
 	
-	public List<TransportAuction> findByIdCarrier(long idCarrier){
+	public List<TransportAuction> findByIsPublicEqualToOne(){
 		
-		List<TransportAuction> transportAuctions = new ArrayList<TransportAuction>();
-		
-		List<TransportAuctionCarrier> transportAuctionCarriers = transportAuctionCarrierService.findByIdCarrier(idCarrier);
-		
-		List<Long> ids = transportAuctionCarriers.stream().map(TransportAuctionCarrier::getId).collect(Collectors.toList());
-		
-		transportAuctions = iTransportAuctionRepository.findByIds(ids);
+		List<TransportAuction> transportAuctions = iTransportAuctionRepository.findByIsPublicEqualToOne();
 		
 		return transportAuctions;
+	}
+	
+
+	public List<TransportAuction> findByIdCarrierAndIsPublicEqualToOne(long idCarrier){
+		
+		List<TransportAuction> transportAuctions = iTransportAuctionRepository.findByIdCarrierAndIsPublicEqualToOne(idCarrier);
+		
+		return transportAuctions;
+	}
+	
+	public TransportAuction create(TransportAuction transportAuction) {
+		
+		transportAuction.setUpdateDate(LocalDateTime.now());
+		transportAuction.setUpdateDate(LocalDateTime.now());
+		
+		transportAuction = iTransportAuctionRepository.save(transportAuction);
+		
+		return transportAuction;
+	}
+
+	public TransportAuction findById(long id) {
+		
+		TransportAuction transportAuction = iTransportAuctionRepository.findById(id);
+		
+		return transportAuction;
+		
+	}
+	
+	public TransportAuction updateIsPublicById(TransportAuction transportAuction) {
+		
+		long id = transportAuction.getId();
+		
+		TransportAuction transportAuctionExisting = iTransportAuctionRepository.findById(id);
+		
+		transportAuctionExisting.setUpdateDate(LocalDateTime.now());
+		transportAuctionExisting.setIsPublic(transportAuction.getIsPublic());
+
+		transportAuctionExisting = iTransportAuctionRepository.save(transportAuctionExisting);
+		
+		return transportAuctionExisting;
+		
 	}
 }

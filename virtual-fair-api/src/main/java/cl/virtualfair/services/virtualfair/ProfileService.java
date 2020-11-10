@@ -24,11 +24,4 @@ public class ProfileService {
 		
 		return profiles;
 	}
-	
-	public Profile findById(long id) {
-		
-		Profile profile = iProfileRepository.findById(id);
-		
-		return profile;
-	}
 }

@@ -27,10 +27,10 @@ public class User implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE ,generator="USER_SEQ")
 	@SequenceGenerator(name="USER_SEQ", sequenceName="USER_SEQ", allocationSize=1)
 	@Column(name="ID")
-	private long Id;
+	private Long Id;
 	
 	@Column(name="ID_PROFILE")
-	private long IdProfile;
+	private Long IdProfile;
 	
 	@Column(name="EMAIL")
 	private String Email;
@@ -60,11 +60,11 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public User(long id) {
+	public User(Long id) {
 		Id = id;
 	}
 
-	public User(long id, long idProfile, String email, String fullName, String country, String city, String address,
+	public User(Long id, Long idProfile, String email, String fullName, String country, String city, String address,
 			String password, int status, cl.virtualfair.models.virtualfair.Profile profile) {
 		Id = id;
 		IdProfile = idProfile;
@@ -78,19 +78,19 @@ public class User implements Serializable {
 		Profile = profile;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return Id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		Id = id;
 	}
 
-	public long getIdProfile() {
+	public Long getIdProfile() {
 		return IdProfile;
 	}
 
-	public void setIdProfile(long idProfile) {
+	public void setIdProfile(Long idProfile) {
 		IdProfile = idProfile;
 	}
 

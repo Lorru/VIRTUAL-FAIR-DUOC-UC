@@ -13,7 +13,12 @@ public interface ITransportAuctionRepository extends JpaRepository<TransportAuct
 	@Query("SELECT TA FROM TransportAuction TA")
 	List<TransportAuction> findAll();
 	
-	@Query("SELECT TA FROM TransportAuction TA WHERE TA.Id IN :ids")
-	List<TransportAuction> findByIds(@Param("ids") List<Long> ids);
+	@Query("SELECT TA FROM TransportAuction TA WHERE TA.IsPublic = 1")
+	List<TransportAuction> findByIsPublicEqualToOne();
 	
+	@Query("SELECT DISTINCT TA FROM TransportAuctionCarrier TAC JOIN TAC.TransportAuction TA WHERE TAC.IdCarrier = :idCarrier AND TA.IsPublic = 1")
+	List<TransportAuction> findByIdCarrierAndIsPublicEqualToOne(@Param("idCarrier")long idCarrier);
+	
+	@Query("SELECT TA FROM TransportAuction TA WHERE TA.Id = :id")
+	TransportAuction findById(@Param("id")long id);
 }

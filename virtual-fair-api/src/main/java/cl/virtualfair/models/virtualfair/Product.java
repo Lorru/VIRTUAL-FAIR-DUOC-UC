@@ -28,7 +28,7 @@ public class Product implements Serializable {
 	@Column(name="NAME")
 	private String Name;
 	
-	@Column(name="IMAGE_PATH")
+	@javax.persistence.Transient
 	private String ImagePath;
 
 	public Product() {

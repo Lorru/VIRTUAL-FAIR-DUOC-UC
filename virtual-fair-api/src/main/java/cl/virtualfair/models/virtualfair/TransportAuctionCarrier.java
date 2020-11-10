@@ -29,13 +29,16 @@ public class TransportAuctionCarrier implements Serializable {
 	private long Id;
 	
 	@Column(name="ID_TRANSPORT_AUCTION")
-	private long IdTransportAuction;
+	private Long IdTransportAuction;
 	
 	@Column(name="ID_CARRIER")
-	private long IdCarrier;
+	private Long IdCarrier;
 	
 	@Column(name="PRICE")
-	private long Price;
+	private Long Price;
+	
+	@Column(name="IS_PARTICIPANT")
+	private Integer IsParticipant;
 	
     @JoinColumn(name="ID_TRANSPORT_AUCTION", referencedColumnName="ID", insertable=false, updatable=false)
     @ManyToOne(fetch=FetchType.LAZY)
@@ -52,12 +55,13 @@ public class TransportAuctionCarrier implements Serializable {
 		Id = id;
 	}
 
-	public TransportAuctionCarrier(long id, long idTransportAuction, long idCarrier, long price,
+	public TransportAuctionCarrier(long id, Long idTransportAuction, Long idCarrier, Long price, Integer isParticipant,
 			cl.virtualfair.models.virtualfair.TransportAuction transportAuction, User carrier) {
 		Id = id;
 		IdTransportAuction = idTransportAuction;
 		IdCarrier = idCarrier;
 		Price = price;
+		IsParticipant = isParticipant;
 		TransportAuction = transportAuction;
 		Carrier = carrier;
 	}
@@ -70,28 +74,36 @@ public class TransportAuctionCarrier implements Serializable {
 		Id = id;
 	}
 
-	public long getIdTransportAuction() {
+	public Long getIdTransportAuction() {
 		return IdTransportAuction;
 	}
 
-	public void setIdTransportAuction(long idTransportAuction) {
+	public void setIdTransportAuction(Long idTransportAuction) {
 		IdTransportAuction = idTransportAuction;
 	}
 
-	public long getIdCarrier() {
+	public Long getIdCarrier() {
 		return IdCarrier;
 	}
 
-	public void setIdCarrier(long idCarrier) {
+	public void setIdCarrier(Long idCarrier) {
 		IdCarrier = idCarrier;
 	}
 
-	public long getPrice() {
+	public Long getPrice() {
 		return Price;
 	}
 
-	public void setPrice(long price) {
+	public void setPrice(Long price) {
 		Price = price;
+	}
+
+	public Integer getIsParticipant() {
+		return IsParticipant;
+	}
+
+	public void setIsParticipant(Integer isParticipant) {
+		IsParticipant = isParticipant;
 	}
 
 	public TransportAuction getTransportAuction() {

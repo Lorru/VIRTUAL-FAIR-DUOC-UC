@@ -27,13 +27,10 @@ public class Contract implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE ,generator="CONTRACT_SEQ")
 	@SequenceGenerator(name="CONTRACT_SEQ", sequenceName="CONTRACT_SEQ", allocationSize=1)
 	@Column(name="ID")
-	private long Id;
+	private Long Id;
 	
 	@Column(name="ID_USER")
-	private long IdUser;
-	
-	@Column(name="CONTRACT_PATH")
-	private String ContractPath;
+	private Long IdUser;
 	
 	@Column(name="CREATION_DATE")
 	private LocalDateTime CreationDate;
@@ -42,21 +39,24 @@ public class Contract implements Serializable {
 	private LocalDateTime ExpirationDate;
 	
 	@Column(name="IS_VALID")
-	private int IsValid;
+	private Integer IsValid;
 	
     @JoinColumn(name="ID_USER", referencedColumnName="ID", insertable=false, updatable=false)
     @ManyToOne(fetch=FetchType.LAZY)
 	private User User;
 
+	@javax.persistence.Transient
+	private String ContractPath;
+    
 	public Contract() {
 	}    
     
-	public Contract(long id) {
+	public Contract(Long id) {
 		Id = id;
 	}
 
-	public Contract(long id, long idUser, String contractPath, LocalDateTime creationDate, LocalDateTime expirationDate,
-			int isValid, cl.virtualfair.models.virtualfair.User user) {
+	public Contract(Long id, Long idUser, String contractPath, LocalDateTime creationDate, LocalDateTime expirationDate,
+			Integer isValid, cl.virtualfair.models.virtualfair.User user) {
 		Id = id;
 		IdUser = idUser;
 		ContractPath = contractPath;
@@ -66,19 +66,19 @@ public class Contract implements Serializable {
 		User = user;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return Id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		Id = id;
 	}
 
-	public long getIdUser() {
+	public Long getIdUser() {
 		return IdUser;
 	}
 
-	public void setIdUser(long idUser) {
+	public void setIdUser(Long idUser) {
 		IdUser = idUser;
 	}
 
@@ -106,11 +106,11 @@ public class Contract implements Serializable {
 		ExpirationDate = expirationDate;
 	}
 
-	public int getIsValid() {
+	public Integer getIsValid() {
 		return IsValid;
 	}
 
-	public void setIsValid(int isValid) {
+	public void setIsValid(Integer isValid) {
 		IsValid = isValid;
 	}
 
