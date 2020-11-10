@@ -1,0 +1,66 @@
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Login.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Client.PurchaseRequest.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Properties.Resources.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.csproj.GenerateResource.cache
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.csproj.CoreCompileInputs.cache
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\bin\Debug\VirtualFairProject.exe.config
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\bin\Debug\VirtualFairProject.exe
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\bin\Debug\VirtualFairProject.pdb
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.exe
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.pdb
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.HomeCarrier.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.HomeProducer.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Carrier.CarrierAuctions.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Producer.SalesProcesses.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\bin\Debug\Newtonsoft.Json.dll
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\bin\Debug\Newtonsoft.Json.xml
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.csproj.CopyComplete
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.HomeExternalCustomer.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.HomeInternalCustomer.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.InternalCustomer.NewPurchaseRequest.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.HomeAdmin.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.Users.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.ModuleUsers.AddUsers.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.ModuleSalesProcesses.SalesProcesses.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.ModuleSalesProcesses.DetailsSalesProcesses.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.HomeConsultant.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.ModuleAuctions.Auctions.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Consultant.ModuleReports.GenerateReports.resources
+E:\DUOC\Ultimo Semestre\Portafolio\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Consultant.ModuleReports.Reports.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\bin\Debug\VirtualFairProject.exe.config
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\bin\Debug\VirtualFairProject.exe
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\bin\Debug\VirtualFairProject.pdb
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.HomeAdmin.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.HomeCarrier.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.HomeConsultant.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.HomeExternalCustomer.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.HomeInternalCustomer.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.HomeProducer.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Login.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.ModuleAuctions.Auctions.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.ModuleSalesProcesses.DetailsSalesProcesses.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.ModuleSalesProcesses.SalesProcesses.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.ModuleUsers.AddUsers.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.Users.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Carrier.CarrierAuctions.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Consultant.ModuleReports.GenerateReports.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Consultant.ModuleReports.Reports.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.InternalCustomer.NewPurchaseRequest.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Client.PurchaseRequest.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Producer.SalesProcesses.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Properties.Resources.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.csproj.GenerateResource.cache
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.csproj.CopyComplete
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.exe
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.pdb
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.InternalCustomer.PurchaseRequestDetails.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.InternalCustomer.RefuseDelivery.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Producer.SalesProcessesDetails.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.ModuleSalesProcesses.NewSalesProcesses.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.ExternalCustomer.NewPurchaseRequestExternal.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.ExternalCustomer.PurchaseRequestDetailsExternal.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.ExternalCustomer.PurchaseRequestExternal.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.ExternalCustomer.RefuseDeliveryExternal.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.csprojAssemblyReference.cache
