@@ -1,0 +1,24 @@
+.harvest-background {
+    background-image: url('../../../assets/img/harvest-background.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.logo {
+    width: 500px;
+    position: absolute;
+    left: 175px;
+    top: 115px;
+}
+
+.login-box {
+    position: absolute;
+    top: 289px;
+    left: 265px;
+    width: 320px;
+    height: auto;
+}
+
+.form-control, .form-control:focus {
+    color:white;
+}

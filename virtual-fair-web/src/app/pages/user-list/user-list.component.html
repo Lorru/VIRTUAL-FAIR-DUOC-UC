@@ -1,0 +1,71 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div
+            class="card-header card-header-danger row justify-content-between align-items-center"
+          >
+            <div class="col-md-4">
+              <p class="card-category">
+                <mat-form-field style="height: 52px;">
+                  <mat-icon matPrefix>search</mat-icon>
+                  <input
+                    name="search-user"
+                    [(ngModel)]="searchTerm"
+                    (ngModelChange)="searchUsers()"
+                    matInput
+                  />
+                  <mat-placeholder class="placeholder"
+                    >Buscar usuario</mat-placeholder
+                  >
+                </mat-form-field>
+              </p>
+            </div>
+            <div class="col-md-4 justify-content-end d-flex">
+              <button
+                [routerLink]="['/menu/users/view', getUserEncoded(user)]"
+                class="btn btn-primary"
+                (click)="registerUser()"
+              >
+                Registrar usuario
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>E-mail</th>
+                  <th>Perfil</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of displayedUsers">
+                    <td>{{ user.displayInfo.id }}</td>
+                    <td>{{ user.displayInfo.fullName }}</td>
+                    <td>{{ user.displayInfo.email }}</td>
+                    <td>{{ user.displayInfo.profileName }}</td>
+                    <td>
+                      <button
+                        [routerLink]="[
+                          '/main/user-profile',
+                          getUserEncoded(user)
+                        ]"
+                        class="btn btn-sm btn-outline-primary"
+                      >
+                        Ver detalle
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

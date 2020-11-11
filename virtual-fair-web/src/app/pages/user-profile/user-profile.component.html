@@ -1,0 +1,152 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Datos de usuario</h4>
+            <p class="card-category">
+              Aquí puedes modificar los datos de usuario
+            </p>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <div class="form-group container">
+                  <div class="row py-2">
+                    <div class="col">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Nombre completo</mat-label>
+                        <input
+                          matInput
+                          [(ngModel)]="userData.fullName"
+                          placeholder="Nombre completo"
+                          readonly
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="col">
+                      <mat-form-field appearance="outline">
+                        <mat-label>País</mat-label>
+                        <input
+                          matInput
+                          [(ngModel)]="userData.country"
+                          placeholder="País"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row py-2">
+                    <div class="col">
+                      <mat-form-field appearance="outline">
+                        <mat-label>E-mail</mat-label>
+                        <input
+                          matInput
+                          [(ngModel)]="userData.email"
+                          placeholder="E-mail"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="col">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Ciudad</mat-label>
+                        <input
+                          matInput
+                          [(ngModel)]="userData.city"
+                          placeholder="Ciudad"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row py-2">
+                    <div class="col">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Rol</mat-label>
+                        <mat-select
+                          [(ngModel)]="userData.idProfile"
+                          *ngIf="
+                            _userService.getUser().id !== userData.id &&
+                            _userService.getUser().idProfile === 1
+                          "
+                        >
+                          <mat-option
+                            *ngFor="let profile of profileList"
+                            [value]="profile.id"
+                            >{{ profile.name }}</mat-option
+                          >
+                        </mat-select>
+                        <input
+                          *ngIf="
+                            _userService.getUser().idProfile !== 1 ||
+                            _userService.getUser().id === userData.id
+                          "
+                          readonly
+                          matInput
+                          [(ngModel)]="userData.profile.name"
+                          placeholder="Rol"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="col">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Dirección</mat-label>
+                        <input
+                          matInput
+                          [(ngModel)]="userData.address"
+                          placeholder="Dirección"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row py-3">
+                    <div class="col text-center">
+                      <mat-checkbox
+                        name="userStatus"
+                        class="example-margin"
+                        [(ngModel)]="+userData.status"
+                        >Usuario habilitado</mat-checkbox
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              mat-raised-button
+              type="button"
+              class="btn btn-danger pull-right"
+              (click)="updateUser()"
+            >
+              <mat-spinner
+                class="white-spinner"
+                [diameter]="17"
+                *ngIf="processing"
+              ></mat-spinner>
+              <span *ngIf="!processing">Registrar</span>
+            </button>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-profile">
+          <div class="card-avatar">
+            <img
+              class="img"
+              style="background: #1c2229"
+              src="{{ profileDescriptions[userData.idProfile - 1].imageUrl }}"
+            />
+          </div>
+          <div class="card-body">
+            <h6 class="card-category text-gray" style="margin-bottom: 20px">
+              <b>{{ profileDescriptions[userData.idProfile - 1].name }}</b>
+            </h6>
+            <p class="card-description">
+              {{ profileDescriptions[userData.idProfile - 1].description }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

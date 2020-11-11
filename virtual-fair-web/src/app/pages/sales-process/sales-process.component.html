@@ -1,0 +1,212 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-primary">
+            <div class="row">
+              <div class="col">
+                <h4 class="card-title">Procesos públicos</h4>
+                <p class="card-category">
+                  Lista de procesos de ventas a los que puedes optar a
+                  participar
+                </p>
+              </div>
+              <div class="nav-tabs-navigation col justify-content-end d-flex">
+                <div class="nav-tabs-wrapper">
+                  <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="nav-item">
+                      <a
+                        mat-button
+                        class="nav-link active"
+                        href="#profile"
+                        data-toggle="tab"
+                      >
+                        <i class="material-icons">flight</i> Procesos
+                        extranjeros
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        mat-button
+                        class="nav-link"
+                        href="#messages"
+                        data-toggle="tab"
+                      >
+                        <i class="material-icons">local_shipping</i> Procesos
+                        locales
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="profile">
+                <div
+                  *ngIf="displayedSalesProcesses[1].length === 0"
+                  class="col text-center py-4"
+                >
+                  No se encontrarón procesos de ventas públicos extranjeros
+                  vigentes.
+                </div>
+                <div
+                  class="table-responsive"
+                  *ngIf="displayedSalesProcesses[1].length > 0"
+                >
+                  <table class="table">
+                    <thead class="text-primary">
+                      <th>ID</th>
+                      <th class="text-center">Peso Total Kg</th>
+                      <th class="text-center">Fecha deseada</th>
+                      <th class="text-center">Estado</th>
+                      <th></th>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="let saleProcess of displayedSalesProcesses[1]"
+                      >
+                        <td>{{ saleProcess.displayInfo.id }}</td>
+                        <td class="text-center">
+                          {{ saleProcess.displayInfo.totalWeight }}
+                        </td>
+                        <td class="text-center">
+                          {{ saleProcess.displayInfo.desiredDate }}
+                        </td>
+                        <td class="text-center">
+                          {{ saleProcess.displayInfo.state }}
+                        </td>
+                        <td class="text-right">
+                          <button
+                            [routerLink]="[
+                              '/main/sales-process/view',
+                              saleProcess.displayInfo.id
+                            ]"
+                            class="btn btn-sm btn-outline-primary"
+                          >
+                            Participar
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="messages">
+                <div
+                  *ngIf="displayedSalesProcesses[2].length === 0"
+                  class="col text-center py-4"
+                >
+                  No se encontrarón procesos de ventas públicos locales
+                  vigentes.
+                </div>
+                <div
+                  class="table-responsive"
+                  *ngIf="displayedSalesProcesses[2].length > 0"
+                >
+                  <table class="table">
+                    <thead class="text-primary">
+                      <th>ID</th>
+                      <th class="text-center">Peso Total Kg</th>
+                      <th class="text-center">Fecha deseada</th>
+                      <th class="text-center">Estado</th>
+                      <th></th>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="let saleProcess of displayedSalesProcesses[2]"
+                      >
+                        <td>{{ saleProcess.displayInfo.id }}</td>
+                        <td class="text-center">
+                          {{ saleProcess.displayInfo.totalWeight }}
+                        </td>
+                        <td class="text-center">
+                          {{ saleProcess.displayInfo.desiredDate }}
+                        </td>
+                        <td class="text-center">
+                          {{ saleProcess.displayInfo.state }}
+                        </td>
+                        <td class="text-right">
+                          <button
+                            [routerLink]="[
+                              '/main/sales-process/view',
+                              saleProcess.displayInfo.id
+                            ]"
+                            class="btn btn-sm btn-outline-primary"
+                          >
+                            Participar
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-primary">
+            <h4 class="card-title">Participando</h4>
+            <p class="card-category">
+              Lista de procesos en los que te encuentras participando
+            </p>
+          </div>
+          <div class="card-body">
+            <div
+              *ngIf="displayedSalesProcesses[1].length === 0"
+              class="col text-center py-4"
+            >
+              No se encontrarón procesos de ventas públicos extranjeros
+              vigentes.
+            </div>
+            <div
+              class="table-responsive"
+              *ngIf="displayedSalesProcesses[1].length > 0"
+            >
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th class="text-center">Peso Total Kg</th>
+                  <th class="text-center">Fecha deseada</th>
+                  <th class="text-center">Estado</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let saleProcess of displayedSalesProcesses[1]">
+                    <td>{{ saleProcess.displayInfo.id }}</td>
+                    <td class="text-center">
+                      {{ saleProcess.displayInfo.totalWeight }}
+                    </td>
+                    <td class="text-center">
+                      {{ saleProcess.displayInfo.desiredDate }}
+                    </td>
+                    <td class="text-center">
+                      {{ saleProcess.displayInfo.state }}
+                    </td>
+                    <td class="text-right">
+                      <button class="btn btn-sm btn-outline-primary">
+                        Participar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+  </div>
+</div>

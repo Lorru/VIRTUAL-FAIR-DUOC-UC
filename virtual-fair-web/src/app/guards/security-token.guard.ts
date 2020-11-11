@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import { UserService } from 'app/services/user.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,19 +8,14 @@ import { Observable } from 'rxjs';
 })
 export class SecurityTokenGuard implements CanActivate {
   
-  constructor(private router: Router){}
+  constructor(private _router: Router, private _userService: UserService){}
 
   canActivate( ): Observable<boolean> | Promise<boolean> | boolean {
-    
-    let sessionToken: any = JSON.parse(localStorage.getItem('sessionToken'));
 
-    if(sessionToken){
-
+    if(this._userService.getSessionToken()){
       return true;
-
     }else{
-
-      this.router.navigateByUrl('/');
+      this._router.navigateByUrl('/');
       return false;
     }
 

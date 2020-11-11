@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <h4 class="modal-title">Rechazar entrega</h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="dialogRef.close()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body pb-0 text-center reject-delivery-modal-width">
+  <mat-form-field class="w-100" appearance="outline">
+    <mat-label>Detalle aquí la razón del rechazo...</mat-label>
+    <textarea matInput minlength="{{minlength}}" maxlength="{{maxlength}}" [(ngModel)]="rejectionReason" ></textarea>
+    <mat-hint align="end">{{rejectionReason.length}} / 256</mat-hint>
+  </mat-form-field>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-outline-danger"
+    (click)="dialogRef.close()"
+  >
+    Cerrar
+  </button>
+  <button
+  [disabled]="!isRejectionReasonValid()"
+  type="button"
+  class="btn btn-danger"
+  (click)="dialogRef.close(rejectionReason)"
+>
+  Enviar
+</button>
+</div>
