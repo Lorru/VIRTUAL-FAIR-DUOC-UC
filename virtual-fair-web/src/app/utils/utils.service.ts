@@ -1,6 +1,7 @@
 import { ComponentType } from "@angular/cdk/portal";
 import { Injectable, TemplateRef } from "@angular/core";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { ConfirmationModalComponent } from "./confirmation-modal/confirmation-modal.component";
 import { ResultModalComponent } from "./result-modal/result-modal.component";
 declare var $: any;
 
@@ -13,6 +14,17 @@ export class UtilsService {
   openModal(modalComponent: ComponentType<any> | TemplateRef<any>, modalData?: any): MatDialogRef<any> {
     const modalRef: MatDialogRef<any> = this._modalService.open(
       modalComponent,
+      {
+        data: modalData,
+      }
+    );
+
+    return modalRef;
+  }
+
+  openConfirmationModal(modalData: any) {
+    const modalRef: MatDialogRef<any> = this._modalService.open(
+      ConfirmationModalComponent,
       {
         data: modalData,
       }

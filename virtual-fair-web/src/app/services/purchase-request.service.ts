@@ -100,4 +100,14 @@ findByIdPurchaseRequestStatusAndIdPurchaseRequestType(idPurchaseRequestType: num
       ),
     });
   }
+  
+  updateIsPublicById(id: number, body: any) {
+    return this.httpClient.put(this.URL_API + `updateIsPublicById/${id}`, body, {
+      headers: this.httpHeaders.append(
+        "Authorization",
+        JSON.parse(localStorage.getItem("sessionToken")).token
+      ),
+    });
+  }
+  
 }

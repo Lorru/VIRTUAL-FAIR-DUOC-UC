@@ -76,8 +76,8 @@ export const MainLayoutRoutes: Routes = [
       { path: "purchase-request", component: PurchaseRequestComponent, canActivate: [PurchaseRequestGuard], data: {title: "Solicitudes de Compra"} },
       { path: "purchase-request/create", component: PurchaseRequestCreateComponent, canActivate: [PurchaseRequestGuard], data: {title: "Crear Solicitud de Compra"} },
       { path: "purchase-request/view/:id", component: PurchaseRequestViewComponent, canActivate: [PurchaseRequestGuard], data: {title: "Detalle Solicitud de Compra"} },
-      { path: "user-profile/:userDataEncoded", component: UserProfileComponent },
-      { path: "user-profile", component: UserProfileComponent },
+      { path: "user-list/user-profile/:userDataEncoded", component: UserProfileComponent },
+      { path: "my-profile", component: UserProfileComponent },
       { path: "sales-process", component: SalesProcessComponent, canActivate: [SalesProcessGuard], data: {title: "Procesos de Venta" }},
       { path: "sales-process/view/:id", component: SalesProcessViewComponent, canActivate: [SalesProcessGuard], data: {title: "Detalle Proceso de Venta"} },
 

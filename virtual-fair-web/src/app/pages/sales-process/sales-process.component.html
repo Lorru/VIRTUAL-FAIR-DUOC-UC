@@ -5,16 +5,60 @@
         <div class="card">
           <div class="card-header card-header-tabs card-header-primary">
             <div class="row">
-              <div class="col">
-                <h4 class="card-title">Procesos públicos</h4>
-                <p class="card-category">
+              <div
+                [class.col]="_userService.getUser().idProfile !== 1"
+                [class.col-4]="_userService.getUser().idProfile === 1"
+              >
+                <h4 class="card-title">Procesos</h4>
+                <p
+                  class="card-category"
+                  *ngIf="_userService.getUser().idProfile !== 1"
+                >
                   Lista de procesos de ventas a los que puedes optar a
                   participar
+                </p>
+                <p
+                  class="card-category"
+                  *ngIf="_userService.getUser().idProfile === 1"
+                >
+                  Lista de todos los procesos de ventas
                 </p>
               </div>
               <div class="nav-tabs-navigation col justify-content-end d-flex">
                 <div class="nav-tabs-wrapper">
                   <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li
+                      class="nav-item mr-3"
+                      style="padding-top: 13px"
+                      *ngIf="_userService.getUser().idProfile === 1"
+                    >
+                      <mat-checkbox
+                        (change)="filterByStatus()"
+                        [(ngModel)]="isPublicFilter"
+                        >Público</mat-checkbox
+                      >
+                    </li>
+                    <li
+                      class="nav-item mr-3"
+                      *ngIf="_userService.getUser().idProfile === 1"
+                    >
+                      <mat-form-field style="max-height: 40px">
+                        <mat-placeholder class="placeholder"
+                          >Estado</mat-placeholder
+                        >
+                        <mat-select
+                          [(ngModel)]="selectedStatus"
+                          (selectionChange)="filterByStatus()"
+                        >
+                          <mat-option [value]="'all'">Todos</mat-option>
+                          <mat-option
+                            [value]="status.id"
+                            *ngFor="let status of statusList"
+                            >{{ status.name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </li>
                     <li class="nav-item">
                       <a
                         mat-button
@@ -22,8 +66,7 @@
                         href="#profile"
                         data-toggle="tab"
                       >
-                        <i class="material-icons">flight</i> Procesos
-                        extranjeros
+                        <i class="material-icons">flight</i> Extranjeros
                         <div class="ripple-container"></div>
                       </a>
                     </li>
@@ -34,8 +77,7 @@
                         href="#messages"
                         data-toggle="tab"
                       >
-                        <i class="material-icons">local_shipping</i> Procesos
-                        locales
+                        <i class="material-icons">local_shipping</i> Locales
                         <div class="ripple-container"></div>
                       </a>
                     </li>
@@ -51,8 +93,8 @@
                   *ngIf="displayedSalesProcesses[1].length === 0"
                   class="col text-center py-4"
                 >
-                  No se encontrarón procesos de ventas públicos extranjeros
-                  vigentes.
+                  No se encontraron procesos de ventas extranjeros con el filtro
+                  actual.
                 </div>
                 <div
                   class="table-responsive"
@@ -82,13 +124,37 @@
                         </td>
                         <td class="text-right">
                           <button
+                            *ngIf="
+                              _userService.getUser().idProfile === 1 &&
+                              !saleProcess.isPublic
+                            "
+                            class="btn btn-sm btn-outline-success mr-2"
+                            (click)="publish(saleProcess.id)"
+                          >
+                            Publicar
+                          </button>
+                          <button
+                            *ngIf="
+                              _userService.getUser().idProfile === 1 &&
+                              saleProcess.isPublic
+                            "
+                            class="btn btn-sm btn-outline-danger mr-2"
+                            (click)="unpublish(saleProcess.id)"
+                          >
+                            Quitar publicación
+                          </button>
+                          <button
                             [routerLink]="[
                               '/main/sales-process/view',
                               saleProcess.displayInfo.id
                             ]"
                             class="btn btn-sm btn-outline-primary"
                           >
-                            Participar
+                            {{
+                              _userService.getUser().idProfile === 1
+                                ? "Ver detalle"
+                                : "Participar"
+                            }}
                           </button>
                         </td>
                       </tr>
@@ -101,8 +167,8 @@
                   *ngIf="displayedSalesProcesses[2].length === 0"
                   class="col text-center py-4"
                 >
-                  No se encontrarón procesos de ventas públicos locales
-                  vigentes.
+                  No se encontraron procesos de ventas locales vigentes con el
+                  filtro actual.
                 </div>
                 <div
                   class="table-responsive"

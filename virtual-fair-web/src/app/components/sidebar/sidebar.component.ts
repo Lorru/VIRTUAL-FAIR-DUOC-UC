@@ -20,7 +20,9 @@ export const ROUTES: RouteInfo[] = [
     // { path: '/main/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
     // { path: '/main/maps', title: 'Maps',  icon:'location_on', class: '' },
     // { path: '/main/notifications', title: 'Notifications',  icon:'notifications', class: '' },
-    { path: '/main/download-app', title: 'Aplicación de escritorio',  icon:'get_app', class: 'active-pro' },
+    // { path: '/main/download-app', title: 'Cerrar Sesión',  icon:'get_app', class: 'active-pro' },
+    { path: '/main/my-profile', title: 'Mi Perfil',  icon:'person', class: '' }
+
 ];
 
 @Component({
@@ -42,4 +44,8 @@ export class SidebarComponent implements OnInit {
       }
       return true;
   };
+
+  logout() {
+    this._userService.logout();
+  }
 }

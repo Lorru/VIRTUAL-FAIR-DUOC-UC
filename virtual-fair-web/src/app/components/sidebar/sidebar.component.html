@@ -76,7 +76,13 @@
   </div>
   <ul class="nav">
     <ng-container *ngFor="let menuItem of menuItems">
-      <li *ngIf="(menuItem.requiredProfile && menuItem.requiredProfile.indexOf(_userService.getUser().idProfile) > -1) || !menuItem.requiredProfile"
+      <li
+        *ngIf="
+          (menuItem.requiredProfile &&
+            menuItem.requiredProfile.indexOf(_userService.getUser().idProfile) >
+              -1) ||
+          !menuItem.requiredProfile
+        "
         routerLinkActive="active"
         class="{{ menuItem.class }} nav-item"
       >
@@ -86,5 +92,11 @@
         </a>
       </li>
     </ng-container>
+    <li class="active-pro nav-item" (click)="logout()">
+      <a class="nav-link" href="javascript:void(0)">
+        <i class="material-icons">power_settings_new</i>
+        <p>Cerrar Sesión</p>
+      </a>
+    </li>
   </ul>
 </div>
