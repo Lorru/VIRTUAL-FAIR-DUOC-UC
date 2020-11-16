@@ -79,8 +79,13 @@ export class PurchaseRequestService {
     });
   }
 
-  findByIdPurchaseRequestTypeAndIsPublicEqualToOne(idPurchaseRequestType: number): Observable<any> {
-    const URL: string = this.URL_API + "findByIdPurchaseRequestTypeAndIsPublicEqualToOne/" + idPurchaseRequestType;
+  findByIdPurchaseRequestTypeAndIsPublicEqualToOne(
+    idPurchaseRequestType: number
+  ): Observable<any> {
+    const URL: string =
+      this.URL_API +
+      "findByIdPurchaseRequestTypeAndIsPublicEqualToOne/" +
+      idPurchaseRequestType;
 
     return this.httpClient.get(URL, {
       headers: this.httpHeaders.append(
@@ -90,8 +95,13 @@ export class PurchaseRequestService {
     });
   }
 
-findByIdPurchaseRequestStatusAndIdPurchaseRequestType(idPurchaseRequestType: number): Observable<any> {
-    const URL: string = this.URL_API + "findByIdPurchaseRequestStatusAndIdPurchaseRequestType/" + idPurchaseRequestType;
+  findByIdPurchaseRequestStatusAndIdPurchaseRequestType(
+    idPurchaseRequestType: number
+  ): Observable<any> {
+    const URL: string =
+      this.URL_API +
+      "findByIdPurchaseRequestStatusAndIdPurchaseRequestType/" +
+      idPurchaseRequestType;
 
     return this.httpClient.get(URL, {
       headers: this.httpHeaders.append(
@@ -100,14 +110,31 @@ findByIdPurchaseRequestStatusAndIdPurchaseRequestType(idPurchaseRequestType: num
       ),
     });
   }
-  
+
   updateIsPublicById(id: number, body: any) {
-    return this.httpClient.put(this.URL_API + `updateIsPublicById/${id}`, body, {
+    return this.httpClient.put(
+      this.URL_API + `updateIsPublicById/${id}`,
+      body,
+      {
+        headers: this.httpHeaders.append(
+          "Authorization",
+          JSON.parse(localStorage.getItem("sessionToken")).token
+        ),
+      }
+    );
+  }
+
+  findByIdPurchaseRequestTypeAndIdProducerAndIsPublicEqualToOne(
+    idPurchaseRequestType: number,
+    idProducer: number
+  ) {
+    const URL: string = `${this.URL_API}findByIdPurchaseRequestTypeAndIdProducerAndIsPublicEqualToOne/${idPurchaseRequestType}/${idProducer}`;
+
+    return this.httpClient.get(URL, {
       headers: this.httpHeaders.append(
         "Authorization",
         JSON.parse(localStorage.getItem("sessionToken")).token
       ),
     });
   }
-  
 }

@@ -1,5 +1,158 @@
 <div class="main-content">
   <div class="container-fluid">
+    <div class="row" *ngIf="_userService.getUser().idProfile === 3" >
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-primary">
+            <div class="row">
+              <div
+                [class.col]="_userService.getUser().idProfile !== 1"
+              >
+                <h4 class="card-title">Mis procesos</h4>
+                <p
+                  class="card-category"
+                >
+                  Lista de procesos de ventas en los que estás participando
+                </p>
+              </div>
+              <div class="nav-tabs-navigation col justify-content-end d-flex">
+                <div class="nav-tabs-wrapper">
+                  <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="nav-item">
+                      <a
+                        mat-button
+                        class="nav-link active"
+                        href="#extranjeros"
+                        data-toggle="tab"
+                      >
+                        <i class="material-icons">flight</i> Extranjeros
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        mat-button
+                        class="nav-link"
+                        href="#locales"
+                        data-toggle="tab"
+                      >
+                        <i class="material-icons">local_shipping</i> Locales
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="extranjeros">
+                <div
+                  *ngIf="producerSalesDisplayedSalesProcesses[1].length === 0"
+                  class="col text-center py-4"
+                >
+                  No se encontraron procesos de ventas extranjeros con el filtro
+                  actual.
+                </div>
+                <div
+                  class="table-responsive"
+                  *ngIf="producerSalesDisplayedSalesProcesses[1].length > 0"
+                >
+                  <table class="table">
+                    <thead class="text-primary">
+                      <th>ID</th>
+                      <th class="text-center">Peso Total Kg</th>
+                      <th class="text-center">Fecha deseada</th>
+                      <th class="text-center">Estado</th>
+                      <th></th>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="let saleProcess of producerSalesDisplayedSalesProcesses[1]"
+                      >
+                        <td>{{ saleProcess.displayInfo.id }}</td>
+                        <td class="text-center">
+                          {{ saleProcess.displayInfo.totalWeight }}
+                        </td>
+                        <td class="text-center">
+                          {{ saleProcess.displayInfo.desiredDate }}
+                        </td>
+                        <td class="text-center">
+                          {{ saleProcess.displayInfo.state }}
+                        </td>
+                        <td class="text-right">
+                          <button
+                            [routerLink]="[
+                              '/main/sales-process/view',
+                              saleProcess.displayInfo.id
+                            ]"
+                            class="btn btn-sm btn-outline-primary"
+                          >
+                            Ver detalle
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="locales">
+                <div
+                  *ngIf="producerSalesDisplayedSalesProcesses[2].length === 0"
+                  class="col text-center py-4"
+                >
+                  No se encontraron procesos de ventas locales vigentes con el
+                  filtro actual.
+                </div>
+                <div
+                  class="table-responsive"
+                  *ngIf="producerSalesDisplayedSalesProcesses[2].length > 0"
+                >
+                  <table class="table">
+                    <thead class="text-primary">
+                      <th>ID</th>
+                      <th class="text-center">Peso Total Kg</th>
+                      <th class="text-center">Fecha deseada</th>
+                      <th class="text-center">Estado</th>
+                      <th></th>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="let saleProcess of producerSalesDisplayedSalesProcesses[2]"
+                      >
+                        <td>{{ saleProcess.displayInfo.id }}</td>
+                        <td class="text-center">
+                          {{ saleProcess.displayInfo.totalWeight }}
+                        </td>
+                        <td class="text-center">
+                          {{ saleProcess.displayInfo.desiredDate }}
+                        </td>
+                        <td class="text-center">
+                          {{ saleProcess.displayInfo.state }}
+                        </td>
+                        <td class="text-right">
+                          <button
+                            [routerLink]="[
+                              '/main/sales-process/view',
+                              saleProcess.displayInfo.id
+                            ]"
+                            class="btn btn-sm btn-outline-primary"
+                          >
+                            Ver detalle
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md-12">
         <div class="card">

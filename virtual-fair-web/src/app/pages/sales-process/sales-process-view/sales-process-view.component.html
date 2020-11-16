@@ -1,7 +1,10 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-6">
+      <div
+        [class.col-md-6]="_userService.getUser().idProfile !== 1"
+        [class.col]="_userService.getUser().idProfile === 1"
+      >
         <div class="card">
           <div class="card-header card-header-danger row">
             <div class="col">
@@ -25,6 +28,27 @@
                 }}
               </p>
             </div>
+            <div class="col" *ngIf="_userService.getUser().idProfile === 1">
+              <h4 class="card-title text-right">
+                Solicitado por:
+                <b>
+                  {{
+                    requestedProducts[0]
+                      ? requestedProducts[0].purchaseRequest.client.fullName
+                      : "Cargando..."
+                  }}</b
+                >
+              </h4>
+              <p class="card-category text-right">
+                Fecha deseada:
+                <b>{{
+                  requestedProducts[0]
+                    ? (requestedProducts[0].purchaseRequest.desiredDate
+                      | date: "dd/MM/yyyy")
+                    : "Cargando..."
+                }}</b>
+              </p>
+            </div>
             <!-- <div class="col justify-content-end d-flex">
               Fecha deseada:
               <b>{{
@@ -39,12 +63,28 @@
                 <thead class="text-primary">
                   <th>Nombre producto</th>
                   <th class="text-center">Peso Kg</th>
+                  <th
+                    *ngIf="_userService.getUser().idProfile === 1"
+                    class="text-center"
+                  >
+                    Comentario
+                  </th>
                   <th class="text-center">Refrigerar</th>
                 </thead>
                 <tbody>
                   <tr *ngFor="let requestedProduct of requestedProducts">
                     <td>{{ requestedProduct.product.name }}</td>
                     <td class="text-center">{{ requestedProduct.weight }}</td>
+                    <td
+                      *ngIf="_userService.getUser().idProfile === 1"
+                      class="text-center"
+                    >
+                      {{
+                        requestedProduct.remark
+                          ? requestedProduct.remark
+                          : "---"
+                      }}
+                    </td>
                     <td class="text-center">
                       <i class="material-icons">
                         {{
@@ -68,16 +108,20 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-6" *ngIf="_userService.getUser().idProfile !== 1">
         <div class="card">
           <div class="card-header card-header-primary row">
             <div class="col">
-              <h4 class="card-title">Participa</h4>
+              <h4 class="card-title">
+                {{ isProducerParticipating ? "Participando" : "Participa" }}
+              </h4>
               <p class="card-category">
                 Fecha deseada:
                 <b>{{
-                  requestedProducts[0].purchaseRequest.desiredDate
-                    | date: "dd/MM/yyyy"
+                  requestedProducts[0]
+                    ? (requestedProducts[0].purchaseRequest.desiredDate
+                      | date: "dd/MM/yyyy")
+                    : "Cargando..."
                 }}</b>
               </p>
             </div>
@@ -97,26 +141,44 @@
                   <th class="text-center">$ Valor por Kg</th>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let requestedProduct of requestedProducts">
-                    <td>
-                      <input
-                        class="form-control text-center"
-                        type="number"
-                        matInput
-                        placeholder="Kgs {{ requestedProduct.product.name }}"
-                      />
-                    </td>
-                    <td class="text-center">
-                      <input
-                        class="form-control text-center"
-                        type="number"
-                        matInput
-                        placeholder="$ Valor {{
-                          requestedProduct.product.name
-                        }}"
-                      />
-                    </td>
-                  </tr>
+                  <ng-container
+                    *ngFor="let requestedProduct of requestedProducts"
+                  >
+                    <tr *ngIf="productParticipacion[requestedProduct.id]">
+                      <td>
+                        <input
+                          [readonly]="
+                            productParticipacion[requestedProduct.id] &&
+                            productParticipacion[requestedProduct.id].isSet
+                          "
+                          class="form-control text-center"
+                          type="number"
+                          [(ngModel)]="
+                            productParticipacion[requestedProduct.id].weight
+                          "
+                          matInput
+                          placeholder="Kgs {{ requestedProduct.product.name }}"
+                        />
+                      </td>
+                      <td class="text-center">
+                        <input
+                          [readonly]="
+                            productParticipacion[requestedProduct.id] &&
+                            productParticipacion[requestedProduct.id].isSet
+                          "
+                          class="form-control text-center"
+                          type="number"
+                          [(ngModel)]="
+                            productParticipacion[requestedProduct.id].price
+                          "
+                          matInput
+                          placeholder="$ Valor {{
+                            requestedProduct.product.name
+                          }}"
+                        />
+                      </td>
+                    </tr>
+                  </ng-container>
                 </tbody>
               </table>
               <div
@@ -132,12 +194,112 @@
     </div>
 
     <div class="row">
-      <div class="col text-center">
+      <div
+        class="col text-center"
+        *ngIf="_userService.getUser().idProfile !== 1"
+      >
         <button
+          *ngIf="canSaveParticipation"
+          (click)="saveParticipation()"
           class="btn btn-md btn-primary"
         >
-          Registrar participación
+          {{ isProducerParticipating ? "Guardar " : "Registrar " }}
+          participación
         </button>
+        <button
+          *ngIf="isProducerParticipating"
+          (click)="removeParticipation()"
+          class="ml-3 btn btn-md btn-danger"
+        >
+          Descartar participación
+        </button>
+      </div>
+
+      <div
+        class="col text-center"
+        *ngIf="_userService.getUser().idProfile === 1"
+      >
+        <button
+          *ngIf="
+            requestedProducts[0] &&
+            requestedProducts[0].purchaseRequest.isPublic === 0
+          "
+          (click)="publish(purchaseRequestId)"
+          class="btn btn-md btn-primary"
+        >
+          Publicar participación
+        </button>
+        <button
+          *ngIf="
+            requestedProducts[0] &&
+            requestedProducts[0].purchaseRequest.isPublic === 1
+          "
+          (click)="unpublish(purchaseRequestId)"
+          class="ml-3 btn btn-md btn-danger"
+        >
+          Quitar publicación
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="row"
+      *ngIf="
+        requestedProducts[0] &&
+        requestedProducts[0].purchaseRequest.isPublic === 1
+      "
+    >
+      <div class="col">
+        <div class="card">
+          <div class="card-header card-header-danger row">
+            <div class="col">
+              <h4 class="card-title">Participantes</h4>
+              <p class="card-category">
+                Lista de participantes del proceso de venta según producto.
+              </p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table" *ngIf="participants.length > 0">
+                <thead class="text-primary">
+                  <th>Nombre participante</th>
+                  <th class="text-center">Producto</th>
+                  <th class="text-center">Peso ofrecido Kg</th>
+                  <th
+                    *ngIf="_userService.getUser().idProfile === 1"
+                    class="text-center"
+                  >
+                    $ Valor por Kg
+                  </th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let participant of participants">
+                    <td>{{ participant.producer.fullName }}</td>
+                    <td class="text-center">
+                      {{ participant.purchaseRequestProduct.product.name }}
+                    </td>
+                    <td class="text-center">
+                      {{ participant.weight }}
+                    </td>
+                    <td
+                      class="text-center"
+                      *ngIf="_userService.getUser().idProfile === 1"
+                    >
+                      {{ participant.price }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div
+                *ngIf="participants.length === 0"
+                class="col text-center py-4"
+              >
+                No se han encontrado participantes en este proceso de venta.
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

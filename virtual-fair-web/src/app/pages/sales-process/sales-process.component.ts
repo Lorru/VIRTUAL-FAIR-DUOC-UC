@@ -33,6 +33,16 @@ export class SalesProcessComponent implements OnInit {
 
   isPublicFilter: boolean = true;
 
+  producerSalesProcesses: any = {
+    1: [],
+    2: [],
+  };
+
+  producerSalesDisplayedSalesProcesses: any = {
+    1: [],
+    2: [],
+  };
+
   constructor(
     private router: Router,
     private _purchaseRequestService: PurchaseRequestService,
@@ -60,10 +70,8 @@ export class SalesProcessComponent implements OnInit {
       .subscribe((res: any) => {
         if (res.statusCode == 200) {
           this.loadingFindAll = false;
-          this.setPublicProcessesByType(
-            idPurchaseRequestType,
-            res.purchaseRequests
-          );
+          this.setProcessesByType(idPurchaseRequestType, res.purchaseRequests);
+          this.getProducerParticipation(idPurchaseRequestType);
         } else if (res.statusCode == 403) {
           this.loadingFindAll = false;
           this.router.navigateByUrl("/");
@@ -81,7 +89,7 @@ export class SalesProcessComponent implements OnInit {
     this._purchaseRequestService
       .findByIdPurchaseRequestTypeAndIsPublicEqualToOne(idPurchaseRequestType)
       .subscribe((res: any) => {
-        this.setPublicProcessesByType(idPurchaseRequestType, res);
+        this.setProcessesByType(idPurchaseRequestType, res);
       });
   }
 
@@ -138,7 +146,7 @@ export class SalesProcessComponent implements OnInit {
     return matchesAny;
   }
 
-  setPublicProcessesByType(idPurchaseRequestType: any, purchaseRequests: any) {
+  setProcessesByType(idPurchaseRequestType: any, purchaseRequests: any) {
     this.salesProcesses[idPurchaseRequestType] = purchaseRequests;
     this.salesProcesses[idPurchaseRequestType].map(
       (purchaseRequest) =>
@@ -161,6 +169,8 @@ export class SalesProcessComponent implements OnInit {
     this.displayedSalesProcesses[idPurchaseRequestType] = JSON.parse(
       JSON.stringify(this.salesProcesses[idPurchaseRequestType])
     );
+
+    //this.separateProducerSalesProcesses(idPurchaseRequestType);
     this.filterByStatus();
   }
 
@@ -177,8 +187,8 @@ export class SalesProcessComponent implements OnInit {
           (purchase) => purchase.idPurchaseRequestType === 2
         );
 
-        this.setPublicProcessesByType(1, localPurchases);
-        this.setPublicProcessesByType(2, foreignPurchases);
+        this.setProcessesByType(1, localPurchases);
+        this.setProcessesByType(2, foreignPurchases);
       } else if (res.statusCode == 403) {
         this.loadingFindAll = false;
         this.router.navigateByUrl("/");
@@ -217,7 +227,9 @@ export class SalesProcessComponent implements OnInit {
     const modalData: any = {
       title: "Quitar Publicación Proceso de Venta ID: " + id,
       message:
-        "¿Confirmas que deseas quitar la publicación del proceso de venta con ID " + id + "?",
+        "¿Confirmas que deseas quitar la publicación del proceso de venta con ID " +
+        id +
+        "?",
     };
     this._utilsService
       .openConfirmationModal(modalData)
@@ -243,11 +255,68 @@ export class SalesProcessComponent implements OnInit {
           this.ngOnInit();
         } else {
           notificationData = {
-            message: "Hubo un error al intentar actualizar el proceso de venta.",
+            message:
+              "Hubo un error al intentar actualizar el proceso de venta.",
             resultType: "failure",
           };
         }
         this._utilsService.showNotification(notificationData);
+      });
+  }
+
+  separateProducerSalesProcesses(idPurchaseRequestType: number) {
+    // this.producerSalesProcesses[idPurchaseRequestType] = this.salesProcesses[
+    //   idPurchaseRequestType
+    // ].filter(process => process.)
+    this.producerSalesProcesses[idPurchaseRequestType] = this.salesProcesses[
+      idPurchaseRequestType
+    ].sort((a, b) => a.id - b.id);
+    this.producerSalesDisplayedSalesProcesses[
+      idPurchaseRequestType
+    ] = JSON.parse(
+      JSON.stringify(this.producerSalesProcesses[idPurchaseRequestType])
+    );
+  }
+
+  getProducerParticipation(idPurchaseRequestType: number) {
+    this._purchaseRequestService
+      .findByIdPurchaseRequestTypeAndIdProducerAndIsPublicEqualToOne(
+        idPurchaseRequestType,
+        this._userService.getUser().id
+      )
+      .subscribe((res: any) => {
+        console.log("producerparticp", res);
+
+        this.producerSalesProcesses[
+          idPurchaseRequestType
+        ] = this.salesProcesses[idPurchaseRequestType].filter((process) =>
+          res.purchaseRequests.find((request) => process.id === request.id)
+        );
+
+        this.producerSalesProcesses[
+          idPurchaseRequestType
+        ] = this.producerSalesProcesses[idPurchaseRequestType].sort(
+          (a, b) => a.id - b.id
+        );
+        this.producerSalesDisplayedSalesProcesses[
+          idPurchaseRequestType
+        ] = JSON.parse(
+          JSON.stringify(this.producerSalesProcesses[idPurchaseRequestType])
+        );
+
+        this.salesProcesses[idPurchaseRequestType] = this.salesProcesses[
+          idPurchaseRequestType
+        ].filter(
+          (process) =>
+            !res.purchaseRequests.find((request) => process.id === request.id)
+        );
+
+        this.salesProcesses[idPurchaseRequestType] = this.salesProcesses[
+          idPurchaseRequestType
+        ].sort((a, b) => a.id - b.id);
+        this.displayedSalesProcesses[idPurchaseRequestType] = JSON.parse(
+          JSON.stringify(this.salesProcesses[idPurchaseRequestType])
+        );
       });
   }
 }
