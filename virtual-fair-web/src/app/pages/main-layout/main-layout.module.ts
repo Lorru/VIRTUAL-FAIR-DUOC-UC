@@ -32,6 +32,10 @@ import { MainLayoutRoutes } from "./main-layout.routing";
 import { SalesProcessComponent } from "../sales-process/sales-process.component";
 import { SalesProcessCreateComponent } from "../sales-process/sales-process-create/sales-process-create.component";
 import { SalesProcessViewComponent } from "../sales-process/sales-process-view/sales-process-view.component";
+import { ContractListComponent } from "../contract-list/contract-list.component";
+import { AddContractComponent } from "../contract-list/add-contract/add-contract.component";
+import { NgxFileDropModule } from "ngx-file-drop";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
 
 @NgModule({
   imports: [
@@ -49,6 +53,8 @@ import { SalesProcessViewComponent } from "../sales-process/sales-process-view/s
     MatDialogModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
+    NgxFileDropModule,
+    MatAutocompleteModule,
   ],
   declarations: [
     DashboardComponent,
@@ -68,7 +74,9 @@ import { SalesProcessViewComponent } from "../sales-process/sales-process-view/s
     RejectDeliveryModalComponent,
     SalesProcessComponent,
     SalesProcessCreateComponent,
-    SalesProcessViewComponent
+    SalesProcessViewComponent,
+    ContractListComponent,
+    AddContractComponent,
   ],
   providers: [UtilsService],
 })

@@ -18,6 +18,7 @@ import { MainLayoutComponent } from "./main-layout.component";
 import { SalesProcessComponent } from "../sales-process/sales-process.component";
 import { SalesProcessViewComponent } from "../sales-process/sales-process-view/sales-process-view.component";
 import { SalesProcessGuard } from "app/guards/sales-process.guard";
+import { ContractListComponent } from "../contract-list/contract-list.component";
 
 export const MainLayoutRoutes: Routes = [
   // {
@@ -80,6 +81,7 @@ export const MainLayoutRoutes: Routes = [
       { path: "my-profile", component: UserProfileComponent },
       { path: "sales-process", component: SalesProcessComponent, canActivate: [SalesProcessGuard], data: {title: "Procesos de Venta" }},
       { path: "sales-process/view/:id", component: SalesProcessViewComponent, canActivate: [SalesProcessGuard], data: {title: "Detalle Proceso de Venta"} },
+      { path: "contract-list", component: ContractListComponent, canActivate: [UserGuard], data: {title: "Lista de Contratos"} },
 
       { path: "typography", component: TypographyComponent },
       { path: "icons", component: IconsComponent },

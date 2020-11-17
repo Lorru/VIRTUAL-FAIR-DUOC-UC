@@ -14,6 +14,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/main/user-list', title: 'Usuarios',  icon:'group', class: '', requiredProfile: [1] },
     { path: '/main/purchase-request', title: 'Solicitudes de Compra',  icon:'shopping_cart', class: '', requiredProfile: [6] },
     { path: '/main/sales-process', title: 'Procesos de Venta',  icon:'store', class: '', requiredProfile: [1, 3] },
+    { path: '/main/contract-list', title: 'Contratos',  icon:'history_edu', class: '', requiredProfile: [1] },
 
     // { path: '/main/table-list', title: 'Table List',  icon:'content_paste', class: '' },
     // { path: '/main/typography', title: 'Typography',  icon:'library_books', class: '' },
