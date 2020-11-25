@@ -19,6 +19,7 @@ import { SalesProcessComponent } from "../sales-process/sales-process.component"
 import { SalesProcessViewComponent } from "../sales-process/sales-process-view/sales-process-view.component";
 import { SalesProcessGuard } from "app/guards/sales-process.guard";
 import { ContractListComponent } from "../contract-list/contract-list.component";
+import { AuctionListComponent } from "../auction-list/auction-list.component";
 
 export const MainLayoutRoutes: Routes = [
   // {
@@ -82,7 +83,8 @@ export const MainLayoutRoutes: Routes = [
       { path: "sales-process", component: SalesProcessComponent, canActivate: [SalesProcessGuard], data: {title: "Procesos de Venta" }},
       { path: "sales-process/view/:id", component: SalesProcessViewComponent, canActivate: [SalesProcessGuard], data: {title: "Detalle Proceso de Venta"} },
       { path: "contract-list", component: ContractListComponent, canActivate: [UserGuard], data: {title: "Lista de Contratos"} },
-
+      { path: "auction-list", component: AuctionListComponent, canActivate: [UserGuard], data: {title: "Subastas de Transporte"} },
+      { path: "auction-list/:id", component: AuctionListComponent, canActivate: [UserGuard], data: {title: "Subastas de Transporte"} },
       { path: "typography", component: TypographyComponent },
       { path: "icons", component: IconsComponent },
       { path: "maps", component: MapsComponent },

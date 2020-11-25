@@ -5,8 +5,8 @@
   margin-bottom: 30px;
   margin-top: 30px;
   border-radius: $border-radius-large;
-  color: $gray-dark;
-  background: $white-color;
+  color: #ffffff;
+  background: #3f4142;
   width: 100%;
 
     .card-category:not([class*="text-"]) {
@@ -175,7 +175,7 @@
     &.bg-info,
     &.card-rotate.bg-info .front,
     &.card-rotate.bg-info .back{
-      background: linear-gradient(60deg, $cyan-400, $cyan-600);
+      background: linear-gradient(60deg, #026d5e, #25d2ca);
     }
     .card-header-success .card-icon,
     .card-header-success .card-text,
@@ -199,7 +199,7 @@
     &.bg-danger,
     &.card-rotate.bg-danger .front,
     &.card-rotate.bg-danger .back{
-      background: linear-gradient(60deg, $red-400, $red-600);
+      background: linear-gradient(60deg, #e53935, #f59d5f);
     }
 
     .card-header-rose .card-icon,
@@ -240,7 +240,7 @@
     .card-header-info .card-icon,
     .card-header-info:not(.card-header-icon):not(.card-header-text),
     .card-header-info .card-text{
-        @include shadow-big-color($brand-info);
+        @include shadow-big-color(rgb(0 212 202 / 40%));
     }
 
     .card-header-success .card-icon,
@@ -493,7 +493,7 @@
       &:not(.card-header-icon):not(.card-header-text):not(.card-header-image){
         border-radius: $border-radius-base;
         margin-top: -20px;
-        padding: 15px;
+        padding: 10px 15px;
       }
 
       .card-icon,

@@ -5,7 +5,7 @@
         [class.col-md-6]="_userService.getUser().idProfile !== 1"
         [class.col]="_userService.getUser().idProfile === 1"
       >
-        <div class="card">
+        <div class="card mb-3">
           <div class="card-header card-header-danger row">
             <div class="col">
               <h4 class="card-title">
@@ -193,7 +193,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row mb-4">
       <div
         class="col text-center"
         *ngIf="_userService.getUser().idProfile !== 1"
@@ -215,10 +215,7 @@
         </button>
       </div>
 
-      <div
-        class="col text-center"
-        *ngIf="_userService.getUser().idProfile === 1"
-      >
+      <div class="col text-center" *ngIf="isAdmin">
         <button
           *ngIf="
             requestedProducts[0] &&
@@ -239,6 +236,20 @@
         >
           Quitar publicación
         </button>
+        <button
+          *ngIf="purchaseRequestStatus === 1"
+          (click)="setWinners()"
+          class="ml-3 btn btn-md btn-warning"
+        >
+          Determinar ganadores
+        </button>
+        <button
+          *ngIf="purchaseRequestStatus === 3"
+          [routerLink]="['/main/auction-list', purchaseRequestId]"
+          class="ml-3 btn btn-md btn-info"
+        >
+          Ver Subasta Transporte
+        </button>
       </div>
     </div>
 
@@ -252,10 +263,17 @@
       <div class="col">
         <div class="card">
           <div class="card-header card-header-danger row">
-            <div class="col">
+            <div class="col" *ngIf="purchaseRequestStatus === 1">
               <h4 class="card-title">Participantes</h4>
               <p class="card-category">
                 Lista de participantes del proceso de venta según producto.
+              </p>
+            </div>
+            <div class="col" *ngIf="purchaseRequestStatus > 2">
+              <h4 class="card-title">Participantes Ganadores</h4>
+              <p class="card-category">
+                Lista de participantes ganadores del proceso de venta según
+                producto.
               </p>
             </div>
           </div>

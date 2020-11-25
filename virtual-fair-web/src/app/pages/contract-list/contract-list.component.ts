@@ -12,15 +12,14 @@ import { AddContractComponent } from "./add-contract/add-contract.component";
   styleUrls: ["./contract-list.component.css"],
 })
 export class ContractListComponent implements OnInit {
-  users: Array<any> = new Array<any>();
-  displayedUsers: Array<any> = [];
+  contracts: Array<any> = new Array<any>();
+  displayedContracts: Array<any> = [];
   searcher: string;
   loadingFindAll: boolean;
   searchTerm: string;
 
   constructor(
     private router: Router,
-    private _userService: UserService,
     private _contractService: ContractService,
     public _dialog: MatDialog
   ) {}
@@ -32,27 +31,27 @@ export class ContractListComponent implements OnInit {
   findAll() {
     this.loadingFindAll = true;
 
-    this._contractService.findAll(this.searcher).subscribe(
+    this._contractService.findAll().subscribe(
       (res) => {
         if (res.statusCode == 200) {
           this.loadingFindAll = false;
-          this.users = res.users;
-          this.users.map(
-            (user) =>
-              (user.displayInfo = {
-                id: user.id,
-                fullName: user.fullName,
-                email: user.email,
-                profileName:
-                  user.profile.name.charAt(0).toUpperCase() +
-                  user.profile.name.toLowerCase().slice(1),
+          this.contracts = res.contracts;
+          this.contracts.map(
+            (contract) =>
+              (contract.displayInfo = {
+                id: contract.id,
+                userName: contract.user.fullName,
+                userRol: contract.user.profile.name,
+                expirationDate: contract.expirationDate,
+                creationDate: contract.creationDate,
+                isValid: contract.isValid
               })
           );
-          this.users = this.users.sort((a, b) => a.id - b.id);
-          this.displayedUsers = JSON.parse(JSON.stringify(this.users));
+          this.contracts = this.contracts.sort((a, b) => a.id - b.id);
+          this.displayedContracts = JSON.parse(JSON.stringify(this.contracts));
         } else if (res.statusCode == 204) {
           this.loadingFindAll = false;
-          this.users = res.users;
+          this.contracts = res.contracts;
           if (res.message) {
             //this._toastrService.error(res.message);
           }
@@ -86,23 +85,26 @@ export class ContractListComponent implements OnInit {
       });
   }
 
-  getUserEncoded(userData: any) {
-    return btoa(JSON.stringify(userData));
-  }
-
-  searchUsers() {
-    this.displayedUsers = this.users.filter((user) =>
-      this.filterUsersDisplayInfo(user)
+  searchContract() {
+    this.displayedContracts = this.contracts.filter((contract) =>
+      this.filterContractDisplayInfo(contract)
     );
   }
 
-  filterUsersDisplayInfo(user: any) {
+  filterContractDisplayInfo(contract: any) {
     let matchesAny: boolean = false;
-    Object.keys(user.displayInfo).forEach((key) => {
-      if (user.displayInfo[key].toString().includes(this.searchTerm)) {
+    Object.keys(contract.displayInfo).forEach((key) => {
+      if (contract.displayInfo[key].toString().toLowerCase().includes(this.searchTerm.toLowerCase())) {
         matchesAny = true;
       }
     });
     return matchesAny;
+  }
+
+  downloadContract(id:number) {
+    this._contractService.findById(id).subscribe((res: any) => {
+      console.log("test", res);
+      window.open(res.contract.contractPath, '_blank');
+    });
   }
 }

@@ -67,4 +67,15 @@ export class PurchaseRequestProducerService {
       ),
     });
   }
+
+  getParticipantsByIdPurchaseRequest(idPurchaseRequest: number) {
+    let URL: string = `${this.URL_API}getParticipantsByIdPurchaseRequest/${idPurchaseRequest}`;
+
+    return this.httpClient.get(URL, {
+      headers: this.httpHeaders.append(
+        "Authorization",
+        JSON.parse(localStorage.getItem("sessionToken")).token
+      ),
+    });
+  }
 }

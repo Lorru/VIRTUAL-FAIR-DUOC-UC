@@ -41,4 +41,15 @@ export class ContractService {
       ),
     });
   }
+
+  findById(id:number) {
+    let URL: string = this.URL_API + "findById/" + id;
+
+    return this.httpClient.get(URL, {
+      headers: this.httpHeaders.append(
+        "Authorization",
+        JSON.parse(localStorage.getItem("sessionToken")).token
+      ),
+    });
+  }
 }

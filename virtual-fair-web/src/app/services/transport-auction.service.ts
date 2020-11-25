@@ -36,4 +36,15 @@ export class TransportAuctionService {
 
     return this.httpClient.get(URL_TRANSPORT_AUCTION, { headers: this.httpHeaders.append('Authorization', JSON.parse(localStorage.getItem('sessionToken')).token) });
   }
+
+  create(auctionData: any): Observable<any> {
+    let URL: string = this.URL_API + "create";
+
+    return this.httpClient.post(URL, JSON.stringify(auctionData), {
+      headers: this.httpHeaders.append(
+        "Authorization",
+        JSON.parse(localStorage.getItem("sessionToken")).token
+      ),
+    });
+  }
 }

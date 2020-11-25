@@ -36,6 +36,9 @@ import { ContractListComponent } from "../contract-list/contract-list.component"
 import { AddContractComponent } from "../contract-list/add-contract/add-contract.component";
 import { NgxFileDropModule } from "ngx-file-drop";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { SalesProcessProdWinnersComponent } from "../sales-process/sales-process-prod-winners/sales-process-prod-winners.component";
+import { AuctionListComponent } from "../auction-list/auction-list.component";
+import { AddAuctionComponent } from "../auction-list/add-auction/add-auction.component";
 
 @NgModule({
   imports: [
@@ -77,6 +80,9 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
     SalesProcessViewComponent,
     ContractListComponent,
     AddContractComponent,
+    SalesProcessProdWinnersComponent,
+    AuctionListComponent,
+    AddAuctionComponent
   ],
   providers: [UtilsService],
 })

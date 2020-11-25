@@ -3,7 +3,7 @@
     class="card-header py-3 card-header-info row justify-content-between align-items-center"
   >
     <div class="col">
-      <h4 class="card-title m-0">Registrar Usuario</h4>
+      <h4 class="card-title m-0">Determinar Ganadores</h4>
     </div>
     <div class="col-2">
       <button
@@ -17,88 +17,43 @@
     </div>
   </div>
   <div class="card-body">
-    <div class="form-group container">
-      <div class="row py-2">
-        <div class="col">
-          <mat-form-field appearance="outline">
-            <mat-label>Nombre completo</mat-label>
-            <input
-              matInput
-              type="text"
-              [(ngModel)]="newUserData.fullName"
-              placeholder="Nombre completo"
-            />
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field appearance="outline">
-            <mat-label>País</mat-label>
-            <input
-              matInput
-              type="text"
-              [(ngModel)]="newUserData.country"
-              placeholder="País"
-            />
-          </mat-form-field>
-        </div>
+    <div class="table-responsive" *ngIf="participants.length > 0">
+      <div class="p-4 text-center">
+        Actualmente, estos son los participantes elegibles
       </div>
-      <div class="row py-2">
-        <div class="col">
-          <mat-form-field appearance="outline">
-            <mat-label>E-mail</mat-label>
-            <input
-              matInput
-              type="text"
-              [(ngModel)]="newUserData.email"
-              placeholder="E-mail"
-            />
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field appearance="outline">
-            <mat-label>Ciudad</mat-label>
-            <input
-              matInput
-              type="text"
-              [(ngModel)]="newUserData.city"
-              placeholder="Ciudad"
-            />
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row py-2">
-        <div class="col">
-          <mat-form-field appearance="outline">
-            <mat-label>Rol</mat-label>
-            <mat-select
-              id="exampleFormControlSelect1"
-              [(ngModel)]="newUserData.idProfile"
+      <table class="table">
+        <thead class="text-primary">
+          <th>Nombre participante</th>
+          <th class="text-center">Producto</th>
+          <th class="text-center">Peso ofrecido Kg</th>
+          <th
+            *ngIf="_userService.getUser().idProfile === 1"
+            class="text-center"
+          >
+            $ Valor por Kg
+          </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let participant of participants">
+            <td>{{ participant.producer.fullName }}</td>
+            <td class="text-center">
+              {{ participant.purchaseRequestProduct.product.name }}
+            </td>
+            <td class="text-center">
+              {{ participant.weight }}
+            </td>
+            <td
+              class="text-center"
+              *ngIf="_userService.getUser().idProfile === 1"
             >
-              <mat-option
-                *ngFor="let profile of profileList"
-                [value]="profile.id"
-                >{{ profile.name }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field appearance="outline">
-            <mat-label>Dirección</mat-label>
-            <input
-              matInput
-              type="text"
-              [(ngModel)]="newUserData.address"
-              placeholder="Dirección"
-            />
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row py-2">
-        <div class="col">
-          Contraseña autogenerada: <b>{{ newUserData.password }}</b>
-        </div>
-      </div>
+              {{ participant.price }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="participants.length === 0" class="col text-center py-4">
+      No se han encontrado participantes que cumplan con los requisitos
     </div>
   </div>
   <div class="modal-footer">
@@ -109,9 +64,19 @@
     >
       Cerrar
     </button>
-    <button [disabled]="processing" type="button" class="btn btn-success" (click)="registerNewUser()">
-      <mat-spinner class="white-spinner" [diameter]="17" *ngIf="processing"></mat-spinner>
-      <span *ngIf="!processing">Registrar</span>
+    <button
+      *ngIf="participants.length > 0"
+      [disabled]="processing"
+      type="button"
+      class="btn btn-success"
+      (click)="acceptWinners()"
+    >
+      <mat-spinner
+        class="white-spinner"
+        [diameter]="17"
+        *ngIf="processing"
+      ></mat-spinner>
+      <span *ngIf="!processing">Aceptar ganadores</span>
     </button>
   </div>
 </div>

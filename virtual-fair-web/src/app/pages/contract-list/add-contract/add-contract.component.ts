@@ -28,7 +28,6 @@ export class AddContractComponent implements OnInit {
   filteredOptions: Observable<string[]>;
 
   users: any[] = [];
-
   currentFileResult: any;
 
   public files: NgxFileDropEntry[] = [];
@@ -36,7 +35,8 @@ export class AddContractComponent implements OnInit {
   constructor(
     private _userService: UserService,
     public dialogRef: MatDialogRef<AddContractComponent>,
-    private _contractService: ContractService
+    private _contractService: ContractService,
+    private _utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {
@@ -61,10 +61,26 @@ export class AddContractComponent implements OnInit {
           expirationDate: new Date(this.contract.expirationDate),
           idUser: this.myControl.value.id,
           contractPath: res,
-          isValid: 1
+          isValid: 1,
         };
         this._contractService.create(body).subscribe((res: any) => {
           console.log("res", res);
+          this.processing = false;
+          let resultModalData: any;
+          if (res.statusCode === 201) {
+            resultModalData = {
+              message: "El contrato ha sido registrado con éxito.",
+              resultType: "success",
+            };
+            this.dialogRef.close();
+          } else {
+            resultModalData = {
+              message: "Hubo un problema al intentar registrar el contrato.",
+              resultType: "failure",
+            };
+          }
+
+          this._utilsService.showNotification(resultModalData);
         });
       });
     });
@@ -158,9 +174,7 @@ export class AddContractComponent implements OnInit {
     };
   }
 
-  
   public dropped(files: NgxFileDropEntry[]) {
     this.files = files;
   }
-
 }

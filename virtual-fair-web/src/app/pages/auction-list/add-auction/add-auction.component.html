@@ -3,7 +3,7 @@
     class="card-header py-3 card-header-info row justify-content-between align-items-center"
   >
     <div class="col">
-      <h4 class="card-title m-0">Guardar Contrato</h4>
+      <h4 class="card-title m-0">Crear Subasta de Transporte</h4>
     </div>
     <div class="col-2">
       <button
@@ -19,30 +19,13 @@
   <div class="card-body">
     <div class="form-group container">
       <div class="row py-2">
-        <div class="center">
-          <ngx-file-drop
-            dropZoneLabel="Drop files here"
-            (onFileDrop)="dropped($event)"
-          >
-            <ng-template
-              ngx-file-drop-content-tmp
-              let-openFileSelector="openFileSelector"
-            >
-              <div
-                (click)="openFileSelector()"
-                class="px-4 py-2 text-center"
-                style="min-width: 400px; color: #25d1c9;"
-              >
-                <span *ngIf="files[0]?.relativePath">
-                  {{ files[0]?.relativePath }}</span
-                >
-                <span *ngIf="!files[0]?.relativePath">
-                  Arrastra el archivo aquí o has click para buscarlo
-                </span>
-              </div>
-            </ng-template>
-          </ngx-file-drop>
-          <div class="p-3">
+        <div class="center col">
+          <div *ngIf="salesProcesses.length === 0" class="text-center mb-3">No se encuentran procesos disponibles para la creación de subasta (sólo se muestran procesos en el estado "Recolección de Productos").</div>
+
+          <div *ngIf="salesProcesses.length > 0">
+            <div class="text-center mb-3">Indica el ID del proceso de venta del que crearás la subasta de transporte (sólo se muestran procesos en el estado "Recolección de Productos").</div>
+            <div *ngIf="data.saleProcessId" class="text-center mb-3"><b>No encontramos una subasta del proceso de venta con ID: {{data.saleProcessId}}. Te invitamos a crear una.</b></div>
+
             <form class="example-form">
               <mat-form-field
                 class="example-full-width"
@@ -50,8 +33,8 @@
               >
                 <input
                   type="text"
-                  placeholder="Usuario"
-                  aria-label="Usuario"
+                  placeholder="ID Proceso de Venta"
+                  aria-label="ID Proceso de Venta"
                   matInput
                   [formControl]="myControl"
                   [matAutocomplete]="auto"
@@ -65,23 +48,23 @@
                     *ngFor="let option of filteredOptions | async"
                     [value]="option"
                   >
-                    {{ option.fullName }} - {{ option.profile.name }}
+                    ID Proceso: {{ option.id }} - Cliente: {{ option.client.fullName }}
                   </mat-option>
                 </mat-autocomplete>
               </mat-form-field>
             </form>
-          </div>
-          <div
-            class="p-2 input-group align-middle justify-content-center align-items-center"
+            <div
+            class="py-2 mt-3 input-group align-middle justify-content-center align-items-center"
           >
-            * Fecha de expiración:
+            * Fecha de decisión:
             <input
               style="margin-left: 5px; max-width: 150px"
               id="date-input"
               type="date"
               class="form-control"
-              [(ngModel)]="contract.expirationDate"
+              [(ngModel)]="auction.expirationDate"
             />
+          </div>
           </div>
         </div>
       </div>
@@ -95,9 +78,9 @@
     >
       Cerrar
     </button>
-    <button [disabled]="processing" type="button" class="btn btn-success" (click)="saveContract()">
+    <button *ngIf="salesProcesses.length > 0" [disabled]="processing || !auction.expirationDate || !myControl.value " type="button" class="btn btn-success" (click)="saveContract()">
       <mat-spinner class="white-spinner" [diameter]="17" *ngIf="processing"></mat-spinner>
-      <span *ngIf="!processing">Guardar</span>
+      <span *ngIf="!processing">Crear subasta</span>
     </button>
   </div>
 </div>

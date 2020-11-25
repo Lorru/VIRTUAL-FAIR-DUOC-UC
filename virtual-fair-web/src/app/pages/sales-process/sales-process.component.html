@@ -3,7 +3,7 @@
     <div class="row" *ngIf="_userService.getUser().idProfile === 3" >
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header card-header-tabs card-header-primary">
+          <div class="card-header card-header-tabs card-header-danger">
             <div class="row">
               <div
                 [class.col]="_userService.getUser().idProfile !== 1"
@@ -156,7 +156,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header card-header-tabs card-header-primary">
+          <div class="card-header card-header-tabs card-header-danger">
             <div class="row">
               <div
                 [class.col]="_userService.getUser().idProfile !== 1"

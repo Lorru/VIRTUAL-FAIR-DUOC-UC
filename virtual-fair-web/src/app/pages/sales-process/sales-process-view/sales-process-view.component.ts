@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
 import { PurchaseRequestProducerService } from "app/services/purchase-request-producer.service";
 import { PurchaseRequestProductService } from "app/services/purchase-request-product.service";
 import { PurchaseRequestService } from "app/services/purchase-request.service";
 import { UserService } from "app/services/user.service";
 import { UtilsService } from "app/utils/utils.service";
+import { SalesProcessProdWinnersComponent } from "../sales-process-prod-winners/sales-process-prod-winners.component";
 
 @Component({
   selector: "app-sales-process-view",
@@ -23,25 +25,37 @@ export class SalesProcessViewComponent implements OnInit {
   isProducerParticipating: boolean = false;
   canSaveParticipation: boolean = false;
 
+  purchaseRequestStatus: number;
+  isAdmin: boolean;
+
   constructor(
     private _purchaseRequestProductService: PurchaseRequestProductService,
     private _activatedRoute: ActivatedRoute,
     private _purchaseRequestService: PurchaseRequestService,
     private _userService: UserService,
     private _utilsService: UtilsService,
-    private _purchaseRequestProducerService: PurchaseRequestProducerService
+    private _purchaseRequestProducerService: PurchaseRequestProducerService,
+    public _dialog: MatDialog
   ) {
+    this.isAdmin = this._userService.getUser().idProfile === 1;
     this._activatedRoute.params.subscribe((params) => {
       this.purchaseRequestId = params["id"];
     });
   }
 
   ngOnInit() {
-    this.setRequestedProducts();
-    this.getProducerParticipation();
+    this.setRequestedProducts(callback => {
+      this.purchaseRequestStatus = this.requestedProducts[0].purchaseRequest.idPurchaseRequestStatus;
+      if(this.purchaseRequestStatus === 3 && this.isAdmin) {
+        this.getWinners();
+      } else {
+        this.getProducerParticipation();
+      }
+
+    });
   }
 
-  setRequestedProducts() {
+  setRequestedProducts(callback) {
     this._purchaseRequestProductService
       .findByIdPurchaseRequest(this.purchaseRequestId)
       .subscribe((res) => {
@@ -52,6 +66,7 @@ export class SalesProcessViewComponent implements OnInit {
               .idPurchaseRequestType === 1
               ? "extranjero"
               : "local";
+          callback(true);
         } else {
           const notificationData: any = {
             message:
@@ -88,7 +103,7 @@ export class SalesProcessViewComponent implements OnInit {
               "Entrega registrada como recibida. Proceso de compra finalizado",
             resultType: "success",
           };
-          this.setRequestedProducts();
+          this.ngOnInit();
         } else {
           notificationData = {
             message: "Hubo un problema al intentar finalizar el proceso.",
@@ -201,7 +216,8 @@ export class SalesProcessViewComponent implements OnInit {
     });
     this.canSaveParticipation =
       !(numberParticipatingProducts === this.requestedProducts.length) ||
-      numberParticipatingProducts === 0;
+      numberParticipatingProducts === 0 ||
+      !this.isProducerParticipating;
   }
 
   removeParticipation() {
@@ -295,6 +311,30 @@ export class SalesProcessViewComponent implements OnInit {
           };
         }
         this._utilsService.showNotification(notificationData);
+      });
+  }
+
+  setWinners() {
+    this._dialog
+      .open(SalesProcessProdWinnersComponent, {
+        data: {
+          purchaseRequestId: this.purchaseRequestId
+        },
+        width: "700px",
+      })
+      .afterClosed()
+      .subscribe((res) => {
+        if(res) {
+          this.ngOnInit();
+        }
+      });
+  }
+
+  getWinners() {
+    this._purchaseRequestProducerService
+      .getParticipantsByIdPurchaseRequest(this.purchaseRequestId)
+      .subscribe((res: any) => {
+        this.participants = res.purchaseRequestProducers || [];
       });
   }
 
