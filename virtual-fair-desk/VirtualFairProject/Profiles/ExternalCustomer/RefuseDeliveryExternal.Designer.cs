@@ -37,24 +37,27 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(113, 89);
+            this.label1.Location = new System.Drawing.Point(85, 72);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(123, 17);
+            this.label1.Size = new System.Drawing.Size(93, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Rechazar Entrega";
             // 
             // txtComentario
             // 
-            this.txtComentario.Location = new System.Drawing.Point(262, 199);
+            this.txtComentario.Location = new System.Drawing.Point(196, 162);
+            this.txtComentario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtComentario.Name = "txtComentario";
-            this.txtComentario.Size = new System.Drawing.Size(274, 22);
+            this.txtComentario.Size = new System.Drawing.Size(206, 20);
             this.txtComentario.TabIndex = 3;
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(290, 270);
+            this.btnCerrar.Location = new System.Drawing.Point(218, 219);
+            this.btnCerrar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(75, 23);
+            this.btnCerrar.Size = new System.Drawing.Size(56, 19);
             this.btnCerrar.TabIndex = 4;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.UseVisualStyleBackColor = true;
@@ -62,9 +65,10 @@
             // 
             // btnEnviar
             // 
-            this.btnEnviar.Location = new System.Drawing.Point(423, 270);
+            this.btnEnviar.Location = new System.Drawing.Point(317, 219);
+            this.btnEnviar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnEnviar.Name = "btnEnviar";
-            this.btnEnviar.Size = new System.Drawing.Size(75, 23);
+            this.btnEnviar.Size = new System.Drawing.Size(56, 19);
             this.btnEnviar.TabIndex = 5;
             this.btnEnviar.Text = "Enviar";
             this.btnEnviar.UseVisualStyleBackColor = true;
@@ -72,13 +76,14 @@
             // 
             // RefuseDeliveryExternal
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.btnEnviar);
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.txtComentario);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "RefuseDeliveryExternal";
             this.Text = "RefuseDeliveryExternal";
             this.ResumeLayout(false);

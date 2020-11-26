@@ -145,5 +145,17 @@ namespace VirtualFairProject.Profiles.Client
 
             }
         }
+
+        private void lblCerrarSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string text = "Has cerrado tu sesión";
+            string title = "Información";
+            MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            var login = new Login();
+            login.Show();
+
+            this.Close();
+        }
     }
 }

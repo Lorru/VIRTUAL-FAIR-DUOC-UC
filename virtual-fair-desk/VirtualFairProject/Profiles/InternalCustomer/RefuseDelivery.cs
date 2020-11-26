@@ -34,29 +34,49 @@ namespace VirtualFairProject.Profiles.InternalCustomer
 
             if (comentario != "")
             {
-                var updateStatusById = VirtualFairIntegration.UpdateStatusById(token, client);
-
-                if (updateStatusById.statusCode == 200)
+                try
                 {
-                    string text = updateStatusById.message;
+                    var updateStatusById = VirtualFairIntegration.UpdateStatusById(token, client);
+
+                    if (updateStatusById.statusCode == 200)
+                    {
+                        string text = updateStatusById.message;
+                        string title = "Información";
+                        MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                    }
+                }
+                catch (Exception)
+                {
+                    string text = "Hubo un error al intentar rechazar la entrega.";
                     string title = "Información";
                     MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
                 }
+                
 
             }
             else
             {
-                client.remark = comentario;
-                var updateStatusByIdRemark = VirtualFairIntegration.CreateRemark(token, client);
-
-                if (updateStatusByIdRemark.statusCode == 200)
+                try
                 {
-                    string text = updateStatusByIdRemark.message;
+                    client.remark = comentario;
+                    var updateStatusByIdRemark = VirtualFairIntegration.CreateRemark(token, client);
+
+                    if (updateStatusByIdRemark.statusCode == 200)
+                    {
+                        string text = updateStatusByIdRemark.message;
+                        string title = "Información";
+                        MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                    }
+                }
+                catch (Exception )
+                {
+                    string text = "Hubo un error al intentar rechazar la entrega.";
                     string title = "Información";
                     MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
                 }
+
             }
         }
 

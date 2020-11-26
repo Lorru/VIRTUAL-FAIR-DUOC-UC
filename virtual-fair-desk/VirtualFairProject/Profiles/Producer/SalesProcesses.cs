@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VirtualFairProject.Api.Integration;
 using VirtualFairProject.Class;
+using VirtualFairProject.Class.InternalCustomer.PurchaseRequest;
 
 namespace VirtualFairProject.Profiles.Producer
 {
@@ -18,103 +19,43 @@ namespace VirtualFairProject.Profiles.Producer
         {
             InitializeComponent();
 
-
             LoadDgvSP();
+            LoadDgvAllSalesProcesses();
 
-            LoadDgvSalesProcesses1();
-
-
+            rbForeignProcesses.Checked = true;
         }
 
+        private void LimpiarGridSP()
+        {
 
-        private void LoadDgvSalesProcesses1() 
+            dgvSP.Columns.Clear();
+        }
+
+        private void LimpiarGridAllSP()
+        {
+
+            dgvAllSalesProcesses.Columns.Clear();
+        }
+        private void LoadDgvSP()
         {
             string token = Session.Token;
             int idProducer = Session.IdProfile;
             dynamic parameters = new System.Dynamic.ExpandoObject();
-            parameters.idPurchaseRequestType = 1;
-            parameters.idProducer = idProducer;
-
-            var salesProcesses = VirtualFairIntegration.FindByIdPurchaseRequestTypeAndIsPublicEqualToOne(token, parameters);
-
-            List<AdminApi> lstAll = new List<AdminApi>();
-
-            dgvSalesProcesses1.AutoGenerateColumns = false;
-
-            if (salesProcesses != null)
+            if (rbForeignProcesses.Checked)
             {
-                foreach (var item in salesProcesses.purchaseRequests)
-                {
-                    AdminApi salesProcessesAll = new AdminApi();
-                    salesProcessesAll.id = Convert.ToInt32(item.id.ToString());
-                    salesProcessesAll.email = item.totalWeight.ToString();
-                    salesProcessesAll.dateA = item.desiredDate;
-                    salesProcessesAll.fullName = item.purchaseRequestStatus.name.ToString();
-                    lstAll.Add(salesProcessesAll);
-                }
-
-                dgvSalesProcesses1.DataSource = lstAll;
-            }
-
-            string[] arrayString = new string[] { "id", "email", "dateA", "fullName" };
-
-            foreach (var item in arrayString)
-            {
-                DataGridViewTextBoxColumn dataGrid = new DataGridViewTextBoxColumn();
-
-                dataGrid.DataPropertyName = item;
-                if (item == "id")
-                {
-                    dataGrid.HeaderText = "ID";
-                }
-                else if (item == "email")
-                {
-                    dataGrid.HeaderText = "Peso Total Kg";
-                }
-                else if (item == "dateA")
-                {
-                    dataGrid.HeaderText = "Fecha Decisión";
-                }
-                else if (item == "fullName")
-                {
-                    dataGrid.HeaderText = "Estado";
-                }
-
-                dataGrid.Name = item;
-
-                dgvSalesProcesses1.Columns.Add(dataGrid);
-
-            }
-
-            DataGridViewButtonColumn verDetalles1 = new DataGridViewButtonColumn();
-
-            verDetalles1.FlatStyle = FlatStyle.Popup;
-            verDetalles1.HeaderText = "Ver Detalle";
-            verDetalles1.Name = "Ver Detalle";
-            verDetalles1.UseColumnTextForButtonValue = true;
-            verDetalles1.Text = "Ver Detalle";
-
-            verDetalles1.Width = 80;
-            if (dgvSalesProcesses1.Columns.Contains(verDetalles1.Name = "Ver Detalle"))
-            {
-
+                parameters.idPurchaseRequestType = 2;//EXTRANJERO
             }
             else
             {
-                dgvSalesProcesses1.Columns.Add(verDetalles1);
+                parameters.idPurchaseRequestType = 1;//LOCAL
             }
-        }
-        private void LoadDgvSP() 
-        {
-            string token = Session.Token;
-            int idProducer = Session.IdProfile;
-            dynamic parameters = new System.Dynamic.ExpandoObject();
-            parameters.idPurchaseRequestType = 1;
             parameters.idProducer = idProducer;
 
             var salesProcessesParticipating = VirtualFairIntegration.FindByIdPurchaseTypeAndIdProducer(token, parameters);
 
             List<AdminApi> lstParticipating = new List<AdminApi>();
+
+            LimpiarGridSP();
 
             dgvSP.AutoGenerateColumns = false;
 
@@ -185,12 +126,151 @@ namespace VirtualFairProject.Profiles.Producer
 
         }
 
+        private void LoadDgvAllSalesProcesses() 
+        {
+            string token = Session.Token;
+            int idProducer = Session.IdProfile;
+            dynamic parameters = new System.Dynamic.ExpandoObject();
+            parameters.idPurchaseRequestType = 1;
+            parameters.idProducer = idProducer;
+
+            var salesProcesses = VirtualFairIntegration.FindByIdPurchaseRequestTypeAndIsPublicEqualToOne(token, parameters);
+
+            List<AdminApi> lstAll = new List<AdminApi>();
+
+            LimpiarGridAllSP();
+
+            dgvAllSalesProcesses.AutoGenerateColumns = false;
+
+            if (salesProcesses != null)
+            {
+                foreach (var item in salesProcesses.purchaseRequests)
+                {
+                    AdminApi salesProcessesAll = new AdminApi();
+                    salesProcessesAll.id = Convert.ToInt32(item.id.ToString());
+                    salesProcessesAll.email = item.totalWeight.ToString();
+                    salesProcessesAll.dateA = item.desiredDate;
+                    salesProcessesAll.fullName = item.purchaseRequestStatus.name.ToString();
+                    lstAll.Add(salesProcessesAll);
+                }
+
+                dgvAllSalesProcesses.DataSource = lstAll;
+            }
+
+            string[] arrayString = new string[] { "id", "email", "dateA", "fullName" };
+
+            foreach (var item in arrayString)
+            {
+                DataGridViewTextBoxColumn dataGrid = new DataGridViewTextBoxColumn();
+
+                dataGrid.DataPropertyName = item;
+                if (item == "id")
+                {
+                    dataGrid.HeaderText = "ID";
+                }
+                else if (item == "email")
+                {
+                    dataGrid.HeaderText = "Peso Total Kg";
+                }
+                else if (item == "dateA")
+                {
+                    dataGrid.HeaderText = "Fecha Decisión";
+                }
+                else if (item == "fullName")
+                {
+                    dataGrid.HeaderText = "Estado";
+                }
+
+                dataGrid.Name = item;
+
+                dgvAllSalesProcesses.Columns.Add(dataGrid);
+
+            }
+
+            DataGridViewButtonColumn verDetalles1 = new DataGridViewButtonColumn();
+
+            verDetalles1.FlatStyle = FlatStyle.Popup;
+            verDetalles1.HeaderText = "Ver Detalle";
+            verDetalles1.Name = "Ver Detalle";
+            verDetalles1.UseColumnTextForButtonValue = true;
+            verDetalles1.Text = "Ver Detalle";
+
+            verDetalles1.Width = 80;
+            if (dgvAllSalesProcesses.Columns.Contains(verDetalles1.Name = "Ver Detalle"))
+            {
+
+            }
+            else
+            {
+                dgvAllSalesProcesses.Columns.Add(verDetalles1);
+            }
+        }
+        
+
         private void rbLocalProcesses_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
         private void rbForeignProcesses_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvSP_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 4)
+            {
+                int rowIndex = dgvSP.CurrentCell.RowIndex;
+                //Session.Edit = true;
+
+                var purchaseRequest = dgvSP.CurrentRow.DataBoundItem;
+                AdminApi purRequest = (AdminApi)purchaseRequest;
+
+                Session.id = Convert.ToString(purRequest.id);
+
+                var salesProcessesDetails = new SalesProcessesDetails();
+
+                salesProcessesDetails.Show();
+
+                this.Hide();
+
+            }
+        }
+
+        private void dgvSalesProcesses1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 4)
+            {
+                //int rowIndex = dgvPurchaseRequest.CurrentCell.RowIndex;
+                //Session.Edit = true;
+
+               // var purchaseRequest = dgvPurchaseRequest.CurrentRow.DataBoundItem;
+               // PurchaseRequestDTO purRequest = (PurchaseRequestDTO)purchaseRequest;
+
+                //var _loginData = purRequest;
+
+                //var solicitudCompraDetalles = new PurchaseRequestDetails(_loginData);
+
+                //solicitudCompraDetalles.Show();
+
+
+            }
+        }
+
+        private void lblCerrarSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string text = "Has cerrado tu sesión";
+            string title = "Información";
+            MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            var login = new Login();
+            login.Show();
+
+            this.Close();
+        }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
         {
 
         }

@@ -76,7 +76,7 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleUsers
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
             var usuarios = new Users();
             usuarios.Show();
             
@@ -303,6 +303,18 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleUsers
                 string title = "Información";
                 MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void lblCerrarSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string text = "Has cerrado tu sesión";
+            string title = "Información";
+            MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            var login = new Login();
+            login.Show();
+
+            this.Close();
         }
     }
 }

@@ -11,6 +11,7 @@ using System.Net.Http;
 using VirtualFairProject.Api;
 using VirtualFairProject.Class;
 using Newtonsoft.Json;
+using System.Dynamic;
 
 namespace VirtualFairProject.Api.Integration
 {
@@ -24,8 +25,11 @@ namespace VirtualFairProject.Api.Integration
         static string URL_VIRTUAL_FAIR_PROFILE = ConfigurationManager.AppSettings.Get("Profile");
         static string URL_VIRTUAL_FAIR_PURCHASEREQUESTREMARK = ConfigurationManager.AppSettings.Get("PurchaseRequestRemark");
         static string URL_VIRTUAL_FAIR_TRANSPORTAUCTION = ConfigurationManager.AppSettings.Get("TransportAuction");
-
+        static string URL_VIRTUAL_FAIR_PURCHASEREQUESTPRODUCER = ConfigurationManager.AppSettings.Get("PurchaseRequestProducer");
+        static string URL_VIRTUAL_FAIR_PURCHASEREQUESTSTATUS = ConfigurationManager.AppSettings.Get("PurchaseRequestStatus");
         
+
+
 
         public VirtualFairIntegration() { }
 
@@ -62,6 +66,8 @@ namespace VirtualFairProject.Api.Integration
         }
         #endregion
 
+
+
         #region Products
         public static dynamic FindAllProducts(string token)
         {
@@ -80,7 +86,230 @@ namespace VirtualFairProject.Api.Integration
         }
         #endregion
 
+        #region StatusCombobox
+
+        public static dynamic FindAllStatus(string token)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_PURCHASEREQUESTSTATUS;
+            var urlMethod = "findAll";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = urlMethod;
+            var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+
+        #endregion
+
+        #region Administrator
+
+
+        public static dynamic createTransportAuction(string token, dynamic objectCreate)
+        {
+            //POST
+            var url = URL_VIRTUAL_FAIR_TRANSPORTAUCTION;
+            var urlMethod = "create";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+            var paramApi = urlMethod;
+            var content = JsonConvert.SerializeObject(objectCreate);
+            var body = new StringContent(content, Encoding.UTF8, UtilWebApiMethod.TypeJson);
+            var response = clientAPI.HttpClient.PostAsync(paramApi, body);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+
+        //findAll - Servicio para obtener una lista de todas las subasta de transporte
+        public static dynamic GetFindAllAuctionsAdmin(string token)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_TRANSPORTAUCTION;
+            var urlMethod = "findAll";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = urlMethod;
+            var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+
+        //Servicio para obtener una lista de todas las subasta de transporte que no estan publicadas
+        public static dynamic GetFindByIsPublicEqualToZeroAdmin(string token)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_TRANSPORTAUCTION;
+            var urlMethod = "findByIsPublicEqualToZero";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = urlMethod;
+            var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+
+        //Servicio para obtener una lista de todas las subasta de transporte que estan publicadas
+        public static dynamic GetFindByIsPublicEqualToOneAdmin(string token)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_TRANSPORTAUCTION;
+            var urlMethod = "findByIsPublicEqualToOne";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = urlMethod;
+            var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+
+
+        public static dynamic GetFindByIdPurchaseRequest(string token, dynamic parameters)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_PURCHASEREQUESTPRODUCER;
+            var urlMethod = "findByIdPurchaseRequest";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = String.Concat(urlMethod,"/", parameters.idPurchaseRequest);
+            var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+        public static dynamic AdminUpdateIsPublicById(string token, dynamic objectUpdate)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_PURCHASEREQUEST;
+            var urlMethod = "updateIsPublicById";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = String.Concat(urlMethod, "/", objectUpdate.id);
+            var content = JsonConvert.SerializeObject(objectUpdate);
+            var body = new StringContent(content, Encoding.UTF8, UtilWebApiMethod.TypeJson);
+            var response = clientAPI.HttpClient.PutAsync(paramApi, body);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+
+        public static dynamic GetFindByIsPublicEqualToOne(string token)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_PURCHASEREQUEST;
+            var urlMethod = "findByIsPublicEqualToOne";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = urlMethod;
+            var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+
+        public static dynamic GetFindByIsPublicEqualToZero(string token)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_PURCHASEREQUEST;
+            var urlMethod = "findByIsPublicEqualToZero";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = urlMethod;
+            var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+        public static dynamic GetFindAllPurchaseRequisitions(string token)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_PURCHASEREQUEST;
+            var urlMethod = "findAll";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = urlMethod;
+            var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+
+        public static dynamic GetFindByIdPurchaseRequestStatusAndIdPurchaseRequestType(string token, dynamic parameters)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_PURCHASEREQUEST;
+            var urlMethod = "findByIdPurchaseRequestStatusAndIdPurchaseRequestType";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = String.Concat(urlMethod, "/", parameters.idPurchaseRequestStatus, "/", parameters.idPurchaseRequestType);
+            var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+
+        #endregion
+
+
         #region Producer
+
+        public static dynamic ProducerFindByIdPurchaseRequest(string token, dynamic parameters)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_PURCHASEREQUESTPRODUCER;
+            var urlMethod = "findByIdPurchaseRequest";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = String.Concat(urlMethod, "/", parameters.idPurchaseRequestType);
+            var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+
+        public static dynamic ProducerFindByIdPurchaseRequestAndIdProducer(string token, dynamic parameters)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_PURCHASEREQUESTPRODUCER;
+            var urlMethod = "findByIdPurchaseRequestAndIdProducer";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = String.Concat(urlMethod, "/", parameters.idPurchaseRequestType, "/", parameters.idProducer);
+            var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
 
         public static dynamic FindByIdPurchaseTypeAndIdProducer(string token, dynamic parameters)
         {
@@ -113,7 +342,6 @@ namespace VirtualFairProject.Api.Integration
 
             return result;
         }
-
 
         #endregion
 
@@ -157,7 +385,7 @@ namespace VirtualFairProject.Api.Integration
             return result;
         }
 
-        public static dynamic UpdateStatusById(string token, dynamic client)
+        public static dynamic UpdateStatusById(string token, dynamic purchaseRequest)
         {
             //GET
             var url = URL_VIRTUAL_FAIR_PURCHASEREQUEST;
@@ -166,8 +394,10 @@ namespace VirtualFairProject.Api.Integration
             //era necesario un Authorization
             clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
 
-            var paramApi = String.Concat(urlMethod, "/", client.id);
-            var response = clientAPI.HttpClient.PutAsync(paramApi, client);
+            var paramApi = String.Concat(urlMethod, "/", purchaseRequest.id);
+            var content = JsonConvert.SerializeObject(purchaseRequest);
+            var body = new StringContent(content, Encoding.UTF8, UtilWebApiMethod.TypeJson);
+            var response = clientAPI.HttpClient.PutAsync(paramApi, body);
             var result = clientAPI.Deserialize<dynamic>(response.Result);
 
             return result;
@@ -181,9 +411,10 @@ namespace VirtualFairProject.Api.Integration
             WebAPIClient clientAPI = new WebAPIClient(url);
             //era necesario un Authorization
             clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
-
             var paramApi = urlMethod;
-            var response = clientAPI.HttpClient.PostAsync(paramApi,client);
+            var content = JsonConvert.SerializeObject(client);
+            var body = new StringContent(content, Encoding.UTF8, UtilWebApiMethod.TypeJson);
+            var response = clientAPI.HttpClient.PostAsync(paramApi, body);
             var result = clientAPI.Deserialize<dynamic>(response.Result);
 
             return result;
@@ -310,6 +541,22 @@ namespace VirtualFairProject.Api.Integration
         {
             //GET
             var url = URL_VIRTUAL_FAIR_PROFILE;
+            var urlMethod = "findAll";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = urlMethod;
+            var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+
+        public static dynamic GetFindAllUsers(string token)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_USER;
             var urlMethod = "findAll";
             WebAPIClient clientAPI = new WebAPIClient(url);
             //era necesario un Authorization

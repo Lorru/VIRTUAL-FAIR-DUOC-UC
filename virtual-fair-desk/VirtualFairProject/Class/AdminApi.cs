@@ -39,6 +39,14 @@ namespace VirtualFairProject.Class
 
         public string statusName { get; set; }
 
+        public string totalWeight { get; set; }
+
+        public string nameStatus { get; set; }
+
+        public string isPublic { get; set; }
+
+        public string idDetails { get; set; }
+
         //public int statusCode { get; set; }
     }
 }

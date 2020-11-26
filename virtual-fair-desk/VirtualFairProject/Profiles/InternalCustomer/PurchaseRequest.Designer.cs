@@ -31,15 +31,15 @@
             this.btnNewRequest = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvPurchaseRequest = new System.Windows.Forms.DataGridView();
+            this.lblCerrarSesion = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPurchaseRequest)).BeginInit();
             this.SuspendLayout();
             // 
             // btnNewRequest
             // 
-            this.btnNewRequest.Location = new System.Drawing.Point(420, 120);
-            this.btnNewRequest.Margin = new System.Windows.Forms.Padding(4);
+            this.btnNewRequest.Location = new System.Drawing.Point(315, 98);
             this.btnNewRequest.Name = "btnNewRequest";
-            this.btnNewRequest.Size = new System.Drawing.Size(155, 39);
+            this.btnNewRequest.Size = new System.Drawing.Size(116, 32);
             this.btnNewRequest.TabIndex = 6;
             this.btnNewRequest.Text = "Nueva Solicitud";
             this.btnNewRequest.UseVisualStyleBackColor = true;
@@ -48,10 +48,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 28);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(27, 23);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(154, 17);
+            this.label1.Size = new System.Drawing.Size(116, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Solicitudes de compras";
             // 
@@ -61,24 +60,35 @@
             this.dgvPurchaseRequest.AllowUserToDeleteRows = false;
             this.dgvPurchaseRequest.AllowUserToOrderColumns = true;
             this.dgvPurchaseRequest.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPurchaseRequest.Location = new System.Drawing.Point(40, 192);
-            this.dgvPurchaseRequest.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvPurchaseRequest.Location = new System.Drawing.Point(30, 156);
             this.dgvPurchaseRequest.Name = "dgvPurchaseRequest";
             this.dgvPurchaseRequest.ReadOnly = true;
             this.dgvPurchaseRequest.RowHeadersWidth = 51;
-            this.dgvPurchaseRequest.Size = new System.Drawing.Size(926, 286);
+            this.dgvPurchaseRequest.Size = new System.Drawing.Size(694, 232);
             this.dgvPurchaseRequest.TabIndex = 8;
             this.dgvPurchaseRequest.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPurchaseRequest_CellContentClick);
             // 
+            // lblCerrarSesion
+            // 
+            this.lblCerrarSesion.AutoSize = true;
+            this.lblCerrarSesion.Location = new System.Drawing.Point(654, 23);
+            this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCerrarSesion.Name = "lblCerrarSesion";
+            this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
+            this.lblCerrarSesion.TabIndex = 27;
+            this.lblCerrarSesion.TabStop = true;
+            this.lblCerrarSesion.Text = "Cerrar Sesión";
+            this.lblCerrarSesion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblCerrarSesion_LinkClicked);
+            // 
             // PurchaseRequest
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.dgvPurchaseRequest);
             this.Controls.Add(this.btnNewRequest);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "PurchaseRequest";
             this.Text = "PurchaseRequest";
             ((System.ComponentModel.ISupportInitialize)(this.dgvPurchaseRequest)).EndInit();
@@ -91,5 +101,6 @@
         private System.Windows.Forms.Button btnNewRequest;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvPurchaseRequest;
+        private System.Windows.Forms.LinkLabel lblCerrarSesion;
     }
 }

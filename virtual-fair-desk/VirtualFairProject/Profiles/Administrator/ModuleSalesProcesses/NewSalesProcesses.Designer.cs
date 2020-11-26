@@ -29,71 +29,72 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.btnCerrar = new System.Windows.Forms.Button();
-            this.btnCrear = new System.Windows.Forms.Button();
+            this.dgvSalesProcessesPublic = new System.Windows.Forms.DataGridView();
+            this.lblCerrarSesion = new System.Windows.Forms.LinkLabel();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSalesProcessesPublic)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(102, 63);
+            this.label1.Location = new System.Drawing.Point(41, 55);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(157, 17);
+            this.label1.Size = new System.Drawing.Size(131, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Crear proceso de venta";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(255, 215);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(81, 21);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.Text = "Publicar";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(255, 155);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(252, 24);
-            this.comboBox1.TabIndex = 2;
+            this.label1.Text = "Publicar proceso de venta";
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(344, 314);
+            this.btnCerrar.Location = new System.Drawing.Point(343, 414);
+            this.btnCerrar.Margin = new System.Windows.Forms.Padding(2);
             this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(75, 23);
+            this.btnCerrar.Size = new System.Drawing.Size(56, 19);
             this.btnCerrar.TabIndex = 3;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.UseVisualStyleBackColor = true;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
-            // btnCrear
+            // dgvSalesProcessesPublic
             // 
-            this.btnCrear.Location = new System.Drawing.Point(432, 314);
-            this.btnCrear.Name = "btnCrear";
-            this.btnCrear.Size = new System.Drawing.Size(75, 23);
-            this.btnCrear.TabIndex = 4;
-            this.btnCrear.Text = "Crear";
-            this.btnCrear.UseVisualStyleBackColor = true;
-            this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
+            this.dgvSalesProcessesPublic.AllowUserToAddRows = false;
+            this.dgvSalesProcessesPublic.AllowUserToDeleteRows = false;
+            this.dgvSalesProcessesPublic.AllowUserToOrderColumns = true;
+            this.dgvSalesProcessesPublic.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSalesProcessesPublic.Location = new System.Drawing.Point(44, 102);
+            this.dgvSalesProcessesPublic.Name = "dgvSalesProcessesPublic";
+            this.dgvSalesProcessesPublic.ReadOnly = true;
+            this.dgvSalesProcessesPublic.RowHeadersWidth = 51;
+            this.dgvSalesProcessesPublic.Size = new System.Drawing.Size(702, 254);
+            this.dgvSalesProcessesPublic.TabIndex = 7;
+            this.dgvSalesProcessesPublic.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSalesProcessesPublic_CellContentClick);
+            // 
+            // lblCerrarSesion
+            // 
+            this.lblCerrarSesion.AutoSize = true;
+            this.lblCerrarSesion.Location = new System.Drawing.Point(676, 20);
+            this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCerrarSesion.Name = "lblCerrarSesion";
+            this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
+            this.lblCerrarSesion.TabIndex = 13;
+            this.lblCerrarSesion.TabStop = true;
+            this.lblCerrarSesion.Text = "Cerrar Sesión";
+            this.lblCerrarSesion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblCerrarSesion_LinkClicked);
             // 
             // NewSalesProcesses
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnCrear);
+            this.ClientSize = new System.Drawing.Size(793, 525);
+            this.Controls.Add(this.lblCerrarSesion);
+            this.Controls.Add(this.dgvSalesProcessesPublic);
             this.Controls.Add(this.btnCerrar);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "NewSalesProcesses";
             this.Text = "NewSalesProcesses";
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSalesProcessesPublic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -102,9 +103,8 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button btnCerrar;
-        private System.Windows.Forms.Button btnCrear;
+        private System.Windows.Forms.DataGridView dgvSalesProcessesPublic;
+        private System.Windows.Forms.LinkLabel lblCerrarSesion;
     }
 }

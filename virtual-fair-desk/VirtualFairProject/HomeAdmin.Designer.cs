@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.módulosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,16 +39,6 @@
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(100, 118);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(136, 17);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Home Administrador";
-            // 
             // menuStrip1
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -57,7 +46,8 @@
             this.módulosToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1067, 30);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -69,52 +59,54 @@
             this.subastasToolStripMenuItem,
             this.contratosToolStripMenuItem});
             this.módulosToolStripMenuItem.Name = "módulosToolStripMenuItem";
-            this.módulosToolStripMenuItem.Size = new System.Drawing.Size(81, 26);
+            this.módulosToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.módulosToolStripMenuItem.Text = "Módulos";
             // 
             // usuariosToolStripMenuItem
             // 
             this.usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(211, 26);
+            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.usuariosToolStripMenuItem.Text = "Usuarios";
             this.usuariosToolStripMenuItem.Click += new System.EventHandler(this.usuariosToolStripMenuItem_Click);
             // 
             // procesosDeVentaToolStripMenuItem
             // 
             this.procesosDeVentaToolStripMenuItem.Name = "procesosDeVentaToolStripMenuItem";
-            this.procesosDeVentaToolStripMenuItem.Size = new System.Drawing.Size(211, 26);
+            this.procesosDeVentaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.procesosDeVentaToolStripMenuItem.Text = "Procesos de venta";
             this.procesosDeVentaToolStripMenuItem.Click += new System.EventHandler(this.procesosDeVentaToolStripMenuItem_Click);
             // 
             // subastasToolStripMenuItem
             // 
             this.subastasToolStripMenuItem.Name = "subastasToolStripMenuItem";
-            this.subastasToolStripMenuItem.Size = new System.Drawing.Size(211, 26);
+            this.subastasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.subastasToolStripMenuItem.Text = "Subastas";
             this.subastasToolStripMenuItem.Click += new System.EventHandler(this.subastasToolStripMenuItem_Click);
             // 
             // contratosToolStripMenuItem
             // 
             this.contratosToolStripMenuItem.Name = "contratosToolStripMenuItem";
-            this.contratosToolStripMenuItem.Size = new System.Drawing.Size(211, 26);
+            this.contratosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.contratosToolStripMenuItem.Text = "Contratos";
             this.contratosToolStripMenuItem.Click += new System.EventHandler(this.contratosToolStripMenuItem_Click);
             // 
             // lblBienvenido
             // 
             this.lblBienvenido.AutoSize = true;
-            this.lblBienvenido.Location = new System.Drawing.Point(810, 65);
+            this.lblBienvenido.Location = new System.Drawing.Point(557, 33);
+            this.lblBienvenido.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblBienvenido.Name = "lblBienvenido";
-            this.lblBienvenido.Size = new System.Drawing.Size(46, 17);
+            this.lblBienvenido.Size = new System.Drawing.Size(35, 13);
             this.lblBienvenido.TabIndex = 5;
             this.lblBienvenido.Text = "label2";
             // 
             // lblCerrarSesion
             // 
             this.lblCerrarSesion.AutoSize = true;
-            this.lblCerrarSesion.Location = new System.Drawing.Point(813, 117);
+            this.lblCerrarSesion.Location = new System.Drawing.Point(557, 58);
+            this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCerrarSesion.Name = "lblCerrarSesion";
-            this.lblCerrarSesion.Size = new System.Drawing.Size(95, 17);
+            this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
             this.lblCerrarSesion.TabIndex = 6;
             this.lblCerrarSesion.TabStop = true;
             this.lblCerrarSesion.Text = "Cerrar Sesión";
@@ -122,14 +114,12 @@
             // 
             // HomeAdmin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.lblBienvenido);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "HomeAdmin";
             this.Text = "HomeAdmin";
             this.menuStrip1.ResumeLayout(false);
@@ -140,8 +130,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem módulosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuariosToolStripMenuItem;

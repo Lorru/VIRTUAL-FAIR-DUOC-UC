@@ -27,6 +27,7 @@ namespace VirtualFairProject
         {
             var procesosVenta = new SalesProcesses();
             procesosVenta.Show();
+            this.Close();
         }
 
         private void lblCerrarSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -39,7 +40,7 @@ namespace VirtualFairProject
             var login = new Login();
             login.Show();
 
-            this.Hide();
+            this.Close();
         }
     }
 }

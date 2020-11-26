@@ -34,18 +34,19 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvSP = new System.Windows.Forms.DataGridView();
-            this.dgvSalesProcesses1 = new System.Windows.Forms.DataGridView();
+            this.dgvAllSalesProcesses = new System.Windows.Forms.DataGridView();
+            this.lblCerrarSesion = new System.Windows.Forms.LinkLabel();
+            this.btnFiltrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSP)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSalesProcesses1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAllSalesProcesses)).BeginInit();
             this.SuspendLayout();
             // 
             // rbLocalProcesses
             // 
             this.rbLocalProcesses.AutoSize = true;
-            this.rbLocalProcesses.Location = new System.Drawing.Point(301, 106);
-            this.rbLocalProcesses.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbLocalProcesses.Location = new System.Drawing.Point(226, 86);
             this.rbLocalProcesses.Name = "rbLocalProcesses";
-            this.rbLocalProcesses.Size = new System.Drawing.Size(141, 21);
+            this.rbLocalProcesses.Size = new System.Drawing.Size(109, 17);
             this.rbLocalProcesses.TabIndex = 6;
             this.rbLocalProcesses.TabStop = true;
             this.rbLocalProcesses.Text = "Procesos Locales";
@@ -55,10 +56,9 @@
             // rbForeignProcesses
             // 
             this.rbForeignProcesses.AutoSize = true;
-            this.rbForeignProcesses.Location = new System.Drawing.Point(104, 106);
-            this.rbForeignProcesses.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbForeignProcesses.Location = new System.Drawing.Point(78, 86);
             this.rbForeignProcesses.Name = "rbForeignProcesses";
-            this.rbForeignProcesses.Size = new System.Drawing.Size(163, 21);
+            this.rbForeignProcesses.Size = new System.Drawing.Size(124, 17);
             this.rbForeignProcesses.TabIndex = 5;
             this.rbForeignProcesses.TabStop = true;
             this.rbForeignProcesses.Text = "Procesos Extranjeros";
@@ -68,30 +68,27 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(100, 44);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(75, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 17);
+            this.label1.Size = new System.Drawing.Size(96, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Procesos de venta";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(100, 154);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(75, 125);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 17);
+            this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 9;
             this.label2.Text = "Participando";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(100, 434);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(75, 353);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(48, 17);
+            this.label3.Size = new System.Drawing.Size(37, 13);
             this.label3.TabIndex = 10;
             this.label3.Text = "Todos";
             // 
@@ -101,47 +98,72 @@
             this.dgvSP.AllowUserToDeleteRows = false;
             this.dgvSP.AllowUserToOrderColumns = true;
             this.dgvSP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSP.Location = new System.Drawing.Point(104, 187);
-            this.dgvSP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgvSP.Location = new System.Drawing.Point(78, 152);
+            this.dgvSP.Margin = new System.Windows.Forms.Padding(2);
             this.dgvSP.Name = "dgvSP";
             this.dgvSP.ReadOnly = true;
             this.dgvSP.RowHeadersWidth = 51;
             this.dgvSP.RowTemplate.Height = 24;
-            this.dgvSP.Size = new System.Drawing.Size(761, 177);
+            this.dgvSP.Size = new System.Drawing.Size(571, 144);
             this.dgvSP.TabIndex = 11;
+            this.dgvSP.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSP_CellContentClick);
             // 
-            // dgvSalesProcesses1
+            // dgvAllSalesProcesses
             // 
-            this.dgvSalesProcesses1.AllowUserToAddRows = false;
-            this.dgvSalesProcesses1.AllowUserToDeleteRows = false;
-            this.dgvSalesProcesses1.AllowUserToOrderColumns = true;
-            this.dgvSalesProcesses1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSalesProcesses1.Location = new System.Drawing.Point(104, 470);
-            this.dgvSalesProcesses1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dgvSalesProcesses1.Name = "dgvSalesProcesses1";
-            this.dgvSalesProcesses1.ReadOnly = true;
-            this.dgvSalesProcesses1.RowHeadersWidth = 51;
-            this.dgvSalesProcesses1.RowTemplate.Height = 24;
-            this.dgvSalesProcesses1.Size = new System.Drawing.Size(761, 177);
-            this.dgvSalesProcesses1.TabIndex = 12;
+            this.dgvAllSalesProcesses.AllowUserToAddRows = false;
+            this.dgvAllSalesProcesses.AllowUserToDeleteRows = false;
+            this.dgvAllSalesProcesses.AllowUserToOrderColumns = true;
+            this.dgvAllSalesProcesses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAllSalesProcesses.Location = new System.Drawing.Point(78, 382);
+            this.dgvAllSalesProcesses.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvAllSalesProcesses.Name = "dgvAllSalesProcesses";
+            this.dgvAllSalesProcesses.ReadOnly = true;
+            this.dgvAllSalesProcesses.RowHeadersWidth = 51;
+            this.dgvAllSalesProcesses.RowTemplate.Height = 24;
+            this.dgvAllSalesProcesses.Size = new System.Drawing.Size(571, 144);
+            this.dgvAllSalesProcesses.TabIndex = 12;
+            this.dgvAllSalesProcesses.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSalesProcesses1_CellContentClick);
+            // 
+            // lblCerrarSesion
+            // 
+            this.lblCerrarSesion.AutoSize = true;
+            this.lblCerrarSesion.Location = new System.Drawing.Point(658, 18);
+            this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCerrarSesion.Name = "lblCerrarSesion";
+            this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
+            this.lblCerrarSesion.TabIndex = 29;
+            this.lblCerrarSesion.TabStop = true;
+            this.lblCerrarSesion.Text = "Cerrar Sesión";
+            this.lblCerrarSesion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblCerrarSesion_LinkClicked);
+            // 
+            // btnFiltrar
+            // 
+            this.btnFiltrar.Location = new System.Drawing.Point(372, 80);
+            this.btnFiltrar.Name = "btnFiltrar";
+            this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
+            this.btnFiltrar.TabIndex = 30;
+            this.btnFiltrar.Text = "Filtrar";
+            this.btnFiltrar.UseVisualStyleBackColor = true;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
             // 
             // SalesProcesses
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1091, 768);
-            this.Controls.Add(this.dgvSalesProcesses1);
+            this.ClientSize = new System.Drawing.Size(818, 624);
+            this.Controls.Add(this.btnFiltrar);
+            this.Controls.Add(this.lblCerrarSesion);
+            this.Controls.Add(this.dgvAllSalesProcesses);
             this.Controls.Add(this.dgvSP);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.rbLocalProcesses);
             this.Controls.Add(this.rbForeignProcesses);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "SalesProcesses";
             this.Text = "SalesProcesses";
             ((System.ComponentModel.ISupportInitialize)(this.dgvSP)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSalesProcesses1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAllSalesProcesses)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,6 +176,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView dgvSP;
-        private System.Windows.Forms.DataGridView dgvSalesProcesses1;
+        private System.Windows.Forms.DataGridView dgvAllSalesProcesses;
+        private System.Windows.Forms.LinkLabel lblCerrarSesion;
+        private System.Windows.Forms.Button btnFiltrar;
     }
 }

@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VirtualFairProject.Class;
 using VirtualFairProject.Profiles.Administrator;
+using VirtualFairProject.Profiles.Administrator.ModuleAuctions;
+using VirtualFairProject.Profiles.Administrator.ModuleContracts;
+using VirtualFairProject.Profiles.Administrator.ModuleSalesProcesses;
 
 namespace VirtualFairProject
 {
@@ -19,30 +22,37 @@ namespace VirtualFairProject
             InitializeComponent();
 
             var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
 
-            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser);
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
         }
 
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var usuarios = new Users();
             usuarios.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void procesosDeVentaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            var salesProcesses = new SalesProcesses();
+            salesProcesses.Show();
+            this.Close();
         }
 
         private void subastasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            var auctions = new Auctions();
+            auctions.Show();
+            this.Close();
         }
 
         private void contratosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            var contracts = new Contracts();
+            contracts.Show();
+            this.Close();
         }
 
         private void lblCerrarSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -54,7 +64,7 @@ namespace VirtualFairProject
             var login = new Login();
             login.Show();
 
-            this.Hide();
+            this.Close();
         }
     }
 }

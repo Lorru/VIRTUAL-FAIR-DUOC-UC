@@ -19,6 +19,12 @@ namespace VirtualFairProject.Profiles.ExternalCustomer
         {
             InitializeComponent();
 
+            LoadDgvPurchaseRequest();
+
+        }
+
+        private void LoadDgvPurchaseRequest() 
+        {
             string token = Session.Token;
 
             int idClient = Session.IdProfile;
@@ -114,11 +120,12 @@ namespace VirtualFairProject.Profiles.ExternalCustomer
             {
                 dgvPurchaseRequest.Columns.Add(verDetalles);
             }
-
         }
 
         private void btnNewRequest_Click(object sender, EventArgs e)
         {
+            this.Close();
+
             var nuevaSolicitudCompraExternal = new NewPurchaseRequestExternal();
             nuevaSolicitudCompraExternal.Show();
         }
@@ -141,6 +148,26 @@ namespace VirtualFairProject.Profiles.ExternalCustomer
 
 
             }
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            var homeExternalCustomer = new HomeExternalCustomer();
+            homeExternalCustomer.Show();
+            
+        }
+
+        private void lblCerrarSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string text = "Has cerrado tu sesión";
+            string title = "Información";
+            MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            var login = new Login();
+            login.Show();
+
+            this.Close();
         }
     }
 }

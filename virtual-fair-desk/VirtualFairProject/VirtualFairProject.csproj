@@ -12,6 +12,22 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\prueba\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +47,18 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>062B8E9CB0637699F075BE9616BD5389D0BE3D16</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>VirtualFairProject_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -55,6 +83,7 @@
   <ItemGroup>
     <Compile Include="Api\Integration\VirtualFairIntegration.cs" />
     <Compile Include="Class\InternalCustomer\PurchaseRequest\PurchaseRequestDTO.cs" />
+    <Compile Include="Class\Participants.cs" />
     <Compile Include="Class\Products\AddProducts.cs" />
     <Compile Include="Class\AdminApi.cs" />
     <Compile Include="Class\AdminApiResponse.cs" />
@@ -114,6 +143,30 @@
     <Compile Include="Profiles\Administrator\ModuleAuctions\Auctions.Designer.cs">
       <DependentUpon>Auctions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Profiles\Administrator\ModuleAuctions\CreateAuctions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Administrator\ModuleAuctions\CreateAuctions.Designer.cs">
+      <DependentUpon>CreateAuctions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Administrator\ModuleAuctions\UpdateAuctionsNotPublic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Administrator\ModuleAuctions\UpdateAuctionsNotPublic.Designer.cs">
+      <DependentUpon>UpdateAuctionsNotPublic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Administrator\ModuleContracts\Contracts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Administrator\ModuleContracts\Contracts.Designer.cs">
+      <DependentUpon>Contracts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Administrator\ModuleContracts\SaveContract.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Administrator\ModuleContracts\SaveContract.Designer.cs">
+      <DependentUpon>SaveContract.cs</DependentUpon>
+    </Compile>
     <Compile Include="Profiles\Administrator\ModuleSalesProcesses\DetailsSalesProcesses.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +202,12 @@
     </Compile>
     <Compile Include="Profiles\Carrier\CarrierAuctions.Designer.cs">
       <DependentUpon>CarrierAuctions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Carrier\CarrierDetailsAuctions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Carrier\CarrierDetailsAuctions.Designer.cs">
+      <DependentUpon>CarrierDetailsAuctions.cs</DependentUpon>
     </Compile>
     <Compile Include="Profiles\Consultant\ModuleReports\GenerateReports.cs">
       <SubType>Form</SubType>
@@ -248,6 +307,18 @@
     <EmbeddedResource Include="Profiles\Administrator\ModuleAuctions\Auctions.resx">
       <DependentUpon>Auctions.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Administrator\ModuleAuctions\CreateAuctions.resx">
+      <DependentUpon>CreateAuctions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Administrator\ModuleAuctions\UpdateAuctionsNotPublic.resx">
+      <DependentUpon>UpdateAuctionsNotPublic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Administrator\ModuleContracts\Contracts.resx">
+      <DependentUpon>Contracts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Administrator\ModuleContracts\SaveContract.resx">
+      <DependentUpon>SaveContract.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Administrator\ModuleSalesProcesses\DetailsSalesProcesses.resx">
       <DependentUpon>DetailsSalesProcesses.cs</DependentUpon>
     </EmbeddedResource>
@@ -265,6 +336,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Carrier\CarrierAuctions.resx">
       <DependentUpon>CarrierAuctions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Carrier\CarrierDetailsAuctions.resx">
+      <DependentUpon>CarrierDetailsAuctions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Consultant\ModuleReports\GenerateReports.resx">
       <DependentUpon>GenerateReports.cs</DependentUpon>
@@ -321,6 +395,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="VirtualFairProject_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -328,6 +403,17 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

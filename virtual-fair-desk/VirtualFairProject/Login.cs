@@ -70,6 +70,8 @@ namespace VirtualFairProject
                         Session.Token = getToken.sessionToken.token;
                         Session.IdProfile = getToken.sessionToken.idUser;
                         Session.NameUser = getToken.userConnect.fullName;
+                        Session.NameProfile = getToken.userConnect.profile.name;
+
 
                         int idProfile = getToken.userConnect.idProfile;
                         if (idProfile > 0)

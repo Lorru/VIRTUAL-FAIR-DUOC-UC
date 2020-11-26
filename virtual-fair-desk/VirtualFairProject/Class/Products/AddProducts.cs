@@ -19,5 +19,11 @@ namespace VirtualFairProject.Class
 
         public string agreedPrice { get; set; }
 
+
+        // 
+
+
+        public string nameClient { get; set; }
+
     }
 }

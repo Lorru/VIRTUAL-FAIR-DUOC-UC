@@ -35,8 +35,17 @@ namespace VirtualFairProject.Profiles.Administrator
 
         }
 
+        private void LimpiarGrid() 
+        {
+
+            dgvPrueba.Columns.Clear();
+        }
+
         private void LoadGrid() 
         {
+
+            LimpiarGrid();
+
 
             string token = Session.Token;
 
@@ -219,6 +228,25 @@ namespace VirtualFairProject.Profiles.Administrator
                 }
 
             }
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            var homeAdmin = new HomeAdmin();
+            homeAdmin.Show();
+            this.Close();
+        }
+
+        private void lblCerrarSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string text = "Has cerrado tu sesión";
+            string title = "Información";
+            MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            var login = new Login();
+            login.Show();
+
+            this.Close();
         }
     }
 }

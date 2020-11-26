@@ -63,4 +63,13 @@ C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\Virtual
 C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.ExternalCustomer.PurchaseRequestDetailsExternal.resources
 C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.ExternalCustomer.PurchaseRequestExternal.resources
 C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.ExternalCustomer.RefuseDeliveryExternal.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\bin\Debug\VirtualFairProject.exe.manifest
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\bin\Debug\VirtualFairProject.application
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.exe.manifest
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.application
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.ModuleAuctions.CreateAuctions.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.ModuleAuctions.UpdateAuctionsNotPublic.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Carrier.CarrierDetailsAuctions.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.ModuleContracts.Contracts.resources
+C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.ModuleContracts.SaveContract.resources
 C:\Users\Consultor\Downloads\Proyecto Virtual Fair\Proyecto Virtual Fair\VirtualFairSolution\VirtualFairProject\obj\Debug\VirtualFairProject.csprojAssemblyReference.cache
