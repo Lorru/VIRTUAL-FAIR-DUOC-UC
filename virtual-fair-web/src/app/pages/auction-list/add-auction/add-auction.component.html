@@ -20,11 +20,23 @@
     <div class="form-group container">
       <div class="row py-2">
         <div class="center col">
-          <div *ngIf="salesProcesses.length === 0" class="text-center mb-3">No se encuentran procesos disponibles para la creación de subasta (sólo se muestran procesos en el estado "Recolección de Productos").</div>
+          <div *ngIf="salesProcesses.length === 0" class="text-center mb-3">
+            No se encuentran procesos disponibles para la creación de subasta
+            (sólo se muestran procesos en el estado "Recolección de Productos").
+          </div>
 
           <div *ngIf="salesProcesses.length > 0">
-            <div class="text-center mb-3">Indica el ID del proceso de venta del que crearás la subasta de transporte (sólo se muestran procesos en el estado "Recolección de Productos").</div>
-            <div *ngIf="data.saleProcessId" class="text-center mb-3"><b>No encontramos una subasta del proceso de venta con ID: {{data.saleProcessId}}. Te invitamos a crear una.</b></div>
+            <div class="text-center mb-3">
+              Indica el ID del proceso de venta del que crearás la subasta de
+              transporte (sólo se muestran procesos en el estado "Recolección de
+              Productos").
+            </div>
+            <div *ngIf="data.saleProcessId" class="text-center mb-3">
+              <b
+                >No encontramos una subasta del proceso de venta con ID:
+                {{ data.saleProcessId }}. Te invitamos a crear una.</b
+              >
+            </div>
 
             <form class="example-form">
               <mat-form-field
@@ -48,23 +60,28 @@
                     *ngFor="let option of filteredOptions | async"
                     [value]="option"
                   >
-                    ID Proceso: {{ option.id }} - Cliente: {{ option.client.fullName }}
+                    ID Proceso: {{ option.id }} - Cliente:
+                    {{ option.client.fullName }}
                   </mat-option>
                 </mat-autocomplete>
               </mat-form-field>
             </form>
             <div
-            class="py-2 mt-3 input-group align-middle justify-content-center align-items-center"
-          >
-            * Fecha de decisión:
-            <input
-              style="margin-left: 5px; max-width: 150px"
-              id="date-input"
-              type="date"
-              class="form-control"
-              [(ngModel)]="auction.expirationDate"
-            />
-          </div>
+              class="py-2 mt-3 input-group align-middle justify-content-center align-items-center"
+            >
+              * Fecha de decisión:
+              <input
+                style="margin-left: 5px; max-width: 150px"
+                id="date-input"
+                type="date"
+                class="form-control"
+                [(ngModel)]="auction.expirationDate"
+              />
+            </div>
+            <div class="text-center mt-3">
+              <mat-checkbox [(ngModel)]="auction.publish"
+              >Publicar</mat-checkbox>
+            </div>
           </div>
         </div>
       </div>
@@ -78,8 +95,18 @@
     >
       Cerrar
     </button>
-    <button *ngIf="salesProcesses.length > 0" [disabled]="processing || !auction.expirationDate || !myControl.value " type="button" class="btn btn-success" (click)="saveContract()">
-      <mat-spinner class="white-spinner" [diameter]="17" *ngIf="processing"></mat-spinner>
+    <button
+      *ngIf="salesProcesses.length > 0"
+      [disabled]="processing || !auction.expirationDate || !myControl.value"
+      type="button"
+      class="btn btn-success"
+      (click)="createAuction()"
+    >
+      <mat-spinner
+        class="white-spinner"
+        [diameter]="17"
+        *ngIf="processing"
+      ></mat-spinner>
       <span *ngIf="!processing">Crear subasta</span>
     </button>
   </div>

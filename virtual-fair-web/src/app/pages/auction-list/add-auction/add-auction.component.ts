@@ -17,7 +17,7 @@ export class AddAuctionComponent implements OnInit {
   processing: boolean = false;
   subscriptions: Subscription = new Subscription();
 
-  auction: any = {};
+  auction: any = {publish: true};
 
   myControl = new FormControl();
   filteredOptions: Observable<string[]>;
@@ -44,7 +44,7 @@ export class AddAuctionComponent implements OnInit {
     this.getAllProcesses();
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(""),
+      startWith(this.data.saleProcessId || ""),
       map((value) => (typeof value === "string" ? value : value.fullName)),
       map((value) =>
         value ? this._filter(value) : this.salesProcesses.slice()
@@ -61,7 +61,7 @@ export class AddAuctionComponent implements OnInit {
         this.salesProcesses = res.purchaseRequests;
         this.filterByStatus();
         this.filteredOptions = this.myControl.valueChanges.pipe(
-          startWith("28"),
+          startWith(""),
           map((value) => (typeof value === "string" ? value : value.id)),
           map((name) =>
             name ? this._filter(name) : this.salesProcesses.slice()
@@ -93,11 +93,30 @@ export class AddAuctionComponent implements OnInit {
       .afterClosed()
       .subscribe((res: any) => {
         if (res) {
-          // const body: any = {
-          //   "idPurchaseRequest": 0,
-          //   "isPublic": 0,
-          // }
-          this._transportAuctionService.create({}).subscribe((res: any) => {});
+          const body: any = {
+            idPurchaseRequest: this.myControl.value.id,
+            isPublic: +this.auction.publish,
+            desiredDate: new Date(this.auction.expirationDate)
+          }
+          this._transportAuctionService.create(body).subscribe((res: any) => {
+            console.log("creado", res);
+            let notificationData: any;
+            if (res.statusCode === 201) {
+              notificationData = {
+                message: "La subasta se creó exitosamente.",
+                resultType: "success",
+              };
+              this.dialogRef.close(true);
+            } else {
+              notificationData = {
+                message: "Hubo un problema al intentar crear la subasta.",
+                resultType: "failure",
+              };
+            }
+
+            this._utilsService.showNotification(notificationData);
+
+          });
         }
       });
   }

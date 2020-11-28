@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SalesProcessViewComponent } from './sales-process-view.component';
+import { AuctionViewComponent } from './auction-view.component';
 
-describe('SalesProcessViewComponent', () => {
-  let component: SalesProcessViewComponent;
-  let fixture: ComponentFixture<SalesProcessViewComponent>;
+describe('AuctionViewComponent', () => {
+  let component: AuctionViewComponent;
+  let fixture: ComponentFixture<AuctionViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SalesProcessViewComponent ]
+      declarations: [ AuctionViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SalesProcessViewComponent);
+    fixture = TestBed.createComponent(AuctionViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

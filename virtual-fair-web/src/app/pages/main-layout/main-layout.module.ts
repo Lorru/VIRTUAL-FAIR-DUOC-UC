@@ -39,6 +39,8 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { SalesProcessProdWinnersComponent } from "../sales-process/sales-process-prod-winners/sales-process-prod-winners.component";
 import { AuctionListComponent } from "../auction-list/auction-list.component";
 import { AddAuctionComponent } from "../auction-list/add-auction/add-auction.component";
+import { SlickCarouselModule } from "ngx-slick-carousel";
+import { AuctionViewComponent } from "../auction-list/auction-view/auction-view.component";
 
 @NgModule({
   imports: [
@@ -58,6 +60,7 @@ import { AddAuctionComponent } from "../auction-list/add-auction/add-auction.com
     MatCheckboxModule,
     NgxFileDropModule,
     MatAutocompleteModule,
+    SlickCarouselModule
   ],
   declarations: [
     DashboardComponent,
@@ -82,7 +85,8 @@ import { AddAuctionComponent } from "../auction-list/add-auction/add-auction.com
     AddContractComponent,
     SalesProcessProdWinnersComponent,
     AuctionListComponent,
-    AddAuctionComponent
+    AddAuctionComponent,
+    AuctionViewComponent
   ],
   providers: [UtilsService],
 })

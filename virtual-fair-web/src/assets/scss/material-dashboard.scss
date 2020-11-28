@@ -344,3 +344,8 @@ body {
 .form-control {
   color: #e2e7ec!important;
 }
+
+.form-control:disabled, .form-control[readonly] {
+  background-color: transparent;
+  opacity: 1;
+}

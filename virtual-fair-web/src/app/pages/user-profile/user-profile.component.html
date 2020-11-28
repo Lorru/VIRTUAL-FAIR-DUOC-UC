@@ -98,7 +98,7 @@
                       </mat-form-field>
                     </div>
                   </div>
-                  <div class="row py-3">
+                  <div class="row py-3" *ngIf="_userService.getUser().idProfile === 1 && userData.id !== _userService.getUser().id">
                     <div class="col text-center">
                       <mat-checkbox
                         name="userStatus"
@@ -114,7 +114,7 @@
             <button
               mat-raised-button
               type="button"
-              class="btn btn-danger pull-right"
+              class="btn btn-success pull-right"
               (click)="updateUser()"
             >
               <mat-spinner
@@ -122,7 +122,7 @@
                 [diameter]="17"
                 *ngIf="processing"
               ></mat-spinner>
-              <span *ngIf="!processing">Registrar</span>
+              <span *ngIf="!processing">Guardar</span>
             </button>
             <div class="clearfix"></div>
           </div>

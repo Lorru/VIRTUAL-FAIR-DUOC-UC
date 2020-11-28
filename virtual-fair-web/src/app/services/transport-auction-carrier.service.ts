@@ -7,11 +7,11 @@ import { environment } from 'environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class TransportAuctionService {
+export class TransportAuctionCarrierService {
 
   private httpHeaders: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
-  private URL_API: string = environment.URL_API + 'TransportAuction/';
+  private URL_API: string = environment.URL_API + 'TransportAuctionCarrier/';
 
   constructor(private httpClient: HttpClient) {
 
@@ -20,6 +20,12 @@ export class TransportAuctionService {
   findById(id: number) : Observable<any>{
 
     let URL: string = this.URL_API + 'findById/' + id;
+
+    return this.httpClient.get(URL, { headers: this.httpHeaders.append('Authorization', JSON.parse(localStorage.getItem('sessionToken')).token) });
+  }
+
+  findByIdTransportAuction(idTransportAuction: number ) : Observable<any>{
+    let URL: string = this.URL_API + 'findByIdTransportAuction/' + idTransportAuction;
 
     return this.httpClient.get(URL, { headers: this.httpHeaders.append('Authorization', JSON.parse(localStorage.getItem('sessionToken')).token) });
   }

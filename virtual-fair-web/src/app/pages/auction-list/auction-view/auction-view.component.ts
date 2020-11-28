@@ -4,60 +4,80 @@ import { ActivatedRoute } from "@angular/router";
 import { PurchaseRequestProducerService } from "app/services/purchase-request-producer.service";
 import { PurchaseRequestProductService } from "app/services/purchase-request-product.service";
 import { PurchaseRequestService } from "app/services/purchase-request.service";
+import { TransportAuctionCarrierService } from "app/services/transport-auction-carrier.service";
+import { TransportAuctionService } from "app/services/transport-auction.service";
 import { UserService } from "app/services/user.service";
 import { UtilsService } from "app/utils/utils.service";
-import { SalesProcessProdWinnersComponent } from "../sales-process-prod-winners/sales-process-prod-winners.component";
 
 @Component({
-  selector: "app-sales-process-view",
-  templateUrl: "./sales-process-view.component.html",
-  styleUrls: ["./sales-process-view.component.css"],
+  selector: "app-auction-view",
+  templateUrl: "./auction-view.component.html",
+  styleUrls: ["./auction-view.component.css"],
 })
-export class SalesProcessViewComponent implements OnInit {
-  purchaseRequestId: number;
+export class AuctionViewComponent implements OnInit {
+  auctionId: number;
+  auction: any;
   requestedProducts: Array<any> = [];
-  productParticipacion: any = {};
+  transportParticipation: any = {};
 
   participants: Array<any> = [];
 
   stringSalesProcessType: string = "";
 
-  isProducerParticipating: boolean = false;
+  isTransporterParticipating: boolean = false;
   canSaveParticipation: boolean = false;
 
   purchaseRequestStatus: number;
   isAdmin: boolean;
 
+  offer: number;
+
   constructor(
+    private _transportAuctionService: TransportAuctionService,
+
     private _purchaseRequestProductService: PurchaseRequestProductService,
     private _activatedRoute: ActivatedRoute,
     private _purchaseRequestService: PurchaseRequestService,
     private _userService: UserService,
     private _utilsService: UtilsService,
     private _purchaseRequestProducerService: PurchaseRequestProducerService,
-    public _dialog: MatDialog
+    public _dialog: MatDialog,
+    private _transportAuctionCarrierService: TransportAuctionCarrierService
   ) {
     this.isAdmin = this._userService.getUser().idProfile === 1;
     this._activatedRoute.params.subscribe((params) => {
-      this.purchaseRequestId = params["id"];
+      this.auctionId = params["id"];
     });
   }
 
   ngOnInit() {
-    this.setRequestedProducts(callback => {
-      this.purchaseRequestStatus = this.requestedProducts[0].purchaseRequest.idPurchaseRequestStatus;
-      if(this.purchaseRequestStatus === 3 && this.isAdmin) {
-        this.getWinners();
-      } else {
-        this.getProducerParticipation();
-      }
+    this.findById();
 
-    });
+  }
+
+  findById() {
+    this._transportAuctionService.findById(this.auctionId).subscribe((res: any) => {
+      if (res.statusCode == 200) {
+        this.auction = res.transportAuction;
+        this.purchaseRequestStatus = this.auction.purchaseRequest.idPurchaseRequestStatus;
+
+        this.setRequestedProducts(callback => {
+          if(this.purchaseRequestStatus === 3 && this.isAdmin) {
+            this.getWinners();
+          } else {
+            this.getAuctionParticipation();
+          }
+    
+        });
+      } else {
+      }
+      console.log("auction res", res);
+    })
   }
 
   setRequestedProducts(callback) {
     this._purchaseRequestProductService
-      .findByIdPurchaseRequest(this.purchaseRequestId)
+      .findByIdPurchaseRequest(this.auction.idPurchaseRequest)
       .subscribe((res) => {
         if (res.statusCode === 200) {
           this.requestedProducts = res.purchaseRequestProducts;
@@ -80,7 +100,7 @@ export class SalesProcessViewComponent implements OnInit {
 
   initMapProductParticipacion() {
     this.requestedProducts.forEach((product: any) => {
-      this.productParticipacion[product.id] = {
+      this.transportParticipation[product.id] = {
         idPurchaseRequestProduct: product.id,
       };
     });
@@ -88,12 +108,12 @@ export class SalesProcessViewComponent implements OnInit {
 
   acceptDelivery() {
     const body: any = {
-      id: this.purchaseRequestId,
+      id: this.auctionId,
       idClient: this._userService.getUser().id,
       idPurchaseRequestStatus: 8,
     };
     this._purchaseRequestService
-      .updateStatusById(this.purchaseRequestId, body)
+      .updateStatusById(this.auctionId, body)
       .subscribe((res: any) => {
         console.log("acceptDelivery", res);
         let notificationData: any;
@@ -116,12 +136,12 @@ export class SalesProcessViewComponent implements OnInit {
 
   updateStatusById(statusId: number, callback) {
     const body: any = {
-      id: this.purchaseRequestId,
+      id: this.auctionId,
       idClient: this._userService.getUser().id,
       idPurchaseRequestStatus: statusId,
     };
     this._purchaseRequestService
-      .updateStatusById(this.purchaseRequestId, body)
+      .updateStatusById(this.auctionId, body)
       .subscribe((res: any) => {
         if (res.statusCode === 200) {
           callback(true);
@@ -129,46 +149,38 @@ export class SalesProcessViewComponent implements OnInit {
       });
   }
 
-  saveParticipation() {
+  registerOffer() {
     const modalData: any = {
-      title: "Confirmar participación",
+      title: "Confirmar registro de oferta",
       message:
-        "¿Confirmas que deseas participar en los productos que ingresaste?",
+        "¿Confirmas que deseas participar en la subasta con ID: " + this.auctionId + "?",
     };
     this._utilsService
       .openConfirmationModal(modalData)
       .afterClosed()
       .subscribe((res: any) => {
         if (res) {
-          let body: Array<any> = [];
-          Object.keys(this.productParticipacion).forEach((key) => {
-            if (this.productParticipacion[key].idPurchaseRequestProduct) {
-              const participation: any = {
-                idProducer: this._userService.getUser().id,
-                idPurchaseRequestProduct: this.productParticipacion[key]
-                  .idPurchaseRequestProduct,
-                price: this.productParticipacion[key].price,
-                weight: this.productParticipacion[key].weight,
-              };
+          let body: any = {
+            idCarrier: this._userService.getUser().idProfile,
+            idTransportAuction: this.auctionId,
+            isParticipant: 1,
+            price: this.offer
+          }
 
-              body.push(participation);
-            }
-          });
-
-          this._purchaseRequestProducerService
-            .createMassive(body)
+          this._transportAuctionCarrierService
+            .create(body)
             .subscribe((res: any) => {
               let notificationData: any;
               if (res.statusCode === 201) {
                 notificationData = {
-                  message: "La participación se ha registrado con éxito.",
+                  message: "La oferta se ha registrado con éxito.",
                   resultType: "success",
                 };
-                this.getProducerParticipation();
+                this.getAuctionParticipation();
               } else {
                 notificationData = {
                   message:
-                    "Hubo un problema al intentar registrar la participación en el proceso.",
+                    "Hubo un problema al intentar registrar la oferta en el proceso.",
                   resultType: "failure",
                 };
               }
@@ -178,46 +190,24 @@ export class SalesProcessViewComponent implements OnInit {
       });
   }
 
-  getProducerParticipation() {
-    this._purchaseRequestProducerService
-      .findByIdPurchaseRequest(this.purchaseRequestId)
+  getAuctionParticipation() {
+    this._transportAuctionCarrierService
+      .findByIdTransportAuction(this.auctionId)
       .subscribe((res: any) => {
         if (res.statusCode === 200 || res.statusCode === 204) {
-          this.participants = res.purchaseRequestProducers;
-          this.findProducerParticipation();
+          this.participants = res.transportAuctionCarriers;
         } else {
           let notificationData = {
             message:
-              "Hubo un problema al intentar obtener la lista de participantes del proceso.",
+              "Hubo un problema al intentar obtener la lista de participantes de la subasta.",
             resultType: "failure",
           };
 
           this._utilsService.showNotification(notificationData);
         }
 
-        console.log("producerParticipation", res);
+        console.log("auctionParticipation", res);
       });
-  }
-
-  findProducerParticipation() {
-    this.initMapProductParticipacion();
-
-    let numberParticipatingProducts: number = 0;
-    this.participants.forEach((participant: any) => {
-      if (participant.idProducer === this._userService.getUser().id) {
-        this.isProducerParticipating = true;
-        this.productParticipacion[participant.idPurchaseRequestProduct] = {
-          weight: participant.weight,
-          price: participant.price,
-          isSet: true,
-        };
-      }
-      numberParticipatingProducts++;
-    });
-    this.canSaveParticipation =
-      !(numberParticipatingProducts === this.requestedProducts.length) ||
-      numberParticipatingProducts === 0 ||
-      !this.isProducerParticipating;
   }
 
   removeParticipation() {
@@ -233,7 +223,7 @@ export class SalesProcessViewComponent implements OnInit {
         if (res) {
           this._purchaseRequestProducerService
             .destroyByIdPurchaseRequestAndIdProducer(
-              this.purchaseRequestId,
+              this.auctionId,
               this._userService.getUser().id
             )
             .subscribe((res: any) => {
@@ -243,7 +233,7 @@ export class SalesProcessViewComponent implements OnInit {
                   message: "La participación se ha descartado con éxito.",
                   resultType: "success",
                 };
-                this.getProducerParticipation();
+                this.getAuctionParticipation();
               } else {
                 notificationData = {
                   message:
@@ -315,33 +305,33 @@ export class SalesProcessViewComponent implements OnInit {
   }
 
   setWinners() {
-    this._dialog
-      .open(SalesProcessProdWinnersComponent, {
-        data: {
-          purchaseRequestId: this.purchaseRequestId
-        },
-        width: "700px",
-      })
-      .afterClosed()
-      .subscribe((res) => {
-        if(res) {
-          this.ngOnInit();
-        }
-      });
+    // this._dialog
+    //   .open(SalesProcessProdWinnersComponent, {
+    //     data: {
+    //       auctionId: this.auctionId
+    //     },
+    //     width: "700px",
+    //   })
+    //   .afterClosed()
+    //   .subscribe((res) => {
+    //     if(res) {
+    //       this.ngOnInit();
+    //     }
+    //   });
   }
 
   getWinners() {
     this._purchaseRequestProducerService
-      .getParticipantsByIdPurchaseRequest(this.purchaseRequestId)
+      .getParticipantsByIdPurchaseRequest(this.auctionId)
       .subscribe((res: any) => {
         this.participants = res.purchaseRequestProducers || [];
       });
   }
 
   validateWeight(requestedProduct: any) {
-    const weightToAdd: number = this.productParticipacion[requestedProduct.id].weight;
+    const weightToAdd: number = this.transportParticipation[requestedProduct.id].weight;
     if(weightToAdd > requestedProduct.weight || weightToAdd <= 0) {
-      this.productParticipacion[requestedProduct.id].weight = undefined;
+      this.transportParticipation[requestedProduct.id].weight = undefined;
     }
   }
 

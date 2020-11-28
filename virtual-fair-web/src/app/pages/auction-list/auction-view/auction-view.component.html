@@ -1,34 +1,26 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div
-        [class.col-md-6]="_userService.getUser().idProfile !== 1"
-        [class.col]="_userService.getUser().idProfile === 1"
-      >
+      <div class="col">
         <div class="card mb-3">
           <div class="card-header card-header-danger row">
             <div class="col">
               <h4 class="card-title">
-                Proceso {{ stringSalesProcessType }} ID:
+                Subasta {{ stringSalesProcessType }} ID:
+                <b> {{ auctionId }}</b>
+              </h4>
+              <p class="card-category">
+                Fecha límite decisión:
                 <b>
                   {{
-                    requestedProducts[0]
-                      ? requestedProducts[0].idPurchaseRequest
+                    auction
+                      ? (auction.desiredDate | date: "dd/MM/yyyy")
                       : "Cargando..."
                   }}</b
                 >
-              </h4>
-              <p class="card-category">
-                Estado:
-                {{
-                  requestedProducts[0]
-                    ? requestedProducts[0].purchaseRequest.purchaseRequestStatus
-                        .name
-                    : "Cargando..."
-                }}
               </p>
             </div>
-            <div class="col" *ngIf="_userService.getUser().idProfile === 1">
+            <div class="col">
               <h4 class="card-title text-right">
                 Solicitado por:
                 <b>
@@ -40,13 +32,15 @@
                 >
               </h4>
               <p class="card-category text-right">
-                Fecha deseada:
-                <b>{{
-                  requestedProducts[0]
-                    ? (requestedProducts[0].purchaseRequest.desiredDate
-                      | date: "dd/MM/yyyy")
-                    : "Cargando..."
-                }}</b>
+                Fecha deseada entrega:
+                <b>
+                  {{
+                    requestedProducts[0]
+                      ? (requestedProducts[0].purchaseRequest.desiredDate
+                        | date: "dd/MM/yyyy")
+                      : "Cargando..."
+                  }}
+                </b>
               </p>
             </div>
             <!-- <div class="col justify-content-end d-flex">
@@ -63,22 +57,14 @@
                 <thead class="text-primary">
                   <th>Nombre producto</th>
                   <th class="text-center">Peso Kg</th>
-                  <th
-                    *ngIf="_userService.getUser().idProfile === 1"
-                    class="text-center"
-                  >
-                    Comentario
-                  </th>
+                  <th class="text-center">Comentario</th>
                   <th class="text-center">Refrigerar</th>
                 </thead>
                 <tbody>
                   <tr *ngFor="let requestedProduct of requestedProducts">
                     <td>{{ requestedProduct.product.name }}</td>
                     <td class="text-center">{{ requestedProduct.weight }}</td>
-                    <td
-                      *ngIf="_userService.getUser().idProfile === 1"
-                      class="text-center"
-                    >
+                    <td class="text-center">
                       {{
                         requestedProduct.remark
                           ? requestedProduct.remark
@@ -107,93 +93,6 @@
           </div>
         </div>
       </div>
-
-      <div class="col-md-6" *ngIf="_userService.getUser().idProfile !== 1">
-        <div class="card">
-          <div class="card-header card-header-success row">
-            <div class="col">
-              <h4 class="card-title">
-                {{ isProducerParticipating ? "Participando" : "Participa" }}
-              </h4>
-              <p class="card-category">
-                Fecha deseada:
-                <b>{{
-                  requestedProducts[0]
-                    ? (requestedProducts[0].purchaseRequest.desiredDate
-                      | date: "dd/MM/yyyy")
-                    : "Cargando..."
-                }}</b>
-              </p>
-            </div>
-            <!-- <div class="col justify-content-end d-flex">
-              Fecha deseada:
-              <b>{{
-                requestedProducts[0].purchaseRequest.desiredDate
-                  | date: "dd/MM/yyyy"
-              }}</b>
-            </div> -->
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table" *ngIf="requestedProducts.length > 0">
-                <thead class="text-primary">
-                  <th class="text-center">Peso ofrecido Kg</th>
-                  <th class="text-center">$ Valor por Kg</th>
-                </thead>
-                <tbody>
-                  <ng-container
-                    *ngFor="let requestedProduct of requestedProducts"
-                  >
-                    <tr *ngIf="productParticipacion[requestedProduct.id]">
-                      <td>
-                        <input
-                          [readonly]="
-                            productParticipacion[requestedProduct.id] &&
-                            productParticipacion[requestedProduct.id].isSet
-                          "
-                          class="form-control text-center"
-                          type="number"
-                          min="0"
-                          max="{{requestedProduct.weight}}"
-                          [(ngModel)]="
-                            productParticipacion[requestedProduct.id].weight
-                          "
-                          matInput
-                          placeholder="Kgs {{ requestedProduct.product.name }}"
-                          (blur)="validateWeight(requestedProduct)"
-                        />
-                      </td>
-                      <td class="text-center">
-                        <input
-                          [readonly]="
-                            productParticipacion[requestedProduct.id] &&
-                            productParticipacion[requestedProduct.id].isSet
-                          "
-                          class="form-control text-center"
-                          type="number"
-                          [(ngModel)]="
-                            productParticipacion[requestedProduct.id].price
-                          "
-                          matInput
-                          placeholder="$ Valor {{
-                            requestedProduct.product.name
-                          }}"
-                        />
-                      </td>
-                    </tr>
-                  </ng-container>
-                </tbody>
-              </table>
-              <div
-                *ngIf="requestedProducts.length === 0"
-                class="col text-center py-4"
-              >
-                Cargando...
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="row mb-4">
@@ -201,16 +100,27 @@
         class="col text-center"
         *ngIf="_userService.getUser().idProfile !== 1"
       >
+
+      <mat-form-field style="max-width: 250px;margin: auto; font-size: 16px; text-align: center;">
+        <mat-label>$ Oferta costo de transporte</mat-label>
+        <input
+        name="auction-offer"
+        [(ngModel)]="offer"
+        type="number"
+        matInput
+        />
+      </mat-form-field>
         <button
+          [disabled]="!offer"
           *ngIf="canSaveParticipation"
-          (click)="saveParticipation()"
+          (click)="registerOffer()"
           class="btn btn-md btn-success"
         >
-          {{ isProducerParticipating ? "Guardar " : "Registrar " }}
-          participación
+          {{ isTransporterParticipating ? "Guardar " : "Registrar " }}
+          oferta
         </button>
         <button
-          *ngIf="isProducerParticipating"
+          *ngIf="isTransporterParticipating"
           (click)="removeParticipation()"
           class="ml-3 btn btn-md btn-danger"
         >
@@ -266,17 +176,16 @@
       <div class="col">
         <div class="card">
           <div class="card-header card-header-info row">
-            <div class="col" *ngIf="purchaseRequestStatus === 1">
+            <div class="col" *ngIf="purchaseRequestStatus === 4">
               <h4 class="card-title">Participantes</h4>
               <p class="card-category">
                 Lista de participantes del proceso de venta según producto.
               </p>
             </div>
-            <div class="col" *ngIf="purchaseRequestStatus > 2">
-              <h4 class="card-title">Participantes Ganadores</h4>
+            <div class="col" *ngIf="purchaseRequestStatus > 4">
+              <h4 class="card-title">Participante Ganador</h4>
               <p class="card-category">
-                Lista de participantes ganadores del proceso de venta según
-                producto.
+                Datos de la oferta del participante ganador
               </p>
             </div>
           </div>
