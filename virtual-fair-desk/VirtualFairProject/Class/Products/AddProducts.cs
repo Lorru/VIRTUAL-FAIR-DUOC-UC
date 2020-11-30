@@ -8,8 +8,11 @@ namespace VirtualFairProject.Class
 {
     public class AddProducts
     {
+
+        public int id { get; set; }
         public int idProduct { get; set; }
         public string idPurchaseRequest { get; set; }
+        public string price { get; set; }
         public int weight { get; set; }
         public string remark { get; set; }
         public string requiresRefrigeration { get; set; } 
@@ -24,6 +27,8 @@ namespace VirtualFairProject.Class
 
 
         public string nameClient { get; set; }
+
+        public int idPurchaseRequestProduct { get; set; }
 
     }
 }

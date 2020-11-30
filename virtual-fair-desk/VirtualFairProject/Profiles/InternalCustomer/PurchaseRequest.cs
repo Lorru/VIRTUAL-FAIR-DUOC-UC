@@ -142,6 +142,7 @@ namespace VirtualFairProject.Profiles.Client
 
                 solicitudCompraDetalles.Show();
 
+                this.Close();
 
             }
         }
@@ -156,6 +157,21 @@ namespace VirtualFairProject.Profiles.Client
             login.Show();
 
             this.Close();
+        }
+
+        private void btnComprarSaldo_Click(object sender, EventArgs e)
+        {
+            var buyBalance = new BuyBalance();
+            buyBalance.Show();
+
+            this.Close();
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            var homeInternalCustomer = new HomeInternalCustomer();
+            homeInternalCustomer.Show();
         }
     }
 }

@@ -34,6 +34,7 @@
             this.procesosDeVentaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblBienvenido = new System.Windows.Forms.Label();
             this.lblCerrarSesion = new System.Windows.Forms.LinkLabel();
+            this.miPerfilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,7 +43,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(57, 95);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 13);
+            this.label1.Size = new System.Drawing.Size(97, 15);
             this.label1.TabIndex = 2;
             this.label1.Text = "Home Productor";
             // 
@@ -54,22 +55,23 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // módulosToolStripMenuItem
             // 
             this.módulosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.procesosDeVentaToolStripMenuItem});
+            this.procesosDeVentaToolStripMenuItem,
+            this.miPerfilToolStripMenuItem});
             this.módulosToolStripMenuItem.Name = "módulosToolStripMenuItem";
-            this.módulosToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.módulosToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
             this.módulosToolStripMenuItem.Text = "Módulos";
             // 
             // procesosDeVentaToolStripMenuItem
             // 
             this.procesosDeVentaToolStripMenuItem.Name = "procesosDeVentaToolStripMenuItem";
-            this.procesosDeVentaToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.procesosDeVentaToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.procesosDeVentaToolStripMenuItem.Text = "Procesos de Venta";
             this.procesosDeVentaToolStripMenuItem.Click += new System.EventHandler(this.procesosDeVentaToolStripMenuItem_Click);
             // 
@@ -79,7 +81,7 @@
             this.lblBienvenido.Location = new System.Drawing.Point(608, 53);
             this.lblBienvenido.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblBienvenido.Name = "lblBienvenido";
-            this.lblBienvenido.Size = new System.Drawing.Size(35, 13);
+            this.lblBienvenido.Size = new System.Drawing.Size(41, 15);
             this.lblBienvenido.TabIndex = 6;
             this.lblBienvenido.Text = "label2";
             // 
@@ -88,11 +90,18 @@
             this.lblCerrarSesion.AutoSize = true;
             this.lblCerrarSesion.Location = new System.Drawing.Point(611, 95);
             this.lblCerrarSesion.Name = "lblCerrarSesion";
-            this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
+            this.lblCerrarSesion.Size = new System.Drawing.Size(82, 15);
             this.lblCerrarSesion.TabIndex = 7;
             this.lblCerrarSesion.TabStop = true;
             this.lblCerrarSesion.Text = "Cerrar Sesión";
             this.lblCerrarSesion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblCerrarSesion_LinkClicked);
+            // 
+            // miPerfilToolStripMenuItem
+            // 
+            this.miPerfilToolStripMenuItem.Name = "miPerfilToolStripMenuItem";
+            this.miPerfilToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.miPerfilToolStripMenuItem.Text = "Mi Perfil";
+            this.miPerfilToolStripMenuItem.Click += new System.EventHandler(this.miPerfilToolStripMenuItem_Click);
             // 
             // HomeProducer
             // 
@@ -120,5 +129,6 @@
         private System.Windows.Forms.ToolStripMenuItem procesosDeVentaToolStripMenuItem;
         private System.Windows.Forms.Label lblBienvenido;
         private System.Windows.Forms.LinkLabel lblCerrarSesion;
+        private System.Windows.Forms.ToolStripMenuItem miPerfilToolStripMenuItem;
     }
 }

@@ -61,12 +61,28 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.2\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Compression.Base, Version=18.3460.0.51, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Compression.Base.18.3.0.51\lib\net46\Syncfusion.Compression.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Licensing, Version=18.3460.0.51, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Licensing.18.3.0.51\lib\net46\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Pdf.Base, Version=18.3460.0.51, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Pdf.WinForms.18.3.0.51\lib\net46\Syncfusion.Pdf.Base.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Messaging" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -82,7 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\Integration\VirtualFairIntegration.cs" />
+    <Compile Include="Class\InternalCustomer\PurchaseRequest\BalancePurchaseRequest.cs" />
     <Compile Include="Class\InternalCustomer\PurchaseRequest\PurchaseRequestDTO.cs" />
+    <Compile Include="Class\InternalCustomer\PurchaseRequest\PurchaseRequestProducts.cs" />
     <Compile Include="Class\Participants.cs" />
     <Compile Include="Class\Products\AddProducts.cs" />
     <Compile Include="Class\AdminApi.cs" />
@@ -197,6 +215,12 @@
     <Compile Include="Profiles\Administrator\ModuleUsers\Users.Designer.cs">
       <DependentUpon>Users.cs</DependentUpon>
     </Compile>
+    <Compile Include="Profiles\Administrator\MyProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Administrator\MyProfile.Designer.cs">
+      <DependentUpon>MyProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Profiles\Carrier\CarrierAuctions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,17 +233,47 @@
     <Compile Include="Profiles\Carrier\CarrierDetailsAuctions.Designer.cs">
       <DependentUpon>CarrierDetailsAuctions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Profiles\Carrier\CarrierDetailsParticipatingAuctions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Carrier\CarrierDetailsParticipatingAuctions.Designer.cs">
+      <DependentUpon>CarrierDetailsParticipatingAuctions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Carrier\MyProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Carrier\MyProfile.Designer.cs">
+      <DependentUpon>MyProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Profiles\Consultant\ModuleReports\GenerateReports.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Profiles\Consultant\ModuleReports\GenerateReports.Designer.cs">
       <DependentUpon>GenerateReports.cs</DependentUpon>
     </Compile>
+    <Compile Include="Profiles\Consultant\ModuleReports\GenerateReports1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Consultant\ModuleReports\GenerateReports1.Designer.cs">
+      <DependentUpon>GenerateReports1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Profiles\Consultant\ModuleReports\Reports.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Profiles\Consultant\ModuleReports\Reports.Designer.cs">
       <DependentUpon>Reports.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Consultant\MyProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Consultant\MyProfile.Designer.cs">
+      <DependentUpon>MyProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\ExternalCustomer\MyProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\ExternalCustomer\MyProfile.Designer.cs">
+      <DependentUpon>MyProfile.cs</DependentUpon>
     </Compile>
     <Compile Include="Profiles\ExternalCustomer\NewPurchaseRequestExternal.cs">
       <SubType>Form</SubType>
@@ -245,6 +299,18 @@
     <Compile Include="Profiles\ExternalCustomer\RefuseDeliveryExternal.Designer.cs">
       <DependentUpon>RefuseDeliveryExternal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Profiles\InternalCustomer\BuyBalance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\InternalCustomer\BuyBalance.Designer.cs">
+      <DependentUpon>BuyBalance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\InternalCustomer\MyProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\InternalCustomer\MyProfile.Designer.cs">
+      <DependentUpon>MyProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Profiles\InternalCustomer\NewPurchaseRequest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -269,6 +335,12 @@
     <Compile Include="Profiles\InternalCustomer\RefuseDelivery.Designer.cs">
       <DependentUpon>RefuseDelivery.cs</DependentUpon>
     </Compile>
+    <Compile Include="Profiles\Producer\MyProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Producer\MyProfile.Designer.cs">
+      <DependentUpon>MyProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Profiles\Producer\SalesProcesses.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -280,6 +352,12 @@
     </Compile>
     <Compile Include="Profiles\Producer\SalesProcessesDetails.Designer.cs">
       <DependentUpon>SalesProcessesDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Producer\SalesProcessesParticipatingDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Producer\SalesProcessesParticipatingDetails.Designer.cs">
+      <DependentUpon>SalesProcessesParticipatingDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -334,17 +412,35 @@
     <EmbeddedResource Include="Profiles\Administrator\ModuleUsers\Users.resx">
       <DependentUpon>Users.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Administrator\MyProfile.resx">
+      <DependentUpon>MyProfile.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Carrier\CarrierAuctions.resx">
       <DependentUpon>CarrierAuctions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Carrier\CarrierDetailsAuctions.resx">
       <DependentUpon>CarrierDetailsAuctions.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Carrier\CarrierDetailsParticipatingAuctions.resx">
+      <DependentUpon>CarrierDetailsParticipatingAuctions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Carrier\MyProfile.resx">
+      <DependentUpon>MyProfile.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Consultant\ModuleReports\GenerateReports.resx">
       <DependentUpon>GenerateReports.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Consultant\ModuleReports\GenerateReports1.resx">
+      <DependentUpon>GenerateReports1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Consultant\ModuleReports\Reports.resx">
       <DependentUpon>Reports.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Consultant\MyProfile.resx">
+      <DependentUpon>MyProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\ExternalCustomer\MyProfile.resx">
+      <DependentUpon>MyProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\ExternalCustomer\NewPurchaseRequestExternal.resx">
       <DependentUpon>NewPurchaseRequestExternal.cs</DependentUpon>
@@ -358,6 +454,12 @@
     <EmbeddedResource Include="Profiles\ExternalCustomer\RefuseDeliveryExternal.resx">
       <DependentUpon>RefuseDeliveryExternal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\InternalCustomer\BuyBalance.resx">
+      <DependentUpon>BuyBalance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\InternalCustomer\MyProfile.resx">
+      <DependentUpon>MyProfile.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Profiles\InternalCustomer\NewPurchaseRequest.resx">
       <DependentUpon>NewPurchaseRequest.cs</DependentUpon>
     </EmbeddedResource>
@@ -370,11 +472,17 @@
     <EmbeddedResource Include="Profiles\InternalCustomer\RefuseDelivery.resx">
       <DependentUpon>RefuseDelivery.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Producer\MyProfile.resx">
+      <DependentUpon>MyProfile.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Producer\SalesProcesses.resx">
       <DependentUpon>SalesProcesses.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Producer\SalesProcessesDetails.resx">
       <DependentUpon>SalesProcessesDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Producer\SalesProcessesParticipatingDetails.resx">
+      <DependentUpon>SalesProcessesParticipatingDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -384,6 +492,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

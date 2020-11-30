@@ -32,12 +32,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dgvPurchaseRequest = new System.Windows.Forms.DataGridView();
             this.lblCerrarSesion = new System.Windows.Forms.LinkLabel();
+            this.btnComprarSaldo = new System.Windows.Forms.Button();
+            this.btnVolver = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPurchaseRequest)).BeginInit();
             this.SuspendLayout();
             // 
             // btnNewRequest
             // 
-            this.btnNewRequest.Location = new System.Drawing.Point(315, 98);
+            this.btnNewRequest.Location = new System.Drawing.Point(421, 101);
             this.btnNewRequest.Name = "btnNewRequest";
             this.btnNewRequest.Size = new System.Drawing.Size(116, 32);
             this.btnNewRequest.TabIndex = 6;
@@ -80,17 +82,40 @@
             this.lblCerrarSesion.Text = "Cerrar Sesión";
             this.lblCerrarSesion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblCerrarSesion_LinkClicked);
             // 
+            // btnComprarSaldo
+            // 
+            this.btnComprarSaldo.Location = new System.Drawing.Point(241, 101);
+            this.btnComprarSaldo.Name = "btnComprarSaldo";
+            this.btnComprarSaldo.Size = new System.Drawing.Size(116, 32);
+            this.btnComprarSaldo.TabIndex = 28;
+            this.btnComprarSaldo.Text = "Comprar Saldo";
+            this.btnComprarSaldo.UseVisualStyleBackColor = true;
+            this.btnComprarSaldo.Click += new System.EventHandler(this.btnComprarSaldo_Click);
+            // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(337, 402);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(2);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(86, 24);
+            this.btnVolver.TabIndex = 29;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
             // PurchaseRequest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnVolver);
+            this.Controls.Add(this.btnComprarSaldo);
             this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.dgvPurchaseRequest);
             this.Controls.Add(this.btnNewRequest);
             this.Controls.Add(this.label1);
             this.Name = "PurchaseRequest";
-            this.Text = "PurchaseRequest";
+            this.Text = "Solicitudes de compras";
             ((System.ComponentModel.ISupportInitialize)(this.dgvPurchaseRequest)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -102,5 +127,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvPurchaseRequest;
         private System.Windows.Forms.LinkLabel lblCerrarSesion;
+        private System.Windows.Forms.Button btnComprarSaldo;
+        private System.Windows.Forms.Button btnVolver;
     }
 }

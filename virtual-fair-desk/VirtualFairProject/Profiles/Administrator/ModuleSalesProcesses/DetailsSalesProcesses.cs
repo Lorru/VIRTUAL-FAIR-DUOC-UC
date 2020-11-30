@@ -86,7 +86,7 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleSalesProcesses
             string token = Session.Token;
 
             dynamic parameters = new System.Dynamic.ExpandoObject();
-            parameters.idPurchaseRequest = 65; //cambiar id
+            parameters.idPurchaseRequest = Session.id; // 65 - cambiar id
 
             var findByIdPurchaseRequest = VirtualFairIntegration.GetFindByIdPurchaseRequest(token, parameters);
 
@@ -165,6 +165,29 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleSalesProcesses
             login.Show();
 
             this.Close();
+        }
+
+        private void btnSendReports_Click(object sender, EventArgs e)
+        {
+            string token = Session.Token;
+
+            dynamic parameters = new System.Dynamic.ExpandoObject();
+            parameters.idPurchaseRequest = Session.id;
+
+            var sendReport = VirtualFairIntegration.SendReportToParticipantsByIdPurchaseRequest(token, parameters);
+
+            if (sendReport.statusCode == 200)
+            {
+                string text = sendReport.message;
+                string title = "Información";
+                MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+
+            }
+
+
         }
     }
 }

@@ -39,22 +39,21 @@ namespace VirtualFairProject.Profiles.Carrier
 
             if (findByIdCarrier.countRows != 0)
             {
-                foreach (var item in findByIdCarrier.purchaseRequests)
+                foreach (var item in findByIdCarrier.transportAuctions)
                 {
                     AdminApi users = new AdminApi();
                     //cambiar variables
                     users.id = Convert.ToInt32(item.id.ToString());
                     users.email = item.idPurchaseRequest.ToString();
-                    users.dateA = item.creationDate;
-                    users.fullName = item.updateDate.ToString();
-                    users.city = item.isPublic.ToString();
+                    users.dateA = item.desiredDate;
+                    users.fullName = item.purchaseRequest.purchaseRequestStatus.name.ToString();
                     lstParticipating.Add(users);
                 }
 
                 dgvAuctions.DataSource = lstParticipating;
             }
 
-            string[] arrayString = new string[] { "id", "idPurchaseRequest", "creationDate", "updateDate" };
+            string[] arrayString = new string[] { "id", "email", "dateA", "fullName"};
 
             foreach (var item in arrayString)
             {
@@ -65,15 +64,15 @@ namespace VirtualFairProject.Profiles.Carrier
                 {
                     dataGrid.HeaderText = "ID";
                 }
-                else if (item == "idPurchaseRequest")
+                else if (item == "email")
                 {
                     dataGrid.HeaderText = "Id Venta";
                 }
-                else if (item == "creationDate")
+                else if (item == "dateA")
                 {
                     dataGrid.HeaderText = "Fecha Decisión";
                 }
-                else if (item == "updateDate")
+                else if (item == "fullName")
                 {
                     dataGrid.HeaderText = "Estado";
                 }
@@ -119,47 +118,42 @@ namespace VirtualFairProject.Profiles.Carrier
 
             if (findAuctionsPublish.countRows != 0)
             {
-                foreach (var item in findAuctionsPublish.purchaseRequests)
+                foreach (var item in findAuctionsPublish.transportAuctions)
                 {
                     AdminApi users = new AdminApi();
                     //cambiar variables
                     users.id = Convert.ToInt32(item.id.ToString());
                     users.email = item.idPurchaseRequest.ToString();
-                    users.dateA = item.creationDate;
-                    users.fullName = item.updateDate.ToString();
-                    users.city = item.isPublic.ToString();
+                    users.dateA = item.desiredDate;
+                    users.city = item.purchaseRequest.purchaseRequestStatus.name.ToString();
                     lstParticipating.Add(users);
                 }
 
                 dgvAllAuctions.DataSource = lstParticipating;
             }
 
-            string[] arrayString = new string[] { "id", "idPurchaseRequest", "creationDate", "updateDate", "isPublic" };
+            string[] arrayString = new string[] { "id", "email", "dateA", "city" };
 
             foreach (var item in arrayString)
             {
                 DataGridViewTextBoxColumn dataGrid = new DataGridViewTextBoxColumn();
 
                 dataGrid.DataPropertyName = item;
-                if (item == "id")
+                if (item == "id") //id
                 {
                     dataGrid.HeaderText = "ID";
                 }
-                else if (item == "idPurchaseRequest")
+                else if (item == "email") //idPurchaseRequest
                 {
-                    dataGrid.HeaderText = "Id Purchase";
+                    dataGrid.HeaderText = "Id Venta"; 
                 }
-                else if (item == "creationDate")
+                else if (item == "dateA") // desiredDate
                 {
-                    dataGrid.HeaderText = "Fecha Creacion";
+                    dataGrid.HeaderText = "Fecha Decisión";
                 }
-                else if (item == "updateDate")
+                else if (item == "city") //purchaseRequestStatus.name
                 {
-                    dataGrid.HeaderText = "Fecha Actualizacion";
-                }
-                else if (item == "isPublic")
-                {
-                    dataGrid.HeaderText = "Es publico";
+                    dataGrid.HeaderText = "Estado";
                 }
 
                 dataGrid.Name = item;
@@ -207,6 +201,50 @@ namespace VirtualFairProject.Profiles.Carrier
             login.Show();
 
             this.Close();
+        }
+
+        private void dgvAllAuctions_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 4)
+            {
+                int rowIndex = dgvAllAuctions.CurrentCell.RowIndex;
+                //Session.Edit = true;
+
+                var purchaseRequest = dgvAllAuctions.CurrentRow.DataBoundItem;
+                AdminApi purRequest = (AdminApi)purchaseRequest;
+                //id venta = email
+
+                Session.idTransportAuction = Convert.ToString(purRequest.id);
+
+                var carrierDetailsAuctions = new CarrierDetailsAuctions();
+
+                carrierDetailsAuctions.Show();
+
+                this.Close();
+
+            }
+        }
+
+        private void dgvAuctions_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 4)
+            {
+                int rowIndex = dgvAllAuctions.CurrentCell.RowIndex;
+                //Session.Edit = true;
+
+                var purchaseRequest = dgvAuctions.CurrentRow.DataBoundItem;
+                AdminApi purRequest = (AdminApi)purchaseRequest;
+                //id venta = email
+
+                Session.idTransportAuction = Convert.ToString(purRequest.id);
+
+                var carrierDetailsParticipatingAuctions = new CarrierDetailsParticipatingAuctions();
+
+                carrierDetailsParticipatingAuctions.Show();
+
+                this.Close();
+
+            }
         }
     }
 }

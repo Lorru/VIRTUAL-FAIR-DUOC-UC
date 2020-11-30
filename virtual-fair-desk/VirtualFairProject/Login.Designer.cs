@@ -39,7 +39,7 @@
             this.lblIngresaFeriaVirtual.AutoSize = true;
             this.lblIngresaFeriaVirtual.Location = new System.Drawing.Point(349, 139);
             this.lblIngresaFeriaVirtual.Name = "lblIngresaFeriaVirtual";
-            this.lblIngresaFeriaVirtual.Size = new System.Drawing.Size(109, 13);
+            this.lblIngresaFeriaVirtual.Size = new System.Drawing.Size(126, 15);
             this.lblIngresaFeriaVirtual.TabIndex = 1;
             this.lblIngresaFeriaVirtual.Text = "Ingresa a Feria Virtual";
             // 

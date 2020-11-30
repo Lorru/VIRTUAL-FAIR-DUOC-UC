@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VirtualFairProject.Api.Integration;
+using VirtualFairProject.Class;
 
 namespace VirtualFairProject.Profiles.Consultant.ModuleReports
 {
@@ -33,7 +35,24 @@ namespace VirtualFairProject.Profiles.Consultant.ModuleReports
 
         private void btnGenerar_Click(object sender, EventArgs e)
         {
+            string token = Session.Token;
 
+            DateTime desde = dtpDesde.Value;
+            DateTime hasta = dtpHasta.Value;
+
+            dynamic parameters = new System.Dynamic.ExpandoObject();
+
+            parameters.updateDateOf = dtpDesde.Value.ToString("yyyy-MM-dd");
+            parameters.updateDateTo = dtpHasta.Value.ToString("yyyy-MM-dd");
+
+            var findByPurchaseRequest = VirtualFairIntegration.FindByIdPurchaseRequestStatusInTwoNineAndUpdateDateConsultant(token, parameters);
+
+            if (findByPurchaseRequest.statusCode == 200)
+            {
+                string text = findByPurchaseRequest.message;
+                string title = "Información";
+                MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void lblCerrarSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

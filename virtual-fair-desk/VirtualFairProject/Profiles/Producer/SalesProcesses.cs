@@ -22,7 +22,7 @@ namespace VirtualFairProject.Profiles.Producer
             LoadDgvSP();
             LoadDgvAllSalesProcesses();
 
-            rbForeignProcesses.Checked = true;
+            rbLocalProcesses.Checked = true;
         }
 
         private void LimpiarGridSP()
@@ -59,7 +59,7 @@ namespace VirtualFairProject.Profiles.Producer
 
             dgvSP.AutoGenerateColumns = false;
 
-            if (salesProcessesParticipating != null)
+            if (salesProcessesParticipating.countRows != 0)
             {
                 foreach (var item in salesProcessesParticipating.purchaseRequests)
                 {
@@ -131,7 +131,14 @@ namespace VirtualFairProject.Profiles.Producer
             string token = Session.Token;
             int idProducer = Session.IdProfile;
             dynamic parameters = new System.Dynamic.ExpandoObject();
-            parameters.idPurchaseRequestType = 1;
+            if (rbForeignProcesses.Checked)
+            {
+                parameters.idPurchaseRequestType = 2;//EXTRANJERO
+            }
+            else
+            {
+                parameters.idPurchaseRequestType = 1;//LOCAL
+            }
             parameters.idProducer = idProducer;
 
             var salesProcesses = VirtualFairIntegration.FindByIdPurchaseRequestTypeAndIsPublicEqualToOne(token, parameters);
@@ -229,11 +236,11 @@ namespace VirtualFairProject.Profiles.Producer
 
                 Session.id = Convert.ToString(purRequest.id);
 
-                var salesProcessesDetails = new SalesProcessesDetails();
+                var salesProcessesParticipatingDetails = new SalesProcessesParticipatingDetails();
 
-                salesProcessesDetails.Show();
+                salesProcessesParticipatingDetails.Show();
 
-                this.Hide();
+                this.Close();
 
             }
         }
@@ -242,18 +249,19 @@ namespace VirtualFairProject.Profiles.Producer
         {
             if (e.ColumnIndex == 4)
             {
-                //int rowIndex = dgvPurchaseRequest.CurrentCell.RowIndex;
+                int rowIndex = dgvAllSalesProcesses.CurrentCell.RowIndex;
                 //Session.Edit = true;
 
-               // var purchaseRequest = dgvPurchaseRequest.CurrentRow.DataBoundItem;
-               // PurchaseRequestDTO purRequest = (PurchaseRequestDTO)purchaseRequest;
+                var purchaseRequest = dgvAllSalesProcesses.CurrentRow.DataBoundItem;
+                AdminApi purRequest = (AdminApi)purchaseRequest;
 
-                //var _loginData = purRequest;
+                Session.id = Convert.ToString(purRequest.id);
 
-                //var solicitudCompraDetalles = new PurchaseRequestDetails(_loginData);
+                var salesProcessesDetails = new SalesProcessesDetails();
 
-                //solicitudCompraDetalles.Show();
+                salesProcessesDetails.Show();
 
+                this.Hide();
 
             }
         }
@@ -272,7 +280,15 @@ namespace VirtualFairProject.Profiles.Producer
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
+            LoadDgvSP();
+            LoadDgvAllSalesProcesses();
+        }
 
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            var homeProducer = new HomeProducer();
+            homeProducer.Show();
         }
     }
 }

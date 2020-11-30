@@ -37,6 +37,7 @@
             this.dgvAllSalesProcesses = new System.Windows.Forms.DataGridView();
             this.lblCerrarSesion = new System.Windows.Forms.LinkLabel();
             this.btnFiltrar = new System.Windows.Forms.Button();
+            this.btnVolver = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAllSalesProcesses)).BeginInit();
             this.SuspendLayout();
@@ -44,7 +45,7 @@
             // rbLocalProcesses
             // 
             this.rbLocalProcesses.AutoSize = true;
-            this.rbLocalProcesses.Location = new System.Drawing.Point(226, 86);
+            this.rbLocalProcesses.Location = new System.Drawing.Point(78, 84);
             this.rbLocalProcesses.Name = "rbLocalProcesses";
             this.rbLocalProcesses.Size = new System.Drawing.Size(109, 17);
             this.rbLocalProcesses.TabIndex = 6;
@@ -56,7 +57,7 @@
             // rbForeignProcesses
             // 
             this.rbForeignProcesses.AutoSize = true;
-            this.rbForeignProcesses.Location = new System.Drawing.Point(78, 86);
+            this.rbForeignProcesses.Location = new System.Drawing.Point(209, 84);
             this.rbForeignProcesses.Name = "rbForeignProcesses";
             this.rbForeignProcesses.Size = new System.Drawing.Size(124, 17);
             this.rbForeignProcesses.TabIndex = 5;
@@ -146,11 +147,22 @@
             this.btnFiltrar.UseVisualStyleBackColor = true;
             this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
             // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(307, 550);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.TabIndex = 31;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
             // SalesProcesses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(818, 624);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnFiltrar);
             this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.dgvAllSalesProcesses);
@@ -179,5 +191,6 @@
         private System.Windows.Forms.DataGridView dgvAllSalesProcesses;
         private System.Windows.Forms.LinkLabel lblCerrarSesion;
         private System.Windows.Forms.Button btnFiltrar;
+        private System.Windows.Forms.Button btnVolver;
     }
 }

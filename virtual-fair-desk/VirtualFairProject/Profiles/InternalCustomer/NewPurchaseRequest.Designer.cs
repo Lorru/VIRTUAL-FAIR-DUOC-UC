@@ -41,6 +41,7 @@
             this.cmbProducts = new System.Windows.Forms.ComboBox();
             this.dgvProducts1 = new System.Windows.Forms.DataGridView();
             this.lblCerrarSesion = new System.Windows.Forms.LinkLabel();
+            this.btnVolver = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudPesoKg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts1)).BeginInit();
             this.SuspendLayout();
@@ -107,7 +108,7 @@
             // 
             // btnRegistrarSolicitudCompra
             // 
-            this.btnRegistrarSolicitudCompra.Location = new System.Drawing.Point(334, 391);
+            this.btnRegistrarSolicitudCompra.Location = new System.Drawing.Point(281, 389);
             this.btnRegistrarSolicitudCompra.Name = "btnRegistrarSolicitudCompra";
             this.btnRegistrarSolicitudCompra.Size = new System.Drawing.Size(184, 23);
             this.btnRegistrarSolicitudCompra.TabIndex = 9;
@@ -130,7 +131,7 @@
             this.dgvProducts1.AllowUserToOrderColumns = true;
             this.dgvProducts1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProducts1.Location = new System.Drawing.Point(58, 143);
-            this.dgvProducts1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvProducts1.Margin = new System.Windows.Forms.Padding(2);
             this.dgvProducts1.Name = "dgvProducts1";
             this.dgvProducts1.ReadOnly = true;
             this.dgvProducts1.RowHeadersWidth = 51;
@@ -151,11 +152,22 @@
             this.lblCerrarSesion.Text = "Cerrar Sesión";
             this.lblCerrarSesion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblCerrarSesion_LinkClicked);
             // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(325, 433);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(95, 23);
+            this.btnVolver.TabIndex = 41;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
             // NewPurchaseRequest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 468);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.dgvProducts1);
             this.Controls.Add(this.cmbProducts);
@@ -189,5 +201,6 @@
         private System.Windows.Forms.ComboBox cmbProducts;
         private System.Windows.Forms.DataGridView dgvProducts1;
         private System.Windows.Forms.LinkLabel lblCerrarSesion;
+        private System.Windows.Forms.Button btnVolver;
     }
 }

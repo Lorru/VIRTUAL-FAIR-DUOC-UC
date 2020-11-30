@@ -37,10 +37,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.dgvDetailsAuctions = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
-            this.lblFechaEncargo = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.dgvParticipants = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtPrice = new System.Windows.Forms.TextBox();
             this.btnRegistrarOferta = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.btnVolver = new System.Windows.Forms.Button();
@@ -62,7 +61,7 @@
             // lblTipoSubasta
             // 
             this.lblTipoSubasta.AutoSize = true;
-            this.lblTipoSubasta.Location = new System.Drawing.Point(113, 60);
+            this.lblTipoSubasta.Location = new System.Drawing.Point(123, 60);
             this.lblTipoSubasta.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTipoSubasta.Name = "lblTipoSubasta";
             this.lblTipoSubasta.Size = new System.Drawing.Size(19, 13);
@@ -137,22 +136,12 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(179, 410);
+            this.label5.Location = new System.Drawing.Point(189, 410);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(225, 13);
+            this.label5.Size = new System.Drawing.Size(273, 13);
             this.label5.TabIndex = 8;
-            this.label5.Text = "Fecha del encargo (en caso de pedir seguro) :";
-            // 
-            // lblFechaEncargo
-            // 
-            this.lblFechaEncargo.AutoSize = true;
-            this.lblFechaEncargo.Location = new System.Drawing.Point(410, 410);
-            this.lblFechaEncargo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblFechaEncargo.Name = "lblFechaEncargo";
-            this.lblFechaEncargo.Size = new System.Drawing.Size(19, 13);
-            this.lblFechaEncargo.TabIndex = 9;
-            this.lblFechaEncargo.Text = "<>";
+            this.label5.Text = "Valor del encargo (en caso de pedir seguro) : $XXX.XXX";
             // 
             // label6
             // 
@@ -179,20 +168,20 @@
             this.dgvParticipants.Size = new System.Drawing.Size(598, 259);
             this.dgvParticipants.TabIndex = 11;
             // 
-            // textBox1
+            // txtPrice
             // 
-            this.textBox1.Location = new System.Drawing.Point(261, 446);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(137, 20);
-            this.textBox1.TabIndex = 12;
+            this.txtPrice.Location = new System.Drawing.Point(261, 446);
+            this.txtPrice.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPrice.Name = "txtPrice";
+            this.txtPrice.Size = new System.Drawing.Size(137, 20);
+            this.txtPrice.TabIndex = 12;
             // 
             // btnRegistrarOferta
             // 
             this.btnRegistrarOferta.Location = new System.Drawing.Point(412, 445);
             this.btnRegistrarOferta.Margin = new System.Windows.Forms.Padding(2);
             this.btnRegistrarOferta.Name = "btnRegistrarOferta";
-            this.btnRegistrarOferta.Size = new System.Drawing.Size(96, 19);
+            this.btnRegistrarOferta.Size = new System.Drawing.Size(106, 32);
             this.btnRegistrarOferta.TabIndex = 13;
             this.btnRegistrarOferta.Text = "Registrar oferta";
             this.btnRegistrarOferta.UseVisualStyleBackColor = true;
@@ -201,7 +190,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(113, 448);
+            this.label7.Location = new System.Drawing.Point(97, 449);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(142, 13);
@@ -210,10 +199,10 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(261, 786);
+            this.btnVolver.Location = new System.Drawing.Point(270, 786);
             this.btnVolver.Margin = new System.Windows.Forms.Padding(2);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(96, 19);
+            this.btnVolver.Size = new System.Drawing.Size(96, 31);
             this.btnVolver.TabIndex = 15;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -235,15 +224,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(740, 816);
+            this.ClientSize = new System.Drawing.Size(740, 882);
             this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnRegistrarOferta);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtPrice);
             this.Controls.Add(this.dgvParticipants);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.lblFechaEncargo);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.dgvDetailsAuctions);
             this.Controls.Add(this.label4);
@@ -274,10 +262,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridView dgvDetailsAuctions;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label lblFechaEncargo;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DataGridView dgvParticipants;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.Button btnRegistrarOferta;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnVolver;

@@ -48,7 +48,7 @@
             this.lblProcesodeVenta.AutoSize = true;
             this.lblProcesodeVenta.Location = new System.Drawing.Point(40, 45);
             this.lblProcesodeVenta.Name = "lblProcesodeVenta";
-            this.lblProcesodeVenta.Size = new System.Drawing.Size(91, 13);
+            this.lblProcesodeVenta.Size = new System.Drawing.Size(101, 15);
             this.lblProcesodeVenta.TabIndex = 0;
             this.lblProcesodeVenta.Text = "Proceso de venta";
             // 
@@ -57,7 +57,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(124, 103);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 13);
+            this.label2.Size = new System.Drawing.Size(52, 15);
             this.label2.TabIndex = 1;
             this.label2.Text = "Detalles";
             // 
@@ -66,7 +66,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(555, 87);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 13);
+            this.label3.Size = new System.Drawing.Size(74, 15);
             this.label3.TabIndex = 2;
             this.label3.Text = "Solicitud de:";
             // 
@@ -75,7 +75,7 @@
             this.lblNombreUsuario.AutoSize = true;
             this.lblNombreUsuario.Location = new System.Drawing.Point(627, 87);
             this.lblNombreUsuario.Name = "lblNombreUsuario";
-            this.lblNombreUsuario.Size = new System.Drawing.Size(35, 13);
+            this.lblNombreUsuario.Size = new System.Drawing.Size(41, 15);
             this.lblNombreUsuario.TabIndex = 3;
             this.lblNombreUsuario.Text = "label4";
             // 
@@ -110,25 +110,26 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(124, 361);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 13);
+            this.label1.Size = new System.Drawing.Size(78, 15);
             this.label1.TabIndex = 6;
             this.label1.Text = "Participantes";
             // 
             // btnSendReports
             // 
-            this.btnSendReports.Location = new System.Drawing.Point(442, 351);
+            this.btnSendReports.Location = new System.Drawing.Point(426, 351);
             this.btnSendReports.Name = "btnSendReports";
-            this.btnSendReports.Size = new System.Drawing.Size(178, 23);
+            this.btnSendReports.Size = new System.Drawing.Size(194, 23);
             this.btnSendReports.TabIndex = 7;
             this.btnSendReports.Text = "Enviar reportes a participantes";
             this.btnSendReports.UseVisualStyleBackColor = true;
+            this.btnSendReports.Click += new System.EventHandler(this.btnSendReports_Click);
             // 
             // lblDate
             // 
             this.lblDate.AutoSize = true;
             this.lblDate.Location = new System.Drawing.Point(556, 45);
             this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(68, 13);
+            this.lblDate.Size = new System.Drawing.Size(80, 15);
             this.lblDate.TabIndex = 8;
             this.lblDate.Text = "Finalizado el ";
             // 
@@ -148,7 +149,7 @@
             this.lblCerrarSesion.Location = new System.Drawing.Point(669, 9);
             this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCerrarSesion.Name = "lblCerrarSesion";
-            this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
+            this.lblCerrarSesion.Size = new System.Drawing.Size(82, 15);
             this.lblCerrarSesion.TabIndex = 12;
             this.lblCerrarSesion.TabStop = true;
             this.lblCerrarSesion.Text = "Cerrar Sesión";

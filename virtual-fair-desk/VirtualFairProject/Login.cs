@@ -56,8 +56,11 @@ namespace VirtualFairProject
             {
                 if (email != "" && password != "")
                 {
+                    Session.email = email;
+                    Session.password = password;
                     var getToken = VirtualFairIntegration.ApiLogin(email, password);
                     int statusCode = getToken.statusCode;
+                    
 
                     if (statusCode == 403)
                     {
@@ -71,6 +74,7 @@ namespace VirtualFairProject
                         Session.IdProfile = getToken.sessionToken.idUser;
                         Session.NameUser = getToken.userConnect.fullName;
                         Session.NameProfile = getToken.userConnect.profile.name;
+                        Session.id = getToken.userConnect.id;
 
 
                         int idProfile = getToken.userConnect.idProfile;

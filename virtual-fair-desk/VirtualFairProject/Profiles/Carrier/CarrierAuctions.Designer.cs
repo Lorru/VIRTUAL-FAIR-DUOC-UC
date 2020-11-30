@@ -43,7 +43,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(76, 237);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 13);
+            this.label2.Size = new System.Drawing.Size(58, 15);
             this.label2.TabIndex = 5;
             this.label2.Text = "Subastas";
             // 
@@ -52,7 +52,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(76, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(116, 13);
+            this.label1.Size = new System.Drawing.Size(133, 15);
             this.label1.TabIndex = 4;
             this.label1.Text = "Subastas Participando:";
             // 
@@ -70,6 +70,7 @@
             this.dgvAuctions.RowTemplate.Height = 24;
             this.dgvAuctions.Size = new System.Drawing.Size(655, 154);
             this.dgvAuctions.TabIndex = 8;
+            this.dgvAuctions.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAuctions_CellContentClick);
             // 
             // dgvAllAuctions
             // 
@@ -85,6 +86,7 @@
             this.dgvAllAuctions.RowTemplate.Height = 24;
             this.dgvAllAuctions.Size = new System.Drawing.Size(655, 154);
             this.dgvAllAuctions.TabIndex = 9;
+            this.dgvAllAuctions.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAllAuctions_CellContentClick);
             // 
             // btnVolver
             // 
@@ -102,7 +104,7 @@
             this.lblCerrarSesion.Location = new System.Drawing.Point(664, 9);
             this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCerrarSesion.Name = "lblCerrarSesion";
-            this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
+            this.lblCerrarSesion.Size = new System.Drawing.Size(82, 15);
             this.lblCerrarSesion.TabIndex = 19;
             this.lblCerrarSesion.TabStop = true;
             this.lblCerrarSesion.Text = "Cerrar Sesión";

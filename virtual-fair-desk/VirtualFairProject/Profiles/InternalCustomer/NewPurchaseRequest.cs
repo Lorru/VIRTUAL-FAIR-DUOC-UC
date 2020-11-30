@@ -103,7 +103,7 @@ namespace VirtualFairProject.Profiles.InternalCustomer
         {
 
             var peso = nudPesoKg.Value;
-            var idProducto = cmbProducts.SelectedValue.ToString();
+            int idProducto = Convert.ToInt32(cmbProducts.SelectedValue.ToString());
             var nombreProducto = cmbProducts.Text;
             var comentario = txtComentario.Text;
             var refri = chkRequiereRefrigeracion.Checked;
@@ -112,7 +112,9 @@ namespace VirtualFairProject.Profiles.InternalCustomer
 
             var refrigeracion = refri ? "Si" : "No";
 
-            if (nombreProducto != "")
+            var filenamesList = new BindingList<AddProducts>(items);
+
+            if (filenamesList.Where(x => x.idProduct == idProducto).FirstOrDefault() == null)
             {
                 AddProducts products = new AddProducts();
 
@@ -123,32 +125,12 @@ namespace VirtualFairProject.Profiles.InternalCustomer
                 products.requieresRefrigerationBool = refriValue;
                 products.requiresRefrigeration = refrigeracion;
                
-
                 items.Add(products);
-
-                //dgvProducts1.DataSource = items;
-
-                var filenamesList = new BindingList<AddProducts>(items);
 
                 dgvProducts1.DataSource = filenamesList;
 
                 dgvProducts1.Update();
                 dgvProducts1.Refresh();
-
-                
-                //int cantFilas = dgvProducts.Rows.Count - 1;
-                ////dgvProducts.Rows.Add();
-                //dgvProducts[0, cantFilas].Value = idProducto;
-                //dgvProducts[1, cantFilas].Value = nombreProducto;
-                //dgvProducts[2, cantFilas].Value = peso;
-                //dgvProducts[3, cantFilas].Value = comentario;
-                //dgvProducts[4, cantFilas].Value = refrigeracion;
-
-
-              
-                //crear lista y bindear al datasource
-
-                //dgvProducts.DataSource = dgvProducts.Rows;
 
                 txtComentario.Text = "";
                 nudPesoKg.Value = 0;
@@ -157,7 +139,7 @@ namespace VirtualFairProject.Profiles.InternalCustomer
             }
             else
             {
-                string text = "Se deben completar todos los campos requeridos";
+                string text = "No se puede agregar dos veces el mismo producto, favor eliminar y volver a agregar.";
                 string title = "Información";
                 MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -242,6 +224,13 @@ namespace VirtualFairProject.Profiles.InternalCustomer
             login.Show();
 
             this.Close();
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            var homeInternalCustomer = new HomeInternalCustomer();
+            homeInternalCustomer.Show();
         }
     }
 }

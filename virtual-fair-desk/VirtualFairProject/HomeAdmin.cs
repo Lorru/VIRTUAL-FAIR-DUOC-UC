@@ -66,5 +66,13 @@ namespace VirtualFairProject
 
             this.Close();
         }
+
+        private void miPerfilToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var myProfile = new MyProfile();
+            myProfile.Show();
+
+            this.Close();
+        }
     }
 }

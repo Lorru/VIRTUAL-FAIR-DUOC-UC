@@ -21,11 +21,11 @@ namespace VirtualFairProject.Profiles.Producer
             LoadDetails();
             //LoadParticipate();
             LoadParticipants();
-            Prueba();
+            LoadNumericUpDown();
         }
 
 
-        private void Prueba() 
+        private void LoadNumericUpDown() 
         {
             int y1 = 55;
             int y2 = 55;
@@ -45,7 +45,7 @@ namespace VirtualFairProject.Profiles.Producer
                 //9, 55
                 numericPeso.Visible = true;
                 groupBox1.Controls.Add(numericPeso);
-                this.Controls.Add(numericPeso);
+               // this.Controls.Add(numericPeso);
                 y1 = y1 + 26;
             }
 
@@ -58,30 +58,9 @@ namespace VirtualFairProject.Profiles.Producer
                 numericValor.Size = new Size(103, 20);
                 numericValor.Visible = true;
                 groupBox1.Controls.Add(numericValor);
-                this.Controls.Add(numericValor);
+                //this.Controls.Add(numericValor);
                 y2 = y2 + 26;
             }
-
-            
-
-
-            
-
-            //for (int i = 0; i < countRows; i++)
-            //{
-
-            //        NumericUpDown numericPrueba = new NumericUpDown();
-            //        numericPrueba.Location = new Point(44, y);
-            //        numericPrueba.Visible = true;
-            //        groupBox1.Controls.Add(numericPrueba);
-            //        numericPrueba.Name = "numericPrueba";
-
-            //        y = y + 26;
-
-
-
-
-            //}
         }
 
         private void LoadDetails() 
@@ -94,12 +73,30 @@ namespace VirtualFairProject.Profiles.Producer
 
             var findByIdPurchaseRequest = VirtualFairIntegration.FindByIdPurchaseRequest(token, idPurchaseRequest);
 
+            if (findByIdPurchaseRequest.statusCode == 403)
+            {
+                string text = findByIdPurchaseRequest.message;
+                string title = "Información";
+                MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                var login = new Login();
+                login.Show();
+
+                this.Close();
+            }
+            else if (true)
+            {
+
+            }
+
             List<string> lstNamesProducts = new List<string>();
 
             List<AddProducts> lstSalesProcessesDetails = new List<AddProducts>();
 
             if (findByIdPurchaseRequest.countRows != 0)
             {
+                lblFechaDecision.Text = "";
+
                 foreach (var item in findByIdPurchaseRequest.purchaseRequestProducts)
                 {
                     AddProducts pRobject = new AddProducts();
@@ -176,20 +173,127 @@ namespace VirtualFairProject.Profiles.Producer
 
         private void btnSaveChanges_Click(object sender, EventArgs e)
         {
-            var x = "asda";
+            List<string> lstNamesProducts = Session.lstNamesProducts;    
 
-            Control ctrl = this.Controls.Find("nudPesoOfrecidoBROCOLI",true).FirstOrDefault();
+            string valuePrice = "";
+            string valueKg = "";
 
-            //
+            string token = Session.Token;
 
-            if (ctrl != null)
+            var idPurchaseRequest = Session.id;
+
+            var findByIdPurchaseRequest = VirtualFairIntegration.FindByIdPurchaseRequest(token, idPurchaseRequest);
+
+            //Peso ofrecido Kg
+
+            List<string> lstIdProducts = new List<string>();
+
+            int countId = 0;
+
+            foreach (var item1 in findByIdPurchaseRequest.purchaseRequestProducts)
             {
-                if (ctrl is NumericUpDown)
-                {
-                    NumericUpDown prueba1 = ctrl as NumericUpDown;
+                //Session.idProduct = item1.id;
 
+                lstIdProducts.Add(item1.id.ToString());
+            }
+
+            var purchaseRequestProducers = new List<dynamic>();
+
+            foreach (var item in lstNamesProducts)
+            {
+                valueKg = String.Concat("nudPesoOfrecido", item);
+                valuePrice = String.Concat("nudValor", item);
+
+                Control ctrl = this.Controls.Find(valueKg.ToString(), true).FirstOrDefault();
+                Control ctrl1 = this.Controls.Find(valuePrice.ToString(), true).FirstOrDefault();
+
+                
+
+                if (ctrl != null)
+                {
+                    if (ctrl is NumericUpDown)
+                    {
+                        dynamic participate = new System.Dynamic.ExpandoObject();
+                        NumericUpDown kg = ctrl as NumericUpDown;
+                        NumericUpDown price = ctrl1 as NumericUpDown;
+
+                        participate.idPurchaseRequestProduct = Convert.ToInt32(lstIdProducts[countId]);
+                        countId++;
+                        participate.idProducer = Convert.ToInt32(Session.IdProfile);
+                        participate.weight = kg.Value;
+                        participate.price = price.Value;
+
+                        purchaseRequestProducers.Add(participate);
+
+                    }
                 }
             }
+
+            var createMassive = VirtualFairIntegration.CreateMassiveProducer(token, purchaseRequestProducers);
+
+            if (createMassive.statusCode == 201)
+            {
+                string text = createMassive.message;
+                string title = "Información";
+                MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                
+                var salesProcesses = new SalesProcesses();
+
+                salesProcesses.Show();
+
+                this.Close();
+            }
+            else
+            {
+
+            }
+
+        }
+
+        private void btnDiscardParticipation_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblFechaDecision_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgParticipants_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvDetails_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

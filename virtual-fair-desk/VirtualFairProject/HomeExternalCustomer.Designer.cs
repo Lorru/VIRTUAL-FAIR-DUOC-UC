@@ -34,25 +34,26 @@
             this.módulosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.solicitudesDeCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblCerrarSesion = new System.Windows.Forms.LinkLabel();
+            this.miPerfilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 161);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(23, 131);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(144, 17);
+            this.label1.Size = new System.Drawing.Size(127, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "Home Cliente Externo";
             // 
             // lblBienvenido
             // 
             this.lblBienvenido.AutoSize = true;
-            this.lblBienvenido.Location = new System.Drawing.Point(810, 65);
+            this.lblBienvenido.Location = new System.Drawing.Point(608, 53);
+            this.lblBienvenido.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblBienvenido.Name = "lblBienvenido";
-            this.lblBienvenido.Size = new System.Drawing.Size(46, 17);
+            this.lblBienvenido.Size = new System.Drawing.Size(41, 15);
             this.lblBienvenido.TabIndex = 6;
             this.lblBienvenido.Text = "label2";
             // 
@@ -63,16 +64,18 @@
             this.módulosToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1067, 30);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // módulosToolStripMenuItem
             // 
             this.módulosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.solicitudesDeCompraToolStripMenuItem});
+            this.solicitudesDeCompraToolStripMenuItem,
+            this.miPerfilToolStripMenuItem});
             this.módulosToolStripMenuItem.Name = "módulosToolStripMenuItem";
-            this.módulosToolStripMenuItem.Size = new System.Drawing.Size(81, 26);
+            this.módulosToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
             this.módulosToolStripMenuItem.Text = "Modulos";
             // 
             // solicitudesDeCompraToolStripMenuItem
@@ -85,24 +88,31 @@
             // lblCerrarSesion
             // 
             this.lblCerrarSesion.AutoSize = true;
-            this.lblCerrarSesion.Location = new System.Drawing.Point(813, 101);
+            this.lblCerrarSesion.Location = new System.Drawing.Point(610, 82);
+            this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCerrarSesion.Name = "lblCerrarSesion";
-            this.lblCerrarSesion.Size = new System.Drawing.Size(95, 17);
+            this.lblCerrarSesion.Size = new System.Drawing.Size(82, 15);
             this.lblCerrarSesion.TabIndex = 8;
             this.lblCerrarSesion.TabStop = true;
             this.lblCerrarSesion.Text = "Cerrar Sesión";
             this.lblCerrarSesion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblCerrarSesion_LinkClicked);
             // 
+            // miPerfilToolStripMenuItem
+            // 
+            this.miPerfilToolStripMenuItem.Name = "miPerfilToolStripMenuItem";
+            this.miPerfilToolStripMenuItem.Size = new System.Drawing.Size(240, 26);
+            this.miPerfilToolStripMenuItem.Text = "Mi Perfil";
+            this.miPerfilToolStripMenuItem.Click += new System.EventHandler(this.miPerfilToolStripMenuItem_Click);
+            // 
             // HomeExternalCustomer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.lblBienvenido);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "HomeExternalCustomer";
             this.Text = "HomeExternalCustomer";
             this.menuStrip1.ResumeLayout(false);
@@ -120,5 +130,6 @@
         private System.Windows.Forms.ToolStripMenuItem módulosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem solicitudesDeCompraToolStripMenuItem;
         private System.Windows.Forms.LinkLabel lblCerrarSesion;
+        private System.Windows.Forms.ToolStripMenuItem miPerfilToolStripMenuItem;
     }
 }

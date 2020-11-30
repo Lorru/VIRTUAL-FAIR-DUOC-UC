@@ -26,5 +26,21 @@ namespace VirtualFairProject.Class
         public static string countRows { get; set; }
 
         public static List<string> lstNamesProducts { get; set; }
+
+        public static List<AddProducts> lstAddProducts { get; set; }
+
+        public static int idProduct { get; set; }
+
+        public static string dateOf { get; set; }
+
+        public static string dateTo { get; set; }
+
+        public static List<AllUsers> lstProducts { get; set; }
+
+
+        public static string email { get; set; }
+        public static string password { get; set; }
+
+        public static string idTransportAuction { get; set; }
     }
 }
