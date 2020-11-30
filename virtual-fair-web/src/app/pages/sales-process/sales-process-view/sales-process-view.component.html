@@ -316,7 +316,7 @@
       *ngIf="
         requestedProducts[0] &&
         requestedProducts[0].purchaseRequest.isPublic === 1 &&
-        purchaseRequestStatus !== 2 && (purchaseRequestStatus < 4 && _userService.getUser().idProfile !== 3)
+        purchaseRequestStatus !== 2 && (purchaseRequestStatus < 4 || _userService.getUser().idProfile !== 3)
       "
     >
       <div class="col">
