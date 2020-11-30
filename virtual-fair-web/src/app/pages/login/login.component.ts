@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
 
   loadingFindByEmailAndPassword: boolean;
 
-  constructor(private router: Router, private _userService: UserService, private _utilsService: UtilsService) {}
+  constructor(public router: Router, public _userService: UserService, public _utilsService: UtilsService) {}
 
   ngOnInit() {}
 

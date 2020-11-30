@@ -17,10 +17,10 @@ export class UserRegisterComponent implements OnInit {
   subscriptions: Subscription = new Subscription();
 
   constructor(
-    private _profileService: ProfileService,
-    private _userService: UserService,
+    public _profileService: ProfileService,
+    public _userService: UserService,
     public dialogRef: MatDialogRef<UserRegisterComponent>,
-    private _utilsService: UtilsService
+    public _utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {

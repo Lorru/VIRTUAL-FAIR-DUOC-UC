@@ -66,10 +66,10 @@ export class UserProfileComponent implements OnInit {
   ];
 
   constructor(
-    private _userService: UserService,
-    private _profileService: ProfileService,
-    private _utilsService: UtilsService,
-    private _activatedRoute: ActivatedRoute
+    public _userService: UserService,
+    public _profileService: ProfileService,
+    public _utilsService: UtilsService,
+    public _activatedRoute: ActivatedRoute
   ) {
     this._activatedRoute.params.subscribe((params) => {
       if (params["userDataEncoded"]) {

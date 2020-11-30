@@ -15,7 +15,7 @@ export class RejectDeliveryModalComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<RejectDeliveryModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _utilsService: UtilsService
+    public _utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {}

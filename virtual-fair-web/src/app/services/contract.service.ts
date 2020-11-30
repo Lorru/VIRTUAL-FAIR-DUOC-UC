@@ -7,14 +7,14 @@ import { environment } from "environments/environment";
   providedIn: "root",
 })
 export class ContractService {
-  private httpHeaders: HttpHeaders = new HttpHeaders().set(
+  public httpHeaders: HttpHeaders = new HttpHeaders().set(
     "Content-Type",
     "application/json"
   );
 
-  private URL_API: string = environment.URL_API + "Contract/";
+  public URL_API: string = environment.URL_API + "Contract/";
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(public httpClient: HttpClient) {}
 
   findAll(searcher?: string): Observable<any> {
     let URL_CONTRACT: string = this.URL_API + "findAll";

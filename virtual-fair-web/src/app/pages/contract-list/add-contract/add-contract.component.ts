@@ -33,10 +33,10 @@ export class AddContractComponent implements OnInit {
   public files: NgxFileDropEntry[] = [];
 
   constructor(
-    private _userService: UserService,
+    public _userService: UserService,
     public dialogRef: MatDialogRef<AddContractComponent>,
-    private _contractService: ContractService,
-    private _utilsService: UtilsService
+    public _contractService: ContractService,
+    public _utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {
@@ -118,7 +118,7 @@ export class AddContractComponent implements OnInit {
     console.log(event);
   }
 
-  private _filter(value: string): string[] {
+  public _filter(value: string): string[] {
     return this.users.filter(
       (user) => user.fullName.toLowerCase().indexOf(value.toLowerCase()) === 0
     );

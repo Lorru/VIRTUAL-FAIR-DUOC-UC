@@ -24,13 +24,13 @@ export class PurchaseRequestCreateComponent implements OnInit {
   buyType: string;
 
   constructor(
-    private _purchaseRequestService: PurchaseRequestService,
-    private _productService: ProductService,
-    private _router: Router,
-    private _utilsService: UtilsService,
-    private _userService: UserService,
-    private _activatedRoute: ActivatedRoute,
-    private _purchaseRequestProductService: PurchaseRequestProductService
+    public _purchaseRequestService: PurchaseRequestService,
+    public _productService: ProductService,
+    public _router: Router,
+    public _utilsService: UtilsService,
+    public _userService: UserService,
+    public _activatedRoute: ActivatedRoute,
+    public _purchaseRequestProductService: PurchaseRequestProductService
   ) {
     this._activatedRoute.params.subscribe((params) => {
       this.buyType = params["type"];

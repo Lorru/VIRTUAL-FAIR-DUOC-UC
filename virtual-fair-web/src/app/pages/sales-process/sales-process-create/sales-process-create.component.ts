@@ -18,10 +18,10 @@ export class SalesProcessCreateComponent implements OnInit {
   processing: boolean = false;
 
   constructor(
-    private _purchaseRequestService: PurchaseRequestService,
-    private _productService: ProductService,
-    private _router: Router,
-    private _utilsService: UtilsService
+    public _purchaseRequestService: PurchaseRequestService,
+    public _productService: ProductService,
+    public _router: Router,
+    public _utilsService: UtilsService
   ) {}
 
   ngOnInit() {

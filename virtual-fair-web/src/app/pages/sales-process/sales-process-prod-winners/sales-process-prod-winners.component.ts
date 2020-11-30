@@ -19,12 +19,12 @@ export class SalesProcessProdWinnersComponent implements OnInit {
   subscriptions: Subscription = new Subscription();
 
   constructor(
-    private _userService: UserService,
+    public _userService: UserService,
     public dialogRef: MatDialogRef<SalesProcessProdWinnersComponent>,
-    private _utilsService: UtilsService,
-    private _purchaseRequestProducerService: PurchaseRequestProducerService,
+    public _utilsService: UtilsService,
+    public _purchaseRequestProducerService: PurchaseRequestProducerService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _purchaseRequestService: PurchaseRequestService
+    public _purchaseRequestService: PurchaseRequestService
   ) {}
 
   ngOnInit(): void {

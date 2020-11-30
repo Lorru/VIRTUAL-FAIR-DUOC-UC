@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class SecurityTokenGuard implements CanActivate {
   
-  constructor(private _router: Router, private _userService: UserService){}
+  constructor(public _router: Router, public _userService: UserService){}
 
   canActivate( ): Observable<boolean> | Promise<boolean> | boolean {
 

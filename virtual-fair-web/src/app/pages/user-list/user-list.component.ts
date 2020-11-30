@@ -17,7 +17,7 @@ export class UserListComponent implements OnInit {
   loadingFindAll: boolean;
   searchTerm: string;
 
-  constructor(private router: Router, private _userService: UserService, public _dialog: MatDialog) {}
+  constructor(public router: Router, public _userService: UserService, public _dialog: MatDialog) {}
 
   ngOnInit() {
     this.findAll();

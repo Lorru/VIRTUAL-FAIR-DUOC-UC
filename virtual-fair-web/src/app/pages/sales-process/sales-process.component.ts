@@ -44,12 +44,12 @@ export class SalesProcessComponent implements OnInit {
   };
 
   constructor(
-    private router: Router,
-    private _purchaseRequestService: PurchaseRequestService,
-    private _userService: UserService,
-    private _datePipe: DatePipe,
-    private _purchaseRequestStatus: PurchaseRequestStatusService,
-    private _utilsService: UtilsService
+    public router: Router,
+    public _purchaseRequestService: PurchaseRequestService,
+    public _userService: UserService,
+    public _datePipe: DatePipe,
+    public _purchaseRequestStatus: PurchaseRequestStatusService,
+    public _utilsService: UtilsService
   ) {}
 
   ngOnInit() {

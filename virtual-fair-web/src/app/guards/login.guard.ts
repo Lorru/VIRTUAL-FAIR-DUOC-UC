@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class LoginGuard implements CanActivate {
-  constructor(private router: Router, private _userService: UserService) {}
+  constructor(public router: Router, public _userService: UserService) {}
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (this._userService.getSessionToken()) {

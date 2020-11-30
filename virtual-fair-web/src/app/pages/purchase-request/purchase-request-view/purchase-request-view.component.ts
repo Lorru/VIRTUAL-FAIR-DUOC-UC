@@ -19,12 +19,12 @@ export class PurchaseRequestViewComponent implements OnInit {
   stringSalesProcessType: string;
 
   constructor(
-    private _purchaseRequestProductService: PurchaseRequestProductService,
-    private _activatedRoute: ActivatedRoute,
-    private _purchaseRequestService: PurchaseRequestService,
-    private _userService: UserService,
-    private _utilsService: UtilsService,
-    private _purchaseRequestRemark: PurchaseRequestRemarkService
+    public _purchaseRequestProductService: PurchaseRequestProductService,
+    public _activatedRoute: ActivatedRoute,
+    public _purchaseRequestService: PurchaseRequestService,
+    public _userService: UserService,
+    public _utilsService: UtilsService,
+    public _purchaseRequestRemark: PurchaseRequestRemarkService
   ) {
     this._activatedRoute.params.subscribe((params) => {
       this.purchaseRequestId = params["id"];

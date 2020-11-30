@@ -9,11 +9,11 @@ import { environment } from 'environments/environment';
 })
 export class PurchaseRequestRemarkService {
 
-  private httpHeaders: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+  public httpHeaders: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
-  private URL_API: string = environment.URL_API + 'PurchaseRequestRemark/';
+  public URL_API: string = environment.URL_API + 'PurchaseRequestRemark/';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(public httpClient: HttpClient) {
 
   }
 

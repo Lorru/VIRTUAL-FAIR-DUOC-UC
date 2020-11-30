@@ -37,16 +37,16 @@ export class AuctionViewComponent implements OnInit {
   isUserWinner: boolean;
 
   constructor(
-    private _transportAuctionService: TransportAuctionService,
+    public _transportAuctionService: TransportAuctionService,
 
-    private _purchaseRequestProductService: PurchaseRequestProductService,
-    private _activatedRoute: ActivatedRoute,
-    private _purchaseRequestService: PurchaseRequestService,
-    private _userService: UserService,
-    private _utilsService: UtilsService,
-    private _purchaseRequestProducerService: PurchaseRequestProducerService,
+    public _purchaseRequestProductService: PurchaseRequestProductService,
+    public _activatedRoute: ActivatedRoute,
+    public _purchaseRequestService: PurchaseRequestService,
+    public _userService: UserService,
+    public _utilsService: UtilsService,
+    public _purchaseRequestProducerService: PurchaseRequestProducerService,
     public _dialog: MatDialog,
-    private _transportAuctionCarrierService: TransportAuctionCarrierService
+    public _transportAuctionCarrierService: TransportAuctionCarrierService
   ) {
     this.isAdmin = this._userService.getUser().idProfile === 1;
     this._activatedRoute.params.subscribe((params) => {

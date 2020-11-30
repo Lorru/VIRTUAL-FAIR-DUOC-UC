@@ -9,11 +9,11 @@ import { environment } from 'environments/environment';
 })
 export class SummaryReportService {
 
-  private httpHeaders: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+  public httpHeaders: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
-  private URL_API: string = environment.URL_API + 'SummaryReport/';
+  public URL_API: string = environment.URL_API + 'SummaryReport/';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(public httpClient: HttpClient) {
 
   }
 

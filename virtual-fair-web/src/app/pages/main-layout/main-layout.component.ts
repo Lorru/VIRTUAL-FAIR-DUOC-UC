@@ -12,11 +12,11 @@ import * as $ from "jquery";
   styleUrls: ['./main-layout.component.scss']
 })
 export class MainLayoutComponent implements OnInit {
-  private _router: Subscription;
-  private lastPoppedUrl: string;
-  private yScrollStack: number[] = [];
+  public _router: Subscription;
+  public lastPoppedUrl: string;
+  public yScrollStack: number[] = [];
 
-  constructor( public location: Location, private router: Router) {}
+  constructor( public location: Location, public router: Router) {}
 
   ngOnInit() {
       const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;

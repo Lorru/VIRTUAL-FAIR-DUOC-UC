@@ -8,14 +8,14 @@ import { environment } from "environments/environment";
   providedIn: "root",
 })
 export class PurchaseRequestProducerService {
-  private httpHeaders: HttpHeaders = new HttpHeaders().set(
+  public httpHeaders: HttpHeaders = new HttpHeaders().set(
     "Content-Type",
     "application/json"
   );
 
-  private URL_API: string = environment.URL_API + "PurchaseRequestProducer/";
+  public URL_API: string = environment.URL_API + "PurchaseRequestProducer/";
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(public httpClient: HttpClient) {}
 
   findByIdPurchaseRequest(idPurchaseRequest: number): Observable<any> {
     let URL: string =

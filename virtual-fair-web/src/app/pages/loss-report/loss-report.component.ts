@@ -17,7 +17,7 @@ export class LossReportComponent implements OnInit {
 
   hasSearched: boolean;
 
-  constructor(private _summaryReportService: SummaryReportService) {
+  constructor(public _summaryReportService: SummaryReportService) {
     const date = new Date();
     const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
     const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);

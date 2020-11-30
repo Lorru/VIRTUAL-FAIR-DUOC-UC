@@ -31,11 +31,11 @@ export class AddAuctionComponent implements OnInit {
   searchTerm: string;
 
   constructor(
-    private _userService: UserService,
+    public _userService: UserService,
     public dialogRef: MatDialogRef<AddAuctionComponent>,
-    private _transportAuctionService: TransportAuctionService,
-    private _utilsService: UtilsService,
-    private _purchaseRequestService: PurchaseRequestService,
+    public _transportAuctionService: TransportAuctionService,
+    public _utilsService: UtilsService,
+    public _purchaseRequestService: PurchaseRequestService,
     @Inject(MAT_DIALOG_DATA) public data: any,
 
   ) {}
@@ -159,7 +159,7 @@ export class AddAuctionComponent implements OnInit {
     this.subscriptions.unsubscribe();
   }
 
-  private _filter(value: string): string[] {
+  public _filter(value: string): string[] {
     return this.salesProcesses.filter(
       (saleProcess) => saleProcess.id.toString().indexOf(value) === 0
     );

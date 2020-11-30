@@ -9,11 +9,11 @@ import { environment } from 'environments/environment';
 })
 export class PurchaseRequestTypeService {
 
-  private httpHeaders: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+  public httpHeaders: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
-  private URL_API: string = environment.URL_API + 'PurchaseRequestType/';
+  public URL_API: string = environment.URL_API + 'PurchaseRequestType/';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(public httpClient: HttpClient) {
 
   }
 

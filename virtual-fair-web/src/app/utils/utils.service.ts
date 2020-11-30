@@ -9,7 +9,7 @@ declare var $: any;
   providedIn: "root",
 })
 export class UtilsService {
-  constructor(private _modalService: MatDialog) {}
+  constructor(public _modalService: MatDialog) {}
 
   openModal(modalComponent: ComponentType<any> | TemplateRef<any>, modalData?: any): MatDialogRef<any> {
     const modalRef: MatDialogRef<any> = this._modalService.open(

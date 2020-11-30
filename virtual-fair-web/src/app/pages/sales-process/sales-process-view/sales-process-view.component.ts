@@ -37,15 +37,15 @@ export class SalesProcessViewComponent implements OnInit {
   participatingText: string;
 
   constructor(
-    private _purchaseRequestProductService: PurchaseRequestProductService,
-    private _activatedRoute: ActivatedRoute,
-    private _purchaseRequestService: PurchaseRequestService,
-    private _userService: UserService,
-    private _utilsService: UtilsService,
-    private _purchaseRequestProducerService: PurchaseRequestProducerService,
+    public _purchaseRequestProductService: PurchaseRequestProductService,
+    public _activatedRoute: ActivatedRoute,
+    public _purchaseRequestService: PurchaseRequestService,
+    public _userService: UserService,
+    public _utilsService: UtilsService,
+    public _purchaseRequestProducerService: PurchaseRequestProducerService,
     public _dialog: MatDialog,
-    private _reportService: ReportService,
-    private _transportAuctionCarrier: TransportAuctionCarrierService
+    public _reportService: ReportService,
+    public _transportAuctionCarrier: TransportAuctionCarrierService
   ) {
     this.isAdmin = this._userService.getUser().idProfile === 1;
     this._activatedRoute.params.subscribe((params) => {

@@ -24,9 +24,7 @@ import { TransportAuctionGuard } from "app/guards/transport-auction.guard";
 import { AuctionViewComponent } from "../auction-list/auction-view/auction-view.component";
 import { LossReportComponent } from "../loss-report/loss-report.component";
 import { ReportGuard } from "app/guards/report.guard";
-import { BuyResidueComponent } from "../buy-residue/buy-residue.component";
 import { BuyResidueGuard } from "app/guards/buy-residue.guard";
-import { BuyResidueCreateComponent } from "../buy-residue/buy-residue-create/buy-residue-create.component";
 
 export const MainLayoutRoutes: Routes = [
   // {
@@ -95,8 +93,6 @@ export const MainLayoutRoutes: Routes = [
       { path: "auction-list/:id", component: AuctionListComponent, canActivate: [UserGuard], data: {title: "Subastas de Transporte"} },
       { path: "auction-list/view/:id", component: AuctionViewComponent, canActivate: [TransportAuctionGuard], data: {title: "Subasta de Transporte"} },
       { path: "loss-report", component: LossReportComponent, canActivate: [ReportGuard], data: {title: "Pérdidas de fruta"} },
-      { path: "buy-residue", component: BuyResidueComponent, canActivate: [BuyResidueGuard], data: {title: "Comprar Productos"} },
-      { path: "buy-residue/create", component: BuyResidueCreateComponent, canActivate: [BuyResidueGuard], data: {title: "Comprar Saldo"} },
 
       { path: "typography", component: TypographyComponent },
       { path: "icons", component: IconsComponent },

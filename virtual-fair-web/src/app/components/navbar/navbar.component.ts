@@ -18,21 +18,21 @@ import 'rxjs/add/operator/mergeMap';
   styleUrls: ["./navbar.component.css"],
 })
 export class NavbarComponent implements OnInit {
-  private listTitles: any[];
+  public listTitles: any[];
   location: Location;
   mobile_menu_visible: any = 0;
-  private toggleButton: any;
-  private sidebarVisible: boolean;
+  public toggleButton: any;
+  public sidebarVisible: boolean;
   title: string;
   user: any;
 
   constructor(
     location: Location,
-    private element: ElementRef,
-    private router: Router,
-    private _userService: UserService,
-    private _activatedRoute: ActivatedRoute,
-    private _router: Router
+    public element: ElementRef,
+    public router: Router,
+    public _userService: UserService,
+    public _activatedRoute: ActivatedRoute,
+    public _router: Router
   ) {
     this._router.events
     .filter(e => e instanceof NavigationEnd)

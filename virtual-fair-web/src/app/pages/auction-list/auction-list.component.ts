@@ -32,13 +32,13 @@ export class AuctionListComponent implements OnInit {
   profileId: number;
 
   constructor(
-    private router: Router,
-    private _transportAuctionService: TransportAuctionService,
+    public router: Router,
+    public _transportAuctionService: TransportAuctionService,
     public _dialog: MatDialog,
-    private _activatedRoute: ActivatedRoute,
-    private _datePipe: DatePipe,
-    private _userService: UserService,
-    private _router: Router
+    public _activatedRoute: ActivatedRoute,
+    public _datePipe: DatePipe,
+    public _userService: UserService,
+    public _router: Router
   ) {
     this.profileId = this._userService.getUser().idProfile;
     this._activatedRoute.params.subscribe((params) => {

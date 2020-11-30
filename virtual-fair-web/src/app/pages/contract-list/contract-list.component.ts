@@ -19,8 +19,8 @@ export class ContractListComponent implements OnInit {
   searchTerm: string;
 
   constructor(
-    private router: Router,
-    private _contractService: ContractService,
+    public router: Router,
+    public _contractService: ContractService,
     public _dialog: MatDialog
   ) {}
 

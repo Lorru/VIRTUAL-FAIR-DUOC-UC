@@ -18,10 +18,10 @@ export class PurchaseRequestComponent implements OnInit {
   searchTerm: string;
 
   constructor(
-    private router: Router,
-    private _purchaseRequestService: PurchaseRequestService,
-    private _userService: UserService,
-    private _datePipe: DatePipe
+    public router: Router,
+    public _purchaseRequestService: PurchaseRequestService,
+    public _userService: UserService,
+    public _datePipe: DatePipe
   ) {}
 
   ngOnInit() {
