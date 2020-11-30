@@ -30,6 +30,12 @@ export class TransportAuctionCarrierService {
     return this.httpClient.get(URL, { headers: this.httpHeaders.append('Authorization', JSON.parse(localStorage.getItem('sessionToken')).token) });
   }
 
+  getParticipantByIdPurchaseRequest(idPurchaseRequest: number) : Observable<any>{
+    let URL: string = this.URL_API + 'getParticipantByIdPurchaseRequest/' + idPurchaseRequest;
+
+    return this.httpClient.get(URL, { headers: this.httpHeaders.append('Authorization', JSON.parse(localStorage.getItem('sessionToken')).token) });
+  }
+
 
   findAll(searcher?: string) : Observable<any>{
 
@@ -68,5 +74,12 @@ export class TransportAuctionCarrierService {
         JSON.parse(localStorage.getItem("sessionToken")).token
       ),
     });
+  }
+
+  findByIdPurchaseRequest(idPurchaseRequest: number) : Observable<any>{
+
+    let URL_TRANSPORT_AUCTION: string = this.URL_API + 'findByIdPurchaseRequest/' + idPurchaseRequest;
+
+    return this.httpClient.get(URL_TRANSPORT_AUCTION, { headers: this.httpHeaders.append('Authorization', JSON.parse(localStorage.getItem('sessionToken')).token) });
   }
 }

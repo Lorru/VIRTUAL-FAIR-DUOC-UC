@@ -23,4 +23,12 @@ export class PurchaseRequestProductService {
 
     return this.httpClient.get(URL_PURCHASE_REQUEST_PRODUCT, { headers: this.httpHeaders.append('Authorization', JSON.parse(localStorage.getItem('sessionToken')).token) });
   }
+
+  findByIdPurchaseRequestStatusInTwoNineAndExpirationDateGreatherThanNow() : Observable<any>{
+
+    let URL_PURCHASE_REQUEST_PRODUCT: string = this.URL_API + 'findByIdPurchaseRequestStatusInTwoNineAndExpirationDateGreatherThanNow';
+
+    return this.httpClient.get(URL_PURCHASE_REQUEST_PRODUCT, { headers: this.httpHeaders.append('Authorization', JSON.parse(localStorage.getItem('sessionToken')).token) });
+  }
+
 }

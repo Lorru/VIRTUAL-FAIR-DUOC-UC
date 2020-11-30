@@ -10,12 +10,14 @@ declare interface RouteInfo {
     requiredProfile?: any;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/main/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
+    { path: '/main/dashboard', title: 'Inicio',  icon: 'home', class: '' },
     { path: '/main/user-list', title: 'Usuarios',  icon:'group', class: '', requiredProfile: [1] },
-    { path: '/main/purchase-request', title: 'Solicitudes de Compra',  icon:'shopping_cart', class: '', requiredProfile: [6] },
+    { path: '/main/purchase-request', title: 'Compra de Productos',  icon:'shopping_cart', class: '', requiredProfile: [5, 6] },
     { path: '/main/sales-process', title: 'Procesos de Venta',  icon:'store', class: '', requiredProfile: [1, 3] },
     { path: '/main/contract-list', title: 'Contratos',  icon:'history_edu', class: '', requiredProfile: [1] },
     { path: '/main/auction-list', title: 'Subastas de Transporte',  icon:'gavel', class: '', requiredProfile: [1, 4] },
+    { path: '/main/loss-report', title: 'Perdidas de Fruta',  icon:'description', class: '', requiredProfile: [2] },
+    // { path: '/main/buy-residue', title: 'Comprar productos',  icon:'shopping_basket', class: '', requiredProfile: [5] },
 
 
     // { path: '/main/table-list', title: 'Table List',  icon:'content_paste', class: '' },

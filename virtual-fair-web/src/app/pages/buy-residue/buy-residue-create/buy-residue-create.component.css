@@ -1,0 +1,21 @@
+#weight-input-col {
+    max-width: 100px;
+}
+
+#date-input {
+    max-width: 200px;
+}
+
+.add-product-row > div[class^="col"]{
+    padding-right: 8px;
+    padding-left: 8px;
+    height: 52px;
+}
+
+.card-header-danger .placeholder {
+    color: whitesmoke;
+}
+
+::ng-deep .card-header-danger .mat-form-field-underline {
+    background-color: lightgray;
+}

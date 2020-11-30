@@ -17,13 +17,13 @@
                     matInput
                   />
                   <mat-placeholder class="placeholder"
-                    >Buscar solicitud</mat-placeholder
+                    >Buscar proceso</mat-placeholder
                   >
                 </mat-form-field>
               </p>
             </div>
-            <div class="col justify-content-end d-flex">
-              <button *ngIf="_userService.getUser().idProfile === 5"
+            <div class="col-md-6 justify-content-end d-flex">
+              <button
                 [routerLink]="['/main/purchase-request/create', 'residue']"
                 class="btn btn-info mr-3"
               >
@@ -33,7 +33,7 @@
                 [routerLink]="['/main/purchase-request/create']"
                 class="btn btn-success"
               >
-                Solicitar Producto
+                Solicitar Productos
               </button>
             </div>
           </div>

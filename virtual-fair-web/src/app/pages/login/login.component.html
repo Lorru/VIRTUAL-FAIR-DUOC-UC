@@ -34,10 +34,11 @@
         />
       </div>
       <button
-        style="background-color: #7eae43"
         class="btn btn-success w-100 mt-3"
         (click)="findByEmailAndPassword()"
-        [disabled]="loadingFindByEmailAndPassword || (!user.password && !user.email)"
+        [disabled]="
+          loadingFindByEmailAndPassword || (!user.password && !user.email)
+        "
       >
         <i
           class="fa fa-circle-notch fa-spin"
@@ -45,6 +46,12 @@
         ></i>
         Ingresar
       </button>
+      <a
+        href="https://virtual-fair.s3-sa-east-1.amazonaws.com/app-desktop/app-desktop.rar"
+        class="btn btn-outline-info w-100 mt-3 download-app"
+      >
+        Descarga la aplicación de escritorio
+      </a>
       <!-- <div class="form-group text-center">
           <a class="btn btn-link btn-sm text-dark" routerLink="/recovery-password">Recuperar contraseña</a>
         </div> -->

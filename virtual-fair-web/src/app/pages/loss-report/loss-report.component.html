@@ -1,0 +1,108 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div
+            class="card-header card-header-danger row justify-content-between align-items-center"
+          >
+            <div class="col-4">
+              <h4 class="card-title">Pérdidas de frutas</h4>
+              <p class="card-category">
+                Lista de frutas que no pudieron venderse
+              </p>
+            </div>
+            <div
+              class="col d-flex align-middle justify-content-end align-items-center"
+            >
+              Desde:
+              <input
+                style="margin-left: 5px; margin-right: 15px; max-width: 140px"
+                id="date-from"
+                type="date"
+                class="form-control"
+                [(ngModel)]="dateFrom"
+              />
+              Hasta:
+              <input
+                style="margin-left: 5px; max-width: 140px"
+                id="date-to"
+                type="date"
+                class="form-control"
+                [(ngModel)]="dateTo"
+              />
+              <button
+                (click)="getLossReport()"
+                class="ml-3 btn btn-md btn-success"
+              >
+                Obtener Reporte
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div
+              *ngIf="fruitLossReports.length === 0 && hasSearched"
+              class="col text-center py-4"
+            >
+              No se encontraron reportes de pérdidas en el rango de fecha actual
+            </div>
+            <div
+            *ngIf="!hasSearched"
+            class="col text-center py-4"
+          >
+            Elige una fecha de inicio y de fin para generar un reporte
+          </div>
+            <div class="summary row" *ngIf="summaryReport">
+              <div class="col d-flex align-items-center">
+                <span>Producto más perdido: </span>
+                {{ summaryReport.mostLostProduct }}
+              </div>
+              <div class="col d-flex align-items-center">
+                <span>Peso total pérdida Kg: </span>
+                {{ summaryReport.totalWeightLoss }}
+              </div>
+              <div class="col d-flex align-items-center">
+                <span>Costo total pérdida: </span>
+                ${{ summaryReport.totalCostLoss }}
+              </div>
+              <div class="d-flex justify-content-end">
+                <button
+                  (click)="downloadLossReport()"
+                  class="ml-3 btn btn-md btn-info"
+                >
+                  Descargar Reporte
+                </button>
+              </div>
+            </div>
+            <div class="table-responsive" *ngIf="fruitLossReports.length > 0">
+              <table class="table">
+                <thead class="text-primary">
+                  <th class="text-center">ID Proceso Venta</th>
+                  <th class="text-center">Producto</th>
+                  <th class="text-center">Peso Kg</th>
+                  <th class="text-center">Solicitante</th>
+                  <th class="text-center">Fecha</th>
+                  <th class="text-center">Costo pérdida</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let fruitLossReport of fruitLossReports">
+                    <td class="text-center">
+                      {{ fruitLossReport.idPurchaseRequest }}
+                    </td>
+                    <td class="text-center">{{ fruitLossReport.product }}</td>
+                    <td class="text-center">{{ fruitLossReport.weight }}</td>
+                    <td class="text-center">{{ fruitLossReport.client }}</td>
+                    <td class="text-center">
+                      {{ fruitLossReport.date | date: "dd-MM-yyyy" }}
+                    </td>
+                    <td class="text-center">{{ fruitLossReport.costLoss }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

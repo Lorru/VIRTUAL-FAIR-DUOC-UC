@@ -41,6 +41,9 @@ import { AuctionListComponent } from "../auction-list/auction-list.component";
 import { AddAuctionComponent } from "../auction-list/add-auction/add-auction.component";
 import { SlickCarouselModule } from "ngx-slick-carousel";
 import { AuctionViewComponent } from "../auction-list/auction-view/auction-view.component";
+import { LossReportComponent } from "../loss-report/loss-report.component";
+import { BuyResidueComponent } from "../buy-residue/buy-residue.component";
+import { BuyResidueCreateComponent } from "../buy-residue/buy-residue-create/buy-residue-create.component";
 
 @NgModule({
   imports: [
@@ -86,7 +89,10 @@ import { AuctionViewComponent } from "../auction-list/auction-view/auction-view.
     SalesProcessProdWinnersComponent,
     AuctionListComponent,
     AddAuctionComponent,
-    AuctionViewComponent
+    AuctionViewComponent,
+    LossReportComponent,
+    BuyResidueComponent,
+    BuyResidueCreateComponent
   ],
   providers: [UtilsService],
 })

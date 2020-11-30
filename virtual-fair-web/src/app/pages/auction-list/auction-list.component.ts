@@ -14,8 +14,15 @@ import { UserService } from "app/services/user.service";
 })
 export class AuctionListComponent implements OnInit {
   auctions: Array<any> = new Array<any>();
+  participatingAuctions: Array<any> = new Array<any>();
+
   displayedAuctions: Array<any> = [];
+  displayedParticipatingAuctionss: Array<any> = [];
+
+
   searcher: string;
+  searcherParticipating: string;
+
   loadingFindAll: boolean;
   searchTerm: string;
 
@@ -30,7 +37,8 @@ export class AuctionListComponent implements OnInit {
     public _dialog: MatDialog,
     private _activatedRoute: ActivatedRoute,
     private _datePipe: DatePipe,
-    private _userService: UserService
+    private _userService: UserService,
+    private _router: Router
   ) {
     this.profileId = this._userService.getUser().idProfile;
     this._activatedRoute.params.subscribe((params) => {
@@ -42,7 +50,7 @@ export class AuctionListComponent implements OnInit {
     if (this.profileId === 1) {
       this.findAll();
     } else {
-      this.findByIsPublicEqualToOne();
+      this.findByIdCarrierAndIsPublicEqualToOne();
     }
   }
 
@@ -74,6 +82,8 @@ export class AuctionListComponent implements OnInit {
 
           if(!auctionToLookFor && this.saleProcessIdToLookFor && !this.openedAddAuction) {
             this.addAuction(this.saleProcessIdToLookFor);
+          } else if(auctionToLookFor) {
+            this._router.navigate(['/main/auction-list/view', auctionToLookFor.id]);
           }
         } else if (res.statusCode == 204) {
           this.loadingFindAll = false;
@@ -109,6 +119,7 @@ export class AuctionListComponent implements OnInit {
         if (res.statusCode == 200) {
           this.loadingFindAll = false;
           this.auctions = res.transportAuctions;
+          this.auctions = this.auctions.filter(auction => auction.purchaseRequest.idPurchaseRequestStatus === 4 && !this.participatingAuctions.find(partAuction => partAuction.id === auction.id));
           this.auctions.map(
             (auction) =>
               (auction.displayInfo = {
@@ -147,6 +158,54 @@ export class AuctionListComponent implements OnInit {
     );
   }
 
+  findByIdCarrierAndIsPublicEqualToOne() {
+    this.loadingFindAll = true;
+
+    this._transportAuctionService.findByIdCarrierAndIsPublicEqualToOne(this._userService.getUser().id).subscribe(
+      (res) => {
+        this.findByIsPublicEqualToOne();
+        if (res.statusCode == 200) {
+          this.loadingFindAll = false;
+          this.participatingAuctions = res.transportAuctions;
+          this.participatingAuctions.map(
+            (auction) =>
+              (auction.displayInfo = {
+                id: auction.id,
+                idPurchaseRequest: auction.idPurchaseRequest,
+                solicitedBy: auction.purchaseRequest.client.fullName,
+                limitDate: this._datePipe.transform(
+                  auction.desiredDate,
+                  "dd/MM/yyyy"
+                ),
+                status: auction.purchaseRequest.purchaseRequestStatus.name
+              })
+          );
+          this.participatingAuctions = this.participatingAuctions.sort((a, b) => a.id - b.id);
+          this.displayedParticipatingAuctionss = JSON.parse(JSON.stringify(this.participatingAuctions));
+        } else if (res.statusCode == 204) {
+          this.loadingFindAll = false;
+          this.displayedParticipatingAuctionss = res.auctions;
+          if (res.message) {
+            //this._toastrService.error(res.message);
+          }
+        } else if (res.statusCode == 403) {
+          this.loadingFindAll = false;
+          this.router.navigateByUrl("/");
+          localStorage.clear();
+        } else if (res.statusCode == 500) {
+          this.loadingFindAll = false;
+          //this._toastrService.error(res.message);
+        }
+      },
+      (error) => {
+        this.loadingFindAll = false;
+        //this._toastrService.error(environment.MESSAGE_ERROR_INTERNAL_API);
+        console.clear();
+      }
+    );
+  }
+
+
 
 
 
@@ -181,6 +240,12 @@ export class AuctionListComponent implements OnInit {
 
   searchAuctions() {
     this.displayedAuctions = this.auctions.filter((auction) =>
+      this.filterAuctionsDisplayInfo(auction)
+    );
+  }
+
+  searchAuctionsParticipating() {
+    this.displayedParticipatingAuctionss = this.participatingAuctions.filter((auction) =>
       this.filterAuctionsDisplayInfo(auction)
     );
   }

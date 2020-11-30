@@ -16,8 +16,6 @@ export class PurchaseRequestViewComponent implements OnInit {
   purchaseRequestId: number;
   requestedProducts: Array<any> = [];
 
-  stringSalesProcessType: string;
-
   constructor(
     private _purchaseRequestProductService: PurchaseRequestProductService,
     private _activatedRoute: ActivatedRoute,
@@ -41,11 +39,6 @@ export class PurchaseRequestViewComponent implements OnInit {
       .subscribe((res) => {
         if (res.statusCode === 200) {
           this.requestedProducts = res.purchaseRequestProducts;
-          this.stringSalesProcessType =
-          res.purchaseRequestProducts[0].purchaseRequest
-            .idPurchaseRequestType === 1
-            ? "local"
-            : "extranjero";
         } else {
           const notificationData: any = {
             message:

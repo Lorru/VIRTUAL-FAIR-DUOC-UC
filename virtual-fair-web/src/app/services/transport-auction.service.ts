@@ -46,9 +46,9 @@ export class TransportAuctionService {
     return this.httpClient.get(URL, { headers: this.httpHeaders.append('Authorization', JSON.parse(localStorage.getItem('sessionToken')).token) });
   }
 
-  findByIdCarrier(idCarrier: number) : Observable<any>{
+  findByIdCarrierAndIsPublicEqualToOne(idCarrier: number) : Observable<any>{
 
-    let URL_TRANSPORT_AUCTION: string = this.URL_API + 'findByIdCarrier/' + idCarrier;
+    let URL_TRANSPORT_AUCTION: string = this.URL_API + 'findByIdCarrierAndIsPublicEqualToOne/' + idCarrier;
 
     return this.httpClient.get(URL_TRANSPORT_AUCTION, { headers: this.httpHeaders.append('Authorization', JSON.parse(localStorage.getItem('sessionToken')).token) });
   }
@@ -57,6 +57,17 @@ export class TransportAuctionService {
     let URL: string = this.URL_API + "create";
 
     return this.httpClient.post(URL, JSON.stringify(auctionData), {
+      headers: this.httpHeaders.append(
+        "Authorization",
+        JSON.parse(localStorage.getItem("sessionToken")).token
+      ),
+    });
+  }
+
+  updateIsPublicById(id: number, body: any): Observable<any> {
+    let URL: string = this.URL_API + "updateIsPublicById/" + id;
+
+    return this.httpClient.put(URL, JSON.stringify(body), {
       headers: this.httpHeaders.append(
         "Authorization",
         JSON.parse(localStorage.getItem("sessionToken")).token

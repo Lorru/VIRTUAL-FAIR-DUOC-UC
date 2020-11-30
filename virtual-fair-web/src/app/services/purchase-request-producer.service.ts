@@ -78,4 +78,15 @@ export class PurchaseRequestProducerService {
       ),
     });
   }
+
+  findByIdPurchaseRequestAndIdProducerAndIsParticipantEqualToOne(idPurchaseRequest, idProducer) {
+    let URL: string = `${this.URL_API}findByIdPurchaseRequestAndIdProducerAndIsParticipantEqualToOne/${idPurchaseRequest}/${idProducer}`;
+
+    return this.httpClient.get(URL, {
+      headers: this.httpHeaders.append(
+        "Authorization",
+        JSON.parse(localStorage.getItem("sessionToken")).token
+      ),
+    });
+  }
 }

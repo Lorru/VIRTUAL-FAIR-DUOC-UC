@@ -22,6 +22,11 @@ import { ContractListComponent } from "../contract-list/contract-list.component"
 import { AuctionListComponent } from "../auction-list/auction-list.component";
 import { TransportAuctionGuard } from "app/guards/transport-auction.guard";
 import { AuctionViewComponent } from "../auction-list/auction-view/auction-view.component";
+import { LossReportComponent } from "../loss-report/loss-report.component";
+import { ReportGuard } from "app/guards/report.guard";
+import { BuyResidueComponent } from "../buy-residue/buy-residue.component";
+import { BuyResidueGuard } from "app/guards/buy-residue.guard";
+import { BuyResidueCreateComponent } from "../buy-residue/buy-residue-create/buy-residue-create.component";
 
 export const MainLayoutRoutes: Routes = [
   // {
@@ -77,9 +82,10 @@ export const MainLayoutRoutes: Routes = [
     children: [
       { path: "dashboard", component: DashboardComponent, data: {title: "Dashboard"} },
       { path: "user-list", component: UserListComponent, canActivate: [UserGuard], data: {title: "Lista de Usuarios"} },
-      { path: "purchase-request", component: PurchaseRequestComponent, canActivate: [PurchaseRequestGuard], data: {title: "Solicitudes de Compra"} },
-      { path: "purchase-request/create", component: PurchaseRequestCreateComponent, canActivate: [PurchaseRequestGuard], data: {title: "Crear Solicitud de Compra"} },
-      { path: "purchase-request/view/:id", component: PurchaseRequestViewComponent, canActivate: [PurchaseRequestGuard], data: {title: "Detalle Solicitud de Compra"} },
+      { path: "purchase-request", component: PurchaseRequestComponent, canActivate: [PurchaseRequestGuard], data: {title: "Compra de Productos"} },
+      { path: "purchase-request/create", component: PurchaseRequestCreateComponent, canActivate: [PurchaseRequestGuard], data: {title: "Crear Solicitud de Compra de Productos"} },
+      { path: "purchase-request/create/:type", component: PurchaseRequestCreateComponent, canActivate: [PurchaseRequestGuard], data: {title: "Crear Solicitud de Compra de Productos"} },
+      { path: "purchase-request/view/:id", component: PurchaseRequestViewComponent, canActivate: [PurchaseRequestGuard], data: {title: "Detalle Solicitud de Compra de Producto"} },
       { path: "user-list/user-profile/:userDataEncoded", component: UserProfileComponent },
       { path: "my-profile", component: UserProfileComponent },
       { path: "sales-process", component: SalesProcessComponent, canActivate: [SalesProcessGuard], data: {title: "Procesos de Venta" }},
@@ -87,7 +93,10 @@ export const MainLayoutRoutes: Routes = [
       { path: "contract-list", component: ContractListComponent, canActivate: [UserGuard], data: {title: "Lista de Contratos"} },
       { path: "auction-list", component: AuctionListComponent, canActivate: [TransportAuctionGuard], data: {title: "Subastas de Transporte"} },
       { path: "auction-list/:id", component: AuctionListComponent, canActivate: [UserGuard], data: {title: "Subastas de Transporte"} },
-      { path: "auction/:id", component: AuctionViewComponent, canActivate: [TransportAuctionGuard], data: {title: "Subasta de Transporte"} },
+      { path: "auction-list/view/:id", component: AuctionViewComponent, canActivate: [TransportAuctionGuard], data: {title: "Subasta de Transporte"} },
+      { path: "loss-report", component: LossReportComponent, canActivate: [ReportGuard], data: {title: "Pérdidas de fruta"} },
+      { path: "buy-residue", component: BuyResidueComponent, canActivate: [BuyResidueGuard], data: {title: "Comprar Productos"} },
+      { path: "buy-residue/create", component: BuyResidueCreateComponent, canActivate: [BuyResidueGuard], data: {title: "Comprar Saldo"} },
 
       { path: "typography", component: TypographyComponent },
       { path: "icons", component: IconsComponent },

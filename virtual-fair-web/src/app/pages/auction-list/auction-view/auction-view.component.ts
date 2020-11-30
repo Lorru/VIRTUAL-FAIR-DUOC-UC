@@ -32,6 +32,10 @@ export class AuctionViewComponent implements OnInit {
 
   offer: number;
 
+  processingAdvancingStatus: boolean;
+
+  isUserWinner: boolean;
+
   constructor(
     private _transportAuctionService: TransportAuctionService,
 
@@ -52,27 +56,27 @@ export class AuctionViewComponent implements OnInit {
 
   ngOnInit() {
     this.findById();
-
   }
 
   findById() {
-    this._transportAuctionService.findById(this.auctionId).subscribe((res: any) => {
-      if (res.statusCode == 200) {
-        this.auction = res.transportAuction;
-        this.purchaseRequestStatus = this.auction.purchaseRequest.idPurchaseRequestStatus;
+    this._transportAuctionService
+      .findById(this.auctionId)
+      .subscribe((res: any) => {
+        if (res.statusCode == 200) {
+          this.auction = res.transportAuction;
+          this.purchaseRequestStatus = this.auction.purchaseRequest.idPurchaseRequestStatus;
 
-        this.setRequestedProducts(callback => {
-          if(this.purchaseRequestStatus === 3 && this.isAdmin) {
-            this.getWinners();
-          } else {
-            this.getAuctionParticipation();
-          }
-    
-        });
-      } else {
-      }
-      console.log("auction res", res);
-    })
+          this.setRequestedProducts((callback) => {
+            if (this.purchaseRequestStatus === 5 && this.isAdmin) {
+              this.getWinners();
+            } else {
+              this.getAuctionParticipation();
+            }
+          });
+        } else {
+        }
+        console.log("auction res", res);
+      });
   }
 
   setRequestedProducts(callback) {
@@ -84,8 +88,8 @@ export class AuctionViewComponent implements OnInit {
           this.stringSalesProcessType =
             res.purchaseRequestProducts[0].purchaseRequest
               .idPurchaseRequestType === 1
-              ? "extranjero"
-              : "local";
+              ? "local"
+              : "extranjero";
           callback(true);
         } else {
           const notificationData: any = {
@@ -153,7 +157,9 @@ export class AuctionViewComponent implements OnInit {
     const modalData: any = {
       title: "Confirmar registro de oferta",
       message:
-        "¿Confirmas que deseas participar en la subasta con ID: " + this.auctionId + "?",
+        "¿Confirmas que deseas participar en la subasta con ID: " +
+        this.auctionId +
+        "?",
     };
     this._utilsService
       .openConfirmationModal(modalData)
@@ -164,8 +170,8 @@ export class AuctionViewComponent implements OnInit {
             idCarrier: this._userService.getUser().idProfile,
             idTransportAuction: this.auctionId,
             isParticipant: 1,
-            price: this.offer
-          }
+            price: this.offer,
+          };
 
           this._transportAuctionCarrierService
             .create(body)
@@ -178,11 +184,22 @@ export class AuctionViewComponent implements OnInit {
                 };
                 this.getAuctionParticipation();
               } else {
-                notificationData = {
-                  message:
-                    "Hubo un problema al intentar registrar la oferta en el proceso.",
-                  resultType: "failure",
-                };
+                if (
+                  res.message ===
+                  "El contrato para poder realizar una oferta de una solicitud de compra hacia el extranjero no es válido."
+                ) {
+                  notificationData = {
+                    message:
+                      "El contrato para poder realizar una oferta de una solicitud de compra hacia el extranjero no es válido.",
+                    resultType: "failure",
+                  };
+                } else {
+                  notificationData = {
+                    message:
+                      "Hubo un problema al intentar registrar la oferta en el proceso.",
+                    resultType: "failure",
+                  };
+                }
               }
               this._utilsService.showNotification(notificationData);
             });
@@ -196,6 +213,22 @@ export class AuctionViewComponent implements OnInit {
       .subscribe((res: any) => {
         if (res.statusCode === 200 || res.statusCode === 204) {
           this.participants = res.transportAuctionCarriers;
+          this.participants = this.participants.sort(
+            (a, b) => a.price - b.price
+          );
+          const thisCarrier: any = this.participants.find(
+            (participant) =>
+              participant.idCarrier === this._userService.getUser().id
+          );
+          this.canSaveParticipation = !thisCarrier;
+          if (thisCarrier) {
+            this.offer = thisCarrier.price;
+          }
+          if (this.participants[0]) {
+            this.isUserWinner =
+              this.participants[0].idCarrier === this._userService.getUser().id;
+          }
+          //this.canSaveParticipation = this.participants.find(participant => participant.id === this._userService.getUser().id);
         } else {
           let notificationData = {
             message:
@@ -249,9 +282,11 @@ export class AuctionViewComponent implements OnInit {
 
   publish(id: number) {
     const modalData: any = {
-      title: "Publicar Proceso de Venta ID: " + id,
+      title: "Publicar subasta de transporte con ID: " + id,
       message:
-        "¿Confirmas que deseas publicar el proceso de venta con ID " + id + "?",
+        "¿Confirmas que deseas publicar la subasta de transporte con ID " +
+        id +
+        "?",
     };
     this._utilsService
       .openConfirmationModal(modalData)
@@ -265,9 +300,9 @@ export class AuctionViewComponent implements OnInit {
 
   unpublish(id: number) {
     const modalData: any = {
-      title: "Quitar Publicación Proceso de Venta ID: " + id,
+      title: "Quitar publicación de subasta de transporte con ID: " + id,
       message:
-        "¿Confirmas que deseas quitar la publicación del proceso de venta con ID " +
+        "¿Confirmas que deseas quitar la publicación de la subasta de transporte con ID " +
         id +
         "?",
     };
@@ -283,20 +318,19 @@ export class AuctionViewComponent implements OnInit {
 
   updateIsPublicById(id: number, isPublic: number) {
     const body: any = { id: id, isPublic: isPublic };
-    this._purchaseRequestService
+    this._transportAuctionService
       .updateIsPublicById(id, body)
       .subscribe((res: any) => {
         let notificationData: any;
         if (res.statusCode === 200) {
           notificationData = {
-            message: "La actualización del proceso de venta fue exitosa.",
+            message: "La actualización de la subasta fue exitosa.",
             resultType: "success",
           };
           this.ngOnInit();
         } else {
           notificationData = {
-            message:
-              "Hubo un error al intentar actualizar el proceso de venta.",
+            message: "Hubo un error al intentar actualizar la subasta.",
             resultType: "failure",
           };
         }
@@ -304,49 +338,89 @@ export class AuctionViewComponent implements OnInit {
       });
   }
 
-  setWinners() {
-    // this._dialog
-    //   .open(SalesProcessProdWinnersComponent, {
-    //     data: {
-    //       auctionId: this.auctionId
-    //     },
-    //     width: "700px",
-    //   })
-    //   .afterClosed()
-    //   .subscribe((res) => {
-    //     if(res) {
-    //       this.ngOnInit();
-    //     }
-    //   });
-  }
-
-  getWinners() {
-    this._purchaseRequestProducerService
-      .getParticipantsByIdPurchaseRequest(this.auctionId)
+  finalizeAuction() {
+    const modalData: any = {
+      title: "Aceptar mejor oferta",
+      message:
+        "¿Confirmas que deseas aceptar la oferta de $" +
+        this.participants[0].price +
+        " de " +
+        this.participants[0].carrier.fullName +
+        "?",
+    };
+    this._utilsService
+      .openConfirmationModal(modalData)
+      .afterClosed()
       .subscribe((res: any) => {
-        this.participants = res.purchaseRequestProducers || [];
+        if (res) {
+          this.advanceStatus(10);
+        }
       });
   }
 
-  validateWeight(requestedProduct: any) {
-    const weightToAdd: number = this.transportParticipation[requestedProduct.id].weight;
-    if(weightToAdd > requestedProduct.weight || weightToAdd <= 0) {
-      this.transportParticipation[requestedProduct.id].weight = undefined;
-    }
+  initTransport() {
+    const modalData: any = {
+      title: "Inicio transporte",
+      message: "¿Confirmas que deseas registrar el inicio de transporte?",
+    };
+    this._utilsService
+      .openConfirmationModal(modalData)
+      .afterClosed()
+      .subscribe((res: any) => {
+        if (res) {
+          this.advanceStatus(6);
+        }
+      });
   }
 
-  // setMostlikelyToWInPerProduct() {
-  //   this.requestedProducts.forEach((product: any) => {
-  //     const productParticipants: Array<any> = this.participants.filter(
-  //       (participant) => participant.idPurchaseRequestProduct == product.id
-  //     );
-  //     if (productParticipants.length > 0) {
-  //       const product.lowestPriceBid = productParticipants.reduce((a, b) => {
-  //         return a.price < b.price ? a.price : b.price;
-  //       });
-  //       product.lowestPriceBid =
-  //       console.log("lowest", product.lowestPriceBid);
-  //     }
-  //   });
-  // }
+  deliver() {
+    const modalData: any = {
+      title: "Registrar entrega",
+      message:
+        "¿Confirmas que deseas registrar que has entregado los productos?",
+    };
+    this._utilsService
+      .openConfirmationModal(modalData)
+      .afterClosed()
+      .subscribe((res: any) => {
+        if (res) {
+          this.advanceStatus(7);
+        }
+      });
+  }
+
+  advanceStatus(statusId: number) {
+    this.processingAdvancingStatus = true;
+    const body: any = {
+      id: this.auction.idPurchaseRequest,
+      idPurchaseRequestStatus: statusId,
+    };
+    this._purchaseRequestService
+      .updateStatusById(this.auction.idPurchaseRequest, body)
+      .subscribe((res: any) => {
+        this.processingAdvancingStatus = false;
+        let notificationData: any;
+        if (res.statusCode === 200) {
+          notificationData = {
+            message: "Estado actualizado exitosamente.",
+            resultType: "success",
+          };
+          this.ngOnInit();
+        } else {
+          notificationData = {
+            message: "Hubo un problema al intentar actualizar el estado.",
+            resultType: "failure",
+          };
+        }
+        this._utilsService.showNotification(notificationData);
+      });
+  }
+
+  getWinners() {
+    this._transportAuctionCarrierService
+      .getParticipantByIdPurchaseRequest(this.auction.idPurchaseRequest)
+      .subscribe((res: any) => {
+        this.participants = [res.transportAuctionCarrier] || [];
+      });
+  }
 }

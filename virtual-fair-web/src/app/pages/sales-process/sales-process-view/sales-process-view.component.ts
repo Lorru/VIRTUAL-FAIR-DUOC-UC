@@ -4,6 +4,8 @@ import { ActivatedRoute } from "@angular/router";
 import { PurchaseRequestProducerService } from "app/services/purchase-request-producer.service";
 import { PurchaseRequestProductService } from "app/services/purchase-request-product.service";
 import { PurchaseRequestService } from "app/services/purchase-request.service";
+import { ReportService } from "app/services/report.service";
+import { TransportAuctionCarrierService } from "app/services/transport-auction-carrier.service";
 import { UserService } from "app/services/user.service";
 import { UtilsService } from "app/utils/utils.service";
 import { SalesProcessProdWinnersComponent } from "../sales-process-prod-winners/sales-process-prod-winners.component";
@@ -20,6 +22,8 @@ export class SalesProcessViewComponent implements OnInit {
 
   participants: Array<any> = [];
 
+  transportParticipants: Array<any> = [];
+
   stringSalesProcessType: string = "";
 
   isProducerParticipating: boolean = false;
@@ -28,6 +32,10 @@ export class SalesProcessViewComponent implements OnInit {
   purchaseRequestStatus: number;
   isAdmin: boolean;
 
+  isProducerWinner: boolean;
+
+  participatingText: string;
+
   constructor(
     private _purchaseRequestProductService: PurchaseRequestProductService,
     private _activatedRoute: ActivatedRoute,
@@ -35,7 +43,9 @@ export class SalesProcessViewComponent implements OnInit {
     private _userService: UserService,
     private _utilsService: UtilsService,
     private _purchaseRequestProducerService: PurchaseRequestProducerService,
-    public _dialog: MatDialog
+    public _dialog: MatDialog,
+    private _reportService: ReportService,
+    private _transportAuctionCarrier: TransportAuctionCarrierService
   ) {
     this.isAdmin = this._userService.getUser().idProfile === 1;
     this._activatedRoute.params.subscribe((params) => {
@@ -44,14 +54,28 @@ export class SalesProcessViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setRequestedProducts(callback => {
+    this.setRequestedProducts((callback) => {
       this.purchaseRequestStatus = this.requestedProducts[0].purchaseRequest.idPurchaseRequestStatus;
-      if(this.purchaseRequestStatus === 3 && this.isAdmin) {
+      if (this.purchaseRequestStatus === 3 && this.isAdmin) {
         this.getWinners();
       } else {
         this.getProducerParticipation();
+        if (this.isAdmin) {
+          this.getTransportistParticipation();
+        }
       }
 
+      if (this.purchaseRequestStatus >= 3 && this._userService.getUser().idProfile === 3) {
+        this.getIfProducerIsWinner();
+      }
+    });
+  }
+
+  getIfProducerIsWinner() {
+    this._purchaseRequestProducerService.findByIdPurchaseRequestAndIdProducerAndIsParticipantEqualToOne(this.purchaseRequestId, this._userService.getUser().id).subscribe((res: any) => {
+      if (res.statusCode === 200) {
+        this.isProducerWinner = res.result;
+      }
     });
   }
 
@@ -64,8 +88,8 @@ export class SalesProcessViewComponent implements OnInit {
           this.stringSalesProcessType =
             res.purchaseRequestProducts[0].purchaseRequest
               .idPurchaseRequestType === 1
-              ? "extranjero"
-              : "local";
+              ? "local"
+              : "extranjero";
           callback(true);
         } else {
           const notificationData: any = {
@@ -86,31 +110,122 @@ export class SalesProcessViewComponent implements OnInit {
     });
   }
 
-  acceptDelivery() {
-    const body: any = {
-      id: this.purchaseRequestId,
-      idClient: this._userService.getUser().id,
-      idPurchaseRequestStatus: 8,
+  abandonProcess() {
+    const modalData: any = {
+      title: "Abandonar proceso",
+      message:
+        "¿Confirmas que deseas abandonar este proceso de venta? No se podrán realizar futuras acciones sobre este proceso.",
     };
-    this._purchaseRequestService
-      .updateStatusById(this.purchaseRequestId, body)
+    this._utilsService
+      .openConfirmationModal(modalData)
+      .afterClosed()
       .subscribe((res: any) => {
-        console.log("acceptDelivery", res);
-        let notificationData: any;
-        if (res.statusCode === 200) {
-          notificationData = {
-            message:
-              "Entrega registrada como recibida. Proceso de compra finalizado",
-            resultType: "success",
+        if (res) {
+          const body: any = {
+            id: this.purchaseRequestId,
+            idClient: this._userService.getUser().id,
+            idPurchaseRequestStatus: 2,
           };
-          this.ngOnInit();
-        } else {
-          notificationData = {
-            message: "Hubo un problema al intentar finalizar el proceso.",
-            resultType: "failure",
-          };
+          this._purchaseRequestService
+            .updateStatusById(this.purchaseRequestId, body)
+            .subscribe((res: any) => {
+              console.log("acceptDelivery", res);
+              let notificationData: any;
+              if (res.statusCode === 200) {
+                notificationData = {
+                  message: "Proceso abandonado exitosamente.",
+                  resultType: "success",
+                };
+                this.ngOnInit();
+              } else {
+                notificationData = {
+                  message: "Hubo un problema al intentar cambiar el estado.",
+                  resultType: "failure",
+                };
+              }
+              this._utilsService.showNotification(notificationData);
+            });
         }
-        this._utilsService.showNotification(notificationData);
+      });
+  }
+
+  reopenParticipation() {
+    const modalData: any = {
+      title: "Reabrir participación",
+      message:
+        "¿Confirmas que deseas reabrir la participación de este proceso de venta? El estado cambiará a 'Solicitado'.",
+    };
+    this._utilsService
+      .openConfirmationModal(modalData)
+      .afterClosed()
+      .subscribe((res: any) => {
+        if (res) {
+          const body: any = {
+            id: this.purchaseRequestId,
+            idClient: this._userService.getUser().id,
+            idPurchaseRequestStatus: 1,
+          };
+          this._purchaseRequestService
+            .updateStatusById(this.purchaseRequestId, body)
+            .subscribe((res: any) => {
+              console.log("acceptDelivery", res);
+              let notificationData: any;
+              if (res.statusCode === 200) {
+                notificationData = {
+                  message:
+                    "Proceso de venta reabierta a participación exitosamente.",
+                  resultType: "success",
+                };
+                this.ngOnInit();
+              } else {
+                notificationData = {
+                  message: "Hubo un problema al intentar cambiar el estado.",
+                  resultType: "failure",
+                };
+              }
+              this._utilsService.showNotification(notificationData);
+            });
+        }
+      });
+  }
+
+  enableTransport() {
+    const modalData: any = {
+      title: "Habilitar Transporte",
+      message:
+        "¿Confirmas que deseas habilitar el transporte de este proceso de venta? El estado cambiará a 'En bodega'.",
+    };
+    this._utilsService
+      .openConfirmationModal(modalData)
+      .afterClosed()
+      .subscribe((res: any) => {
+        if (res) {
+          const body: any = {
+            id: this.purchaseRequestId,
+            idClient: this._userService.getUser().id,
+            idPurchaseRequestStatus: 5,
+          };
+          this._purchaseRequestService
+            .updateStatusById(this.purchaseRequestId, body)
+            .subscribe((res: any) => {
+              console.log("acceptDelivery", res);
+              let notificationData: any;
+              if (res.statusCode === 200) {
+                notificationData = {
+                  message:
+                    "Proceso de venta habilitada para transporte exitosamente.",
+                  resultType: "success",
+                };
+                this.ngOnInit();
+              } else {
+                notificationData = {
+                  message: "Hubo un problema al intentar cambiar el estado.",
+                  resultType: "failure",
+                };
+              }
+              this._utilsService.showNotification(notificationData);
+            });
+        }
       });
   }
 
@@ -149,6 +264,9 @@ export class SalesProcessViewComponent implements OnInit {
                   .idPurchaseRequestProduct,
                 price: this.productParticipacion[key].price,
                 weight: this.productParticipacion[key].weight,
+                expirationDate: new Date(
+                  this.productParticipacion[key].expirationDate
+                ),
               };
 
               body.push(participation);
@@ -166,11 +284,22 @@ export class SalesProcessViewComponent implements OnInit {
                 };
                 this.getProducerParticipation();
               } else {
-                notificationData = {
-                  message:
-                    "Hubo un problema al intentar registrar la participación en el proceso.",
-                  resultType: "failure",
-                };
+                if (
+                  res.message ===
+                  "El contrato para poder participar de una solicitud de compra hacia el extranjero no es válido."
+                ) {
+                  notificationData = {
+                    message:
+                      "El contrato para poder participar de una solicitud de compra hacia el extranjero no es válido.",
+                    resultType: "failure",
+                  };
+                } else {
+                  notificationData = {
+                    message:
+                      "Hubo un problema al intentar registrar la participación en el proceso.",
+                    resultType: "failure",
+                  };
+                }
               }
               this._utilsService.showNotification(notificationData);
             });
@@ -199,6 +328,30 @@ export class SalesProcessViewComponent implements OnInit {
       });
   }
 
+  getTransportistParticipation() {
+    this._transportAuctionCarrier
+      .findByIdPurchaseRequest(this.purchaseRequestId)
+      .subscribe((res: any) => {
+        if (res.statusCode === 200 || res.statusCode === 204) {
+          this.transportParticipants = res.transportAuctionCarriers;
+          this.transportParticipants = this.transportParticipants.sort(
+            (a, b) => a.price - b.price
+          );
+          //this.findProducerParticipation();
+        } else {
+          let notificationData = {
+            message:
+              "Hubo un problema al intentar obtener la lista de participantes del proceso.",
+            resultType: "failure",
+          };
+
+          this._utilsService.showNotification(notificationData);
+        }
+
+        console.log("transportist participants", res);
+      });
+  }
+
   findProducerParticipation() {
     this.initMapProductParticipacion();
 
@@ -209,6 +362,9 @@ export class SalesProcessViewComponent implements OnInit {
         this.productParticipacion[participant.idPurchaseRequestProduct] = {
           weight: participant.weight,
           price: participant.price,
+          expirationDate: new Date(participant.expirationDate)
+            .toISOString()
+            .substr(0, 10),
           isSet: true,
         };
       }
@@ -318,13 +474,13 @@ export class SalesProcessViewComponent implements OnInit {
     this._dialog
       .open(SalesProcessProdWinnersComponent, {
         data: {
-          purchaseRequestId: this.purchaseRequestId
+          purchaseRequestId: this.purchaseRequestId,
         },
         width: "700px",
       })
       .afterClosed()
       .subscribe((res) => {
-        if(res) {
+        if (res) {
           this.ngOnInit();
         }
       });
@@ -339,24 +495,54 @@ export class SalesProcessViewComponent implements OnInit {
   }
 
   validateWeight(requestedProduct: any) {
-    const weightToAdd: number = this.productParticipacion[requestedProduct.id].weight;
-    if(weightToAdd > requestedProduct.weight || weightToAdd <= 0) {
+    const weightToAdd: number = this.productParticipacion[requestedProduct.id]
+      .weight;
+    if (weightToAdd > requestedProduct.weight || weightToAdd <= 0) {
       this.productParticipacion[requestedProduct.id].weight = undefined;
     }
   }
 
-  // setMostlikelyToWInPerProduct() {
-  //   this.requestedProducts.forEach((product: any) => {
-  //     const productParticipants: Array<any> = this.participants.filter(
-  //       (participant) => participant.idPurchaseRequestProduct == product.id
-  //     );
-  //     if (productParticipants.length > 0) {
-  //       const product.lowestPriceBid = productParticipants.reduce((a, b) => {
-  //         return a.price < b.price ? a.price : b.price;
-  //       });
-  //       product.lowestPriceBid =
-  //       console.log("lowest", product.lowestPriceBid);
-  //     }
-  //   });
-  // }
+  sendReport() {
+    const modalData: any = {
+      title: "Enviar reportes a participantes",
+      message:
+        "¿Confirmas que deseas enviar un reporte de venta a los correos de los participantes?",
+    };
+    this._utilsService
+      .openConfirmationModal(modalData)
+      .afterClosed()
+      .subscribe((res: any) => {
+        if (res) {
+          this._reportService
+            .sendReportToParticipantsByIdPurchaseRequest(this.purchaseRequestId)
+            .subscribe((res: any) => {
+              let notificationData: any;
+              if (res.statusCode === 200) {
+                notificationData = {
+                  message: "Los reportes fueron enviados exitosamente",
+                  resultType: "success",
+                };
+                this.ngOnInit();
+              } else {
+                notificationData = {
+                  message: "Hubo un error al intentar enviar los reportes.",
+                  resultType: "failure",
+                };
+              }
+              this._utilsService.showNotification(notificationData);
+            });
+        }
+      });
+  }
+
+  getIifProcerWinner() {
+    this._purchaseRequestProducerService
+      .findByIdPurchaseRequestAndIdProducerAndIsParticipantEqualToOne(
+        this.purchaseRequestId,
+        this._userService.getUser().id
+      )
+      .subscribe((res: any) => {
+        this.participants = res.purchaseRequestProducers || [];
+      });
+  }
 }

@@ -1,0 +1,24 @@
+.card-header .mat-icon {
+  margin-right: 5px;
+}
+
+.card-header-danger .placeholder {
+  color: whitesmoke;
+}
+
+::ng-deep .card-header-danger .mat-form-field-underline {
+  background-color: lightgray;
+}
+
+.summary {
+  background: #0000004f;
+  margin: 10px 0;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.summary span {
+  margin-right: 5px;
+  font-weight: bold;
+  color: #18daa2;
+}
