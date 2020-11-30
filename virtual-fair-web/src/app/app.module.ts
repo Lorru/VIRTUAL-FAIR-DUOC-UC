@@ -19,6 +19,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MainLayoutComponent } from './pages/main-layout/main-layout.component';
 import { LoginComponent } from './pages/login/login.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -35,9 +38,9 @@ import { LoginComponent } from './pages/login/login.component';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    })
+    MatTooltipModule,
+    MatIconModule,
+    MatDialogModule
   ],
   declarations: [
     AppComponent,

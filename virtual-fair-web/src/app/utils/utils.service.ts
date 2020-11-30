@@ -42,7 +42,7 @@ export class UtilsService {
       },
       {
         type: data.resultType === 'success' ? 'success' : 'danger',
-        timer: 10000,
+        timer: 1000,
         placement: {
           from: 'bottom',
           align: 'center',
