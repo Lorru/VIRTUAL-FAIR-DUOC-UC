@@ -47,6 +47,7 @@
             this.lblPassword = new System.Windows.Forms.Label();
             this.btnEditar = new System.Windows.Forms.Button();
             this.lblCerrarSesion = new System.Windows.Forms.LinkLabel();
+            this.lblBienvenido = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblRegistrarUsuario
@@ -54,7 +55,7 @@
             this.lblRegistrarUsuario.AutoSize = true;
             this.lblRegistrarUsuario.Location = new System.Drawing.Point(352, 52);
             this.lblRegistrarUsuario.Name = "lblRegistrarUsuario";
-            this.lblRegistrarUsuario.Size = new System.Drawing.Size(103, 15);
+            this.lblRegistrarUsuario.Size = new System.Drawing.Size(88, 13);
             this.lblRegistrarUsuario.TabIndex = 0;
             this.lblRegistrarUsuario.Text = "Registrar Usuario";
             this.lblRegistrarUsuario.Click += new System.EventHandler(this.lblRegistrarUsuario_Click);
@@ -64,7 +65,7 @@
             this.lblNombreCompleto.AutoSize = true;
             this.lblNombreCompleto.Location = new System.Drawing.Point(56, 123);
             this.lblNombreCompleto.Name = "lblNombreCompleto";
-            this.lblNombreCompleto.Size = new System.Drawing.Size(108, 15);
+            this.lblNombreCompleto.Size = new System.Drawing.Size(91, 13);
             this.lblNombreCompleto.TabIndex = 1;
             this.lblNombreCompleto.Text = "Nombre Completo";
             this.lblNombreCompleto.Click += new System.EventHandler(this.lblNombreCompleto_Click);
@@ -90,7 +91,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(56, 169);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 15);
+            this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "E-mail";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -108,7 +109,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(441, 123);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 15);
+            this.label2.Size = new System.Drawing.Size(29, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "País";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -118,7 +119,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(441, 169);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 15);
+            this.label3.Size = new System.Drawing.Size(40, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Ciudad";
             this.label3.Click += new System.EventHandler(this.label3_Click);
@@ -136,7 +137,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(441, 219);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 15);
+            this.label4.Size = new System.Drawing.Size(52, 13);
             this.label4.TabIndex = 9;
             this.label4.Text = "Dirección";
             this.label4.Click += new System.EventHandler(this.label4_Click);
@@ -154,7 +155,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(56, 219);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 15);
+            this.label5.Size = new System.Drawing.Size(30, 13);
             this.label5.TabIndex = 11;
             this.label5.Text = "Perfil";
             this.label5.Click += new System.EventHandler(this.label5_Click);
@@ -203,7 +204,7 @@
             this.lblPassword.AutoSize = true;
             this.lblPassword.Location = new System.Drawing.Point(56, 266);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(61, 15);
+            this.lblPassword.Size = new System.Drawing.Size(53, 13);
             this.lblPassword.TabIndex = 15;
             this.lblPassword.Text = "Password";
             this.lblPassword.Click += new System.EventHandler(this.lblPassword_Click);
@@ -222,20 +223,31 @@
             // lblCerrarSesion
             // 
             this.lblCerrarSesion.AutoSize = true;
-            this.lblCerrarSesion.Location = new System.Drawing.Point(642, 23);
+            this.lblCerrarSesion.Location = new System.Drawing.Point(641, 42);
             this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCerrarSesion.Name = "lblCerrarSesion";
-            this.lblCerrarSesion.Size = new System.Drawing.Size(82, 15);
+            this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
             this.lblCerrarSesion.TabIndex = 17;
             this.lblCerrarSesion.TabStop = true;
             this.lblCerrarSesion.Text = "Cerrar Sesión";
             this.lblCerrarSesion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblCerrarSesion_LinkClicked);
+            // 
+            // lblBienvenido
+            // 
+            this.lblBienvenido.AutoSize = true;
+            this.lblBienvenido.Location = new System.Drawing.Point(601, 19);
+            this.lblBienvenido.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblBienvenido.Name = "lblBienvenido";
+            this.lblBienvenido.Size = new System.Drawing.Size(35, 13);
+            this.lblBienvenido.TabIndex = 54;
+            this.lblBienvenido.Text = "label2";
             // 
             // AddUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblBienvenido);
             this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.txtPassword);
@@ -283,5 +295,6 @@
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.LinkLabel lblCerrarSesion;
+        private System.Windows.Forms.Label lblBienvenido;
     }
 }

@@ -21,6 +21,11 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleSalesProcesses
             LoadSalesProcesses();
 
             rbProcesosExtranjeros.Checked = true;
+
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
         }
 
         private void btnCrearProcesoVenta_Click(object sender, EventArgs e)
@@ -84,7 +89,7 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleSalesProcesses
             List<AdminApi> lstAll = new List<AdminApi>();
             dgvSalesProcesses.AutoGenerateColumns = false;
 
-            if (findAllPurchaseRequest != null)
+            if (findAllPurchaseRequest.countRows != 0)
             {
                 foreach (var item in findAllPurchaseRequest.purchaseRequests)
                 {

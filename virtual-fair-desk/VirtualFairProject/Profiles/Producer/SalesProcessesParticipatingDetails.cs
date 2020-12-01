@@ -17,11 +17,22 @@ namespace VirtualFairProject.Profiles.Producer
         public SalesProcessesParticipatingDetails()
         {
             InitializeComponent();
+
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
+
+            lblFechaDecision.Visible = false;
+            lblStatus.Visible = false;
             LoadDgvSP();
             LoadDgvParticipating();
             LoadDgvParticipants();
+            LoadWinners();
+            //LoadProducersWinners();
 
-            lblFechaDecision.Visible = false;
+
+
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -30,6 +41,29 @@ namespace VirtualFairProject.Profiles.Producer
 
             var salesProcesses = new SalesProcesses();
             salesProcesses.Show();
+        }
+
+
+        private void LoadWinners() 
+        {
+            string token = Session.Token;
+            dynamic parameters = new System.Dynamic.ExpandoObject();
+            parameters.idPurchaseRequest = Session.id;
+            parameters.idProducer = Session.IdProfile;
+
+            // lblNSolicitudCompra.Text = _loginData.id;
+
+            var findByIdPurchaseRequest = VirtualFairIntegration.FindByIdPurchaseRequestAndIdProducerAndIsParticipantEqualToOneProducer(token, parameters); 
+
+
+            if (findByIdPurchaseRequest.result == "False")
+            {
+                lblWinners.Text = "No eres un ganador";
+            }
+            else if (findByIdPurchaseRequest.result == "True")
+            {
+                lblWinners.Text = "Eres un ganador";
+            }
         }
 
         private void LoadDgvSP() 
@@ -50,6 +84,13 @@ namespace VirtualFairProject.Profiles.Producer
             {
                 lblFechaDecision.Visible = true;
                 lblFechaDecision.Text = findByIdPurchaseRequest.purchaseRequestProducts[0].purchaseRequest.desiredDate;
+                lblStatus.Visible = true;
+                lblStatus.Text = findByIdPurchaseRequest.purchaseRequestProducts[0].purchaseRequest.purchaseRequestStatus.name.ToString();
+
+                //if (lblStatus.Text == "ACEPTADO POR EL CLIENTE")
+                //{
+                //    lblParticipando.Text = "Eres el Ganador";
+                //}
 
                 foreach (var item in findByIdPurchaseRequest.purchaseRequestProducts)
                 {
@@ -195,9 +236,67 @@ namespace VirtualFairProject.Profiles.Producer
                 foreach (var item in getFindByIdPurchaseRequest.purchaseRequestProducers)
                 {
                     AddProducts pRobject = new AddProducts();
-                    pRobject.nameClient = item.purchaseRequestProduct.purchaseRequest.client.fullName;
+                    pRobject.nameClient = item.producer.fullName;
                     pRobject.nameProduct = item.purchaseRequestProduct.product.name;
                    
+                    lstSalesProcessesDetails.Add(pRobject);
+                    //lstNamesProducts.Add(item.product.name.ToString());
+                }
+            }
+
+            dgvParticipants.AutoGenerateColumns = false;
+
+            //var productsElements = from element in lstSalesProcessesDetails where 
+
+            dgvParticipants.DataSource = lstSalesProcessesDetails;
+
+            string[] arrayString = new string[] { "nameClient", "nameProduct" };
+
+            foreach (var item in arrayString)
+            {
+                DataGridViewTextBoxColumn dataGrid = new DataGridViewTextBoxColumn();
+
+                dataGrid.DataPropertyName = item;
+                dataGrid.ReadOnly = true;
+
+                if (item == "nameClient")
+                {
+                    dataGrid.HeaderText = "Nombre participante";
+                }
+                if (item == "nameProduct")
+                {
+                    dataGrid.HeaderText = "Nombre producto";
+                }
+
+                dataGrid.Name = item;
+
+                dgvParticipants.Columns.Add(dataGrid);
+
+            }
+        }
+
+        private void LoadProducersWinners() 
+        {
+            string token = Session.Token;
+
+            dynamic parameters = new System.Dynamic.ExpandoObject();
+            parameters.idPurchaseRequest = Session.id;
+
+            var getParticipants = VirtualFairIntegration.GetParticipantsByIdPurchaseRequestProducers(token, parameters);
+
+            List<string> lstNamesProducts = new List<string>();
+
+            List<AddProducts> lstSalesProcessesDetails = new List<AddProducts>();
+            List<AddProducts> lstAddProducts = new List<AddProducts>();
+
+            if (getParticipants.countRows != 0)
+            {
+                foreach (var item in getParticipants.purchaseRequestProducers)
+                {
+                    AddProducts pRobject = new AddProducts();
+                    pRobject.nameClient = item.producer.fullName;
+                    pRobject.nameProduct = item.purchaseRequestProduct.product.name;
+
                     lstSalesProcessesDetails.Add(pRobject);
                     //lstNamesProducts.Add(item.product.name.ToString());
                 }

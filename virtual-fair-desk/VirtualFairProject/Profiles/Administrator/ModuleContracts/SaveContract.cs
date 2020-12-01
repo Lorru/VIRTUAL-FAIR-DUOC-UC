@@ -19,6 +19,11 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleContracts
         {
             InitializeComponent();
             LoadUsers();
+
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -107,7 +112,14 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleContracts
             //contract.idUsers = Session.IdProfile;
             contract.expirationDate = Convert.ToDateTime(dtpFechaExpiracion.Value);
             contract.isValid = 1; //1 -0
-            contract.contractPath = ""; //opcional 
+            if (Session.base64 != "")
+            {
+                contract.contractPath = Session.base64; //opcional 
+            }
+            else
+            {
+                contract.contractPath = ""; //opcional 
+            }
 
             var saveContract = VirtualFairIntegration.CreateContract(token, contract);
 
@@ -131,10 +143,22 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleContracts
             if (result == DialogResult.OK) // Test result.
             {
                 string file = ofdContract.FileName;
+
                 try
                 {
-                    string text = File.ReadAllText(file);
-                    size = text.Length;
+                    byte[] bytes = File.ReadAllBytes(file);
+                    string base64 = Convert.ToBase64String(bytes);
+
+                    var ext = ofdContract.FileName.Split('.');
+                    var extension = ext[1];
+
+                    string base64Send = String.Concat("data:image/", extension, ";base64,",base64);
+
+                    Session.base64 = base64Send;
+
+                    string text = String.Concat("Fue cargado el siguiente archivo: ", file);
+                    string title = "Información";
+                    MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (IOException)
                 {

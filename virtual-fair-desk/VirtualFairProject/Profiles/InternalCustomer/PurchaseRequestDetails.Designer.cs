@@ -38,13 +38,14 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.btnVolver = new System.Windows.Forms.Button();
             this.lblCerrarSesion = new System.Windows.Forms.LinkLabel();
+            this.lblBienvenido = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPurchaseRequestDetails)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 41);
+            this.label1.Location = new System.Drawing.Point(30, 55);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 13);
@@ -54,7 +55,7 @@
             // lblNSolicitudCompra
             // 
             this.lblNSolicitudCompra.AutoSize = true;
-            this.lblNSolicitudCompra.Location = new System.Drawing.Point(146, 40);
+            this.lblNSolicitudCompra.Location = new System.Drawing.Point(148, 54);
             this.lblNSolicitudCompra.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNSolicitudCompra.Name = "lblNSolicitudCompra";
             this.lblNSolicitudCompra.Size = new System.Drawing.Size(35, 13);
@@ -64,7 +65,7 @@
             // lblEstado
             // 
             this.lblEstado.AutoSize = true;
-            this.lblEstado.Location = new System.Drawing.Point(530, 40);
+            this.lblEstado.Location = new System.Drawing.Point(529, 55);
             this.lblEstado.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(43, 13);
@@ -78,7 +79,7 @@
             this.dgvPurchaseRequestDetails.AllowUserToOrderColumns = true;
             this.dgvPurchaseRequestDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPurchaseRequestDetails.Location = new System.Drawing.Point(30, 97);
-            this.dgvPurchaseRequestDetails.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvPurchaseRequestDetails.Margin = new System.Windows.Forms.Padding(2);
             this.dgvPurchaseRequestDetails.Name = "dgvPurchaseRequestDetails";
             this.dgvPurchaseRequestDetails.ReadOnly = true;
             this.dgvPurchaseRequestDetails.RowHeadersWidth = 51;
@@ -109,7 +110,7 @@
             // btnRecibirEntrega
             // 
             this.btnRecibirEntrega.Location = new System.Drawing.Point(148, 336);
-            this.btnRecibirEntrega.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRecibirEntrega.Margin = new System.Windows.Forms.Padding(2);
             this.btnRecibirEntrega.Name = "btnRecibirEntrega";
             this.btnRecibirEntrega.Size = new System.Drawing.Size(210, 24);
             this.btnRecibirEntrega.TabIndex = 7;
@@ -132,7 +133,7 @@
             // btnVolver
             // 
             this.btnVolver.Location = new System.Drawing.Point(394, 336);
-            this.btnVolver.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(2);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(86, 24);
             this.btnVolver.TabIndex = 9;
@@ -143,7 +144,7 @@
             // lblCerrarSesion
             // 
             this.lblCerrarSesion.AutoSize = true;
-            this.lblCerrarSesion.Location = new System.Drawing.Point(558, 9);
+            this.lblCerrarSesion.Location = new System.Drawing.Point(558, 31);
             this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCerrarSesion.Name = "lblCerrarSesion";
             this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
@@ -152,11 +153,22 @@
             this.lblCerrarSesion.Text = "Cerrar Sesión";
             this.lblCerrarSesion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblCerrarSesion_LinkClicked);
             // 
+            // lblBienvenido
+            // 
+            this.lblBienvenido.AutoSize = true;
+            this.lblBienvenido.Location = new System.Drawing.Point(515, 9);
+            this.lblBienvenido.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblBienvenido.Name = "lblBienvenido";
+            this.lblBienvenido.Size = new System.Drawing.Size(35, 13);
+            this.lblBienvenido.TabIndex = 54;
+            this.lblBienvenido.Text = "label2";
+            // 
             // PurchaseRequestDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(694, 407);
+            this.Controls.Add(this.lblBienvenido);
             this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.linkLabel1);
@@ -167,7 +179,7 @@
             this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.lblNSolicitudCompra);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "PurchaseRequestDetails";
             this.Text = "PurchaseRequestDetails";
             ((System.ComponentModel.ISupportInitialize)(this.dgvPurchaseRequestDetails)).EndInit();
@@ -188,5 +200,6 @@
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.LinkLabel lblCerrarSesion;
+        private System.Windows.Forms.Label lblBienvenido;
     }
 }

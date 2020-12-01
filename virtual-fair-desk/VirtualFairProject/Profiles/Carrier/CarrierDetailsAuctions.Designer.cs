@@ -44,6 +44,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.btnVolver = new System.Windows.Forms.Button();
             this.lblCerrarSesion = new System.Windows.Forms.LinkLabel();
+            this.lblBienvenido = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetailsAuctions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvParticipants)).BeginInit();
             this.SuspendLayout();
@@ -71,7 +72,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(521, 37);
+            this.label2.Location = new System.Drawing.Point(521, 65);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(84, 13);
@@ -81,7 +82,7 @@
             // lblFechaDecision
             // 
             this.lblFechaDecision.AutoSize = true;
-            this.lblFechaDecision.Location = new System.Drawing.Point(610, 37);
+            this.lblFechaDecision.Location = new System.Drawing.Point(610, 65);
             this.lblFechaDecision.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFechaDecision.Name = "lblFechaDecision";
             this.lblFechaDecision.Size = new System.Drawing.Size(19, 13);
@@ -91,7 +92,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(467, 60);
+            this.label3.Location = new System.Drawing.Point(467, 88);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(138, 13);
@@ -101,7 +102,7 @@
             // lblFechaDeseada
             // 
             this.lblFechaDeseada.AutoSize = true;
-            this.lblFechaDeseada.Location = new System.Drawing.Point(609, 60);
+            this.lblFechaDeseada.Location = new System.Drawing.Point(609, 88);
             this.lblFechaDeseada.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFechaDeseada.Name = "lblFechaDeseada";
             this.lblFechaDeseada.Size = new System.Drawing.Size(19, 13);
@@ -211,7 +212,7 @@
             // lblCerrarSesion
             // 
             this.lblCerrarSesion.AutoSize = true;
-            this.lblCerrarSesion.Location = new System.Drawing.Point(574, 9);
+            this.lblCerrarSesion.Location = new System.Drawing.Point(574, 37);
             this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCerrarSesion.Name = "lblCerrarSesion";
             this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
@@ -220,11 +221,22 @@
             this.lblCerrarSesion.Text = "Cerrar Sesión";
             this.lblCerrarSesion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblCerrarSesion_LinkClicked);
             // 
+            // lblBienvenido
+            // 
+            this.lblBienvenido.AutoSize = true;
+            this.lblBienvenido.Location = new System.Drawing.Point(521, 9);
+            this.lblBienvenido.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblBienvenido.Name = "lblBienvenido";
+            this.lblBienvenido.Size = new System.Drawing.Size(35, 13);
+            this.lblBienvenido.TabIndex = 70;
+            this.lblBienvenido.Text = "label2";
+            // 
             // CarrierDetailsAuctions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(740, 882);
+            this.Controls.Add(this.lblBienvenido);
             this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.label7);
@@ -269,5 +281,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.LinkLabel lblCerrarSesion;
+        private System.Windows.Forms.Label lblBienvenido;
     }
 }

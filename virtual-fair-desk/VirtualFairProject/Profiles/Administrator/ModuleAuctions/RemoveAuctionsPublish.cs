@@ -12,12 +12,12 @@ using VirtualFairProject.Class;
 
 namespace VirtualFairProject.Profiles.Administrator.ModuleAuctions
 {
-    public partial class UpdateAuctionsNotPublic : Form
+    public partial class RemoveAuctionsPublish : Form
     {
-        public UpdateAuctionsNotPublic()
+        public RemoveAuctionsPublish()
         {
             InitializeComponent();
-            LoadDgvAuctionsNotPublic();
+            LoadDgvAuctionsPublic();
 
             var nameUser = Session.NameUser;
             var nameProfile = Session.NameProfile;
@@ -25,16 +25,15 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleAuctions
             lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
         }
 
-        private void LoadDgvAuctionsNotPublic() 
+        private void LoadDgvAuctionsPublic()
         {
             string token = Session.Token;
 
-            //subastas no publicadas
-            var auctionsNotPublic = VirtualFairIntegration.GetFindByIsPublicEqualToZeroAdmin(token);
+            var auctionsNotPublic = VirtualFairIntegration.GetFindByIsPublicEqualToOneAdmin(token);
 
             List<AdminApi> lstPurchaseRequestPublic = new List<AdminApi>();
 
-            dgvAuctionsNotPublic.AutoGenerateColumns = false;
+            dgvAuctionsPublic.AutoGenerateColumns = false;
 
             if (auctionsNotPublic.countRows != 0)
             {
@@ -42,19 +41,18 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleAuctions
                 {
                     AdminApi allAuctionsObject = new AdminApi();
                     allAuctionsObject.id = Convert.ToInt32(item.id.ToString());
-                    allAuctionsObject.idProfile = Convert.ToInt32(item.idPurchaseRequest.ToString());
                     allAuctionsObject.fullName = item.purchaseRequest.client.fullName.ToString();
                     allAuctionsObject.totalWeight = item.purchaseRequest.totalWeight.ToString();
                     allAuctionsObject.dateA = item.desiredDate;
                     allAuctionsObject.nameStatus = item.purchaseRequest.purchaseRequestStatus.name.ToString(); //STATUS
-                    allAuctionsObject.isPublic = item.isPublic.ToString();
+                    allAuctionsObject.isPublic = item.purchaseRequest.isPublic.ToString();
                     lstPurchaseRequestPublic.Add(allAuctionsObject);
                 }
 
-                dgvAuctionsNotPublic.DataSource = lstPurchaseRequestPublic;
+                dgvAuctionsPublic.DataSource = lstPurchaseRequestPublic;
             }
 
-            string[] arrayString = new string[] { "id", "idProfile", "fullName", "totalWeight", "dateA", "nameStatus" };
+            string[] arrayString = new string[] { "id", "fullName", "totalWeight", "dateA", "nameStatus" };
 
             foreach (var item in arrayString)
             {
@@ -64,10 +62,6 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleAuctions
                 if (item == "id")
                 {
                     dataGrid.HeaderText = "ID";
-                }
-                if (item == "idProfile")
-                {
-                    dataGrid.HeaderText = "ID Venta";
                 }
                 else if (item == "fullName")
                 {
@@ -88,7 +82,7 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleAuctions
 
                 dataGrid.Name = item;
 
-                dgvAuctionsNotPublic.Columns.Add(dataGrid);
+                dgvAuctionsPublic.Columns.Add(dataGrid);
 
             }
 
@@ -96,36 +90,44 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleAuctions
 
             publicarSubasta.FlatStyle = FlatStyle.Popup;
             publicarSubasta.HeaderText = "Accion";
-            publicarSubasta.Name = "Publicar subasta";
+            publicarSubasta.Name = "Quitar subasta";
             publicarSubasta.UseColumnTextForButtonValue = true;
-            publicarSubasta.Text = "Publicar subasta";
+            publicarSubasta.Text = "Quitar subasta";
 
             publicarSubasta.Width = 80;
-            if (dgvAuctionsNotPublic.Columns.Contains(publicarSubasta.Name = "Publicar subasta"))
+            if (dgvAuctionsPublic.Columns.Contains(publicarSubasta.Name = "Quitar subasta"))
             {
 
             }
             else
             {
-                dgvAuctionsNotPublic.Columns.Add(publicarSubasta);
+                dgvAuctionsPublic.Columns.Add(publicarSubasta);
             }
         }
 
-        private void dgvAuctionsNotPublic_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void btnVolver_Click(object sender, EventArgs e)
         {
-            if (e.ColumnIndex == 6)
+            this.Close();
+
+            var auctions = new Auctions();
+            auctions.Show();
+        }
+
+        private void dgvAuctionsPublic_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 5)
             {
-                int rowIndex = dgvAuctionsNotPublic.CurrentCell.RowIndex;
+                int rowIndex = dgvAuctionsPublic.CurrentCell.RowIndex;
                 //Session.Edit = true;
 
-                var purchaseRequest = dgvAuctionsNotPublic.CurrentRow.DataBoundItem;
+                var purchaseRequest = dgvAuctionsPublic.CurrentRow.DataBoundItem;
                 AdminApi purRequest = (AdminApi)purchaseRequest;
 
                 string token = Session.Token;
 
                 dynamic objectUpdate = new System.Dynamic.ExpandoObject();
                 objectUpdate.id = purRequest.id;
-                objectUpdate.isPublic = 1; //para dejarla publica
+                objectUpdate.isPublic = 0; //para dejarla NO publica
 
                 var updateIsPublic = VirtualFairIntegration.UpdateIsPublicByIdAuctions(token, objectUpdate);
 
@@ -147,26 +149,6 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleAuctions
                 }
 
             }
-        }
-
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            var auctions = new Auctions();
-            auctions.Show();
-            
-        }
-
-        private void lblCerrarSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            string text = "Has cerrado tu sesión";
-            string title = "Información";
-            MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            var login = new Login();
-            login.Show();
-
-            this.Close();
         }
     }
 }

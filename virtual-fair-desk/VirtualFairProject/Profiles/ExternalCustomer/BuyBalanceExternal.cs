@@ -10,16 +10,14 @@ using System.Windows.Forms;
 using VirtualFairProject.Api.Integration;
 using VirtualFairProject.Class;
 using VirtualFairProject.Class.InternalCustomer.PurchaseRequest;
-using VirtualFairProject.Profiles.Client;
 
-namespace VirtualFairProject.Profiles.InternalCustomer
+namespace VirtualFairProject.Profiles.ExternalCustomer
 {
-    public partial class BuyBalance : Form
+    public partial class BuyBalanceExternal : Form
     {
 
         private List<AddProducts> items = new List<AddProducts>();
-
-        public BuyBalance()
+        public BuyBalanceExternal()
         {
             InitializeComponent();
             LoadFirstGrid();
@@ -32,7 +30,7 @@ namespace VirtualFairProject.Profiles.InternalCustomer
 
         }
 
-        private void LoadFirstGrid() 
+        private void LoadFirstGrid()
         {
             dgvProducts.AutoGenerateColumns = false;
 
@@ -93,7 +91,7 @@ namespace VirtualFairProject.Profiles.InternalCustomer
 
             dgvProducts.DataSource = filenamesList;
         }
-        private void LoadCmbProducts() 
+        private void LoadCmbProducts()
         {
 
             string token = Session.Token;
@@ -129,20 +127,9 @@ namespace VirtualFairProject.Profiles.InternalCustomer
 
         }
 
-        private void lblCerrarSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void btnAgregarSolicitud_Click_1(object sender, EventArgs e)
         {
-            string text = "Has cerrado tu sesión";
-            string title = "Información";
-            MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            var login = new Login();
-            login.Show();
-
-            this.Close();
-        }
-
-        private void btnAgregarSolicitud_Click(object sender, EventArgs e)
-        {
+            
             if (cmbProducts.Items.Count == 0)
             {
                 string text = "No existen productos para comprar.";
@@ -151,7 +138,7 @@ namespace VirtualFairProject.Profiles.InternalCustomer
 
                 this.Close();
 
-                var purchaseRequestExternal = new PurchaseRequest();
+                var purchaseRequestExternal = new PurchaseRequestExternal();
                 purchaseRequestExternal.Show();
             }
             else
@@ -211,21 +198,11 @@ namespace VirtualFairProject.Profiles.InternalCustomer
                     MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            
         }
 
-        private void btnRegistrarSolicitudCompra_Click(object sender, EventArgs e)
+        private void btnRegistrarSolicitudCompra_Click_1(object sender, EventArgs e)
         {
             string token = Session.Token;
-
-            //dynamic purchaseRequest = new System.Dynamic.ExpandoObject();
-            //purchaseRequest.idClient = Session.IdProfile;
-            //purchaseRequest.desiredDate = Convert.ToDateTime(dtpFechaDeseadaEntrega.Value);
-
-            //BalancePurchaseRequest balancePurchase = new BalancePurchaseRequest();
-            //balancePurchase.idClient = Session.IdProfile;
-            //balancePurchase.desiredDate = Convert.ToDateTime(dtpFechaDeseadaEntrega.Value);
-            //balancePurchase.purchaseRequestProducts = new List<PurchaseRequestProducts>();
 
             dynamic balancePurchase = new System.Dynamic.ExpandoObject();
             balancePurchase.idClient = Session.IdProfile;
@@ -234,10 +211,7 @@ namespace VirtualFairProject.Profiles.InternalCustomer
 
             var filenamesList = new BindingList<AddProducts>(items);
 
-            List<BalancePurchaseRequest> lstBalancePurchase = new List <BalancePurchaseRequest>();
-
-            //List<dynamic> purchaseRequestProducts = new List<dynamic>();
-
+            List<BalancePurchaseRequest> lstBalancePurchase = new List<BalancePurchaseRequest>();
 
             foreach (var item in filenamesList)
             {
@@ -264,11 +238,23 @@ namespace VirtualFairProject.Profiles.InternalCustomer
             }
         }
 
-        private void btnVolver_Click(object sender, EventArgs e)
+        private void btnVolver_Click_1(object sender, EventArgs e)
         {
             this.Close();
             var homeInternalCustomer = new HomeInternalCustomer();
             homeInternalCustomer.Show();
+        }
+
+        private void lblCerrarSesion_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string text = "Has cerrado tu sesión";
+            string title = "Información";
+            MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            var login = new Login();
+            login.Show();
+
+            this.Close();
         }
 
         private void dgvProducts_CellContentClick(object sender, DataGridViewCellEventArgs e)

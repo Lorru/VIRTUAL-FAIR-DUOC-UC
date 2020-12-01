@@ -42,6 +42,7 @@
             this.dgvProducts1 = new System.Windows.Forms.DataGridView();
             this.lblCerrarSesion = new System.Windows.Forms.LinkLabel();
             this.btnVolver = new System.Windows.Forms.Button();
+            this.lblBienvenido = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudPesoKg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts1)).BeginInit();
             this.SuspendLayout();
@@ -143,7 +144,7 @@
             // lblCerrarSesion
             // 
             this.lblCerrarSesion.AutoSize = true;
-            this.lblCerrarSesion.Location = new System.Drawing.Point(668, 23);
+            this.lblCerrarSesion.Location = new System.Drawing.Point(668, 43);
             this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCerrarSesion.Name = "lblCerrarSesion";
             this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
@@ -162,11 +163,22 @@
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
+            // lblBienvenido
+            // 
+            this.lblBienvenido.AutoSize = true;
+            this.lblBienvenido.Location = new System.Drawing.Point(611, 18);
+            this.lblBienvenido.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblBienvenido.Name = "lblBienvenido";
+            this.lblBienvenido.Size = new System.Drawing.Size(35, 13);
+            this.lblBienvenido.TabIndex = 54;
+            this.lblBienvenido.Text = "label2";
+            // 
             // NewPurchaseRequest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 468);
+            this.Controls.Add(this.lblBienvenido);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.dgvProducts1);
@@ -202,5 +214,6 @@
         private System.Windows.Forms.DataGridView dgvProducts1;
         private System.Windows.Forms.LinkLabel lblCerrarSesion;
         private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.Label lblBienvenido;
     }
 }

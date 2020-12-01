@@ -12,7 +12,7 @@ namespace VirtualFairProject.Class.InternalCustomer.PurchaseRequest
         public int id { get; set; }
         public int idProduct { get; set; }
         public int weight { get; set; }
-        public int requieresRefrigeration { get; set; }
+        public int requiresRefrigeration { get; set; }
 
     }
 }

@@ -34,6 +34,7 @@
             this.dgvAllAuctions = new System.Windows.Forms.DataGridView();
             this.btnVolver = new System.Windows.Forms.Button();
             this.lblCerrarSesion = new System.Windows.Forms.LinkLabel();
+            this.lblBienvenido = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAuctions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAllAuctions)).BeginInit();
             this.SuspendLayout();
@@ -41,18 +42,18 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(76, 237);
+            this.label2.Location = new System.Drawing.Point(76, 250);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 15);
+            this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Subastas";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(76, 24);
+            this.label1.Location = new System.Drawing.Point(76, 51);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(133, 15);
+            this.label1.Size = new System.Drawing.Size(116, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Subastas Participando:";
             // 
@@ -62,7 +63,7 @@
             this.dgvAuctions.AllowUserToDeleteRows = false;
             this.dgvAuctions.AllowUserToOrderColumns = true;
             this.dgvAuctions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAuctions.Location = new System.Drawing.Point(79, 54);
+            this.dgvAuctions.Location = new System.Drawing.Point(79, 81);
             this.dgvAuctions.Margin = new System.Windows.Forms.Padding(2);
             this.dgvAuctions.Name = "dgvAuctions";
             this.dgvAuctions.ReadOnly = true;
@@ -101,20 +102,31 @@
             // lblCerrarSesion
             // 
             this.lblCerrarSesion.AutoSize = true;
-            this.lblCerrarSesion.Location = new System.Drawing.Point(664, 9);
+            this.lblCerrarSesion.Location = new System.Drawing.Point(664, 40);
             this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCerrarSesion.Name = "lblCerrarSesion";
-            this.lblCerrarSesion.Size = new System.Drawing.Size(82, 15);
+            this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
             this.lblCerrarSesion.TabIndex = 19;
             this.lblCerrarSesion.TabStop = true;
             this.lblCerrarSesion.Text = "Cerrar Sesión";
             this.lblCerrarSesion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblCerrarSesion_LinkClicked);
+            // 
+            // lblBienvenido
+            // 
+            this.lblBienvenido.AutoSize = true;
+            this.lblBienvenido.Location = new System.Drawing.Point(610, 9);
+            this.lblBienvenido.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblBienvenido.Name = "lblBienvenido";
+            this.lblBienvenido.Size = new System.Drawing.Size(35, 13);
+            this.lblBienvenido.TabIndex = 70;
+            this.lblBienvenido.Text = "label2";
             // 
             // CarrierAuctions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 464);
+            this.Controls.Add(this.lblBienvenido);
             this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.dgvAllAuctions);
@@ -137,5 +149,6 @@
         private System.Windows.Forms.DataGridView dgvAllAuctions;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.LinkLabel lblCerrarSesion;
+        private System.Windows.Forms.Label lblBienvenido;
     }
 }

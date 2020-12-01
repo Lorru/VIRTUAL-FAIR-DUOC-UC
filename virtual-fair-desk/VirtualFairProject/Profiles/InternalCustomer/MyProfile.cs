@@ -19,6 +19,12 @@ namespace VirtualFairProject.Profiles.InternalCustomer
         {
             InitializeComponent();
             LoadProfile();
+
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
+
         }
 
         private void LoadProfile() 

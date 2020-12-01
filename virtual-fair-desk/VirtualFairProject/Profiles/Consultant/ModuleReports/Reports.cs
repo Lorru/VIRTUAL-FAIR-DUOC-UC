@@ -26,6 +26,11 @@ namespace VirtualFairProject.Profiles.Consultant.ModuleReports
         {
             InitializeComponent();
 
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
+
             lblProductoMasPerdido.Visible = false;
             lblPesoTotalPerdidaKg.Visible = false;
             lblCostoTotalPerdida.Visible = false;
@@ -174,130 +179,26 @@ namespace VirtualFairProject.Profiles.Consultant.ModuleReports
 
             if (downloadArchive.statusCode == 200)
             {
-                //downloadArchive.fileName = Nombre del archivo
-                //downloadArchive.file = Base64
 
-                string base64 = downloadArchive.file;
+                SaveFileDialog sfdArchive = new SaveFileDialog();
 
-                PDFDownload(base64);
-
+                if (sfdArchive.ShowDialog() == DialogResult.OK)
+                {
+                    sfdArchive.FileName = String.Concat(sfdArchive.FileName,".png");
+                    File.WriteAllBytes(sfdArchive.FileName, Convert.FromBase64String(downloadArchive.file.ToString()));
+                }
 
             }
             else
             {
 
             }
-        }
 
-        private void PDFDownload(string base64PDF) 
-        {
-            //Read the base64 text from the text file
-//            string base64String = base64PDF;
+        
 
-            //Get bytes from the base64 string 
-            //byte[] byteArray = System.Convert.FromBase64String(base64String);
-
-            //Load PDF document
-            //PdfLoadedDocument loadedDocument = new PdfLoadedDocument(byteArray);
-
-            //Get the first page from the document
-            //PdfLoadedPage page = loadedDocument.Pages[0] as PdfLoadedPage;
-
-            //Create PDF graphics for the page
-            //PdfGraphics graphics = page.Graphics;
-
-            //Use the system installed font
-            //PdfFont font = new PdfStandardFont(PdfFontFamily.Courier, 20);
-
-            //Draw the text
-            //graphics.DrawString("Hello World!!!", font, PdfBrushes.Black, new PointF(0, 0));
-
-            //Save the PDF document to the memory stream
-            //MemoryStream stream = new MemoryStream();
-            //loadedDocument.Save(stream);
-
-            //Close the document
-            //loadedDocument.Close(true);
-
-            //Convert the saved PDF document to Base64 string
-            //string base64 = Convert.ToBase64String(stream.ToArray());
-
-            //Write the base64 string to a text file
-            //File.WriteAllText("Test.pdf", base64);
-
-
-            using (PdfDocument document = new PdfDocument())
-            {
-
-                string base64String = base64PDF;
-
-                //Get bytes from the base64 string 
-                byte[] byteArray = System.Convert.FromBase64String(base64String);
-
-                PdfLoadedDocument loadedDocument = new PdfLoadedDocument(byteArray);
-                //Add a page to the document
-                PdfPage page = document.Pages.Add();
-
-                //Create PDF graphics for a page
-                PdfGraphics graphics = page.Graphics;
-
-                //Set the standard font
-                PdfFont font = new PdfStandardFont(PdfFontFamily.Helvetica, 20);
-
-                //Draw the text
-                //graphics.DrawString("Hello World!!!", font, PdfBrushes.Black, new PointF(0, 0));
-
-                //Save the document
-                document.Save("Output.pdf");
-
-                if (MessageBox.Show("Desea visualizar el PDF?", "PDF fue creado",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-                    == DialogResult.Yes)
-                {
-                    try
-                    {
-                        //Launching the Excel file using the default Application.[MS Excel Or Free ExcelViewer]
-                        System.Diagnostics.Process.Start("Output.pdf");
-
-                        //Exit
-                        Close();
-                    }
-                    catch (Win32Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
-                    }
-                }
-                else
-                    Close();
-            }
 
         }
 
-        //private void PDF() 
-        //{
-        //    string base64 = "";
-        //    byte[] imageBytes = Convert.FromBase64String(base64);
-        //    iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(imageBytes);
-
-        //    using (System.IO.MemoryStream memoryStream = new System.IO.MemoryStream())
-        //    {
-        //        Document document = new Document(PageSize.A4, 88f, 88f, 10f, 10f);
-        //        PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
-        //        document.Open();
-        //        document.Add(image);
-        //        document.Close();
-        //        byte[] bytes = memoryStream.ToArray();
-        //        memoryStream.Close();
-
-        //        //Response.Clear();
-        //        //Response.ContentType = "application/pdf";
-        //        //Response.AddHeader("Content-Disposition", "attachment; filename=Image.pdf");
-        //        //Response.ContentType = "application/pdf";
-        //        //Response.Buffer = true;
-        //        //Response.Cache.SetCacheability(HttpCacheability.NoCache);
-        //        //Response.BinaryWrite(bytes);
-        //        //Response.End();
-        //    }
-        //}
+       
     }
 }

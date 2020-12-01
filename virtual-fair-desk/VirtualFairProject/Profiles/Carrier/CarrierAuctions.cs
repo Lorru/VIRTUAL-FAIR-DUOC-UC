@@ -20,6 +20,12 @@ namespace VirtualFairProject.Profiles.Carrier
 
             LoadAuctions();
             LoadAuctionsPublish();
+
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
+
         }
 
         //Subastas públicas en las que está participando el transportista.
@@ -237,6 +243,8 @@ namespace VirtualFairProject.Profiles.Carrier
                 //id venta = email
 
                 Session.idTransportAuction = Convert.ToString(purRequest.id);
+                Session.status = purRequest.fullName;
+                Session.idPurchaseRequest = purRequest.email;
 
                 var carrierDetailsParticipatingAuctions = new CarrierDetailsParticipatingAuctions();
 

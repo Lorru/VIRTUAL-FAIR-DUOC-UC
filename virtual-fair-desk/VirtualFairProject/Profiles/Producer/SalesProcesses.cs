@@ -18,6 +18,10 @@ namespace VirtualFairProject.Profiles.Producer
         public SalesProcesses()
         {
             InitializeComponent();
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
 
             LoadDgvSP();
             LoadDgvAllSalesProcesses();
@@ -149,7 +153,7 @@ namespace VirtualFairProject.Profiles.Producer
 
             dgvAllSalesProcesses.AutoGenerateColumns = false;
 
-            if (salesProcesses != null)
+            if (salesProcesses.countRows != 0)
             {
                 foreach (var item in salesProcesses.purchaseRequests)
                 {
@@ -235,6 +239,7 @@ namespace VirtualFairProject.Profiles.Producer
                 AdminApi purRequest = (AdminApi)purchaseRequest;
 
                 Session.id = Convert.ToString(purRequest.id);
+                Session.status = purRequest.fullName;
 
                 var salesProcessesParticipatingDetails = new SalesProcessesParticipatingDetails();
 

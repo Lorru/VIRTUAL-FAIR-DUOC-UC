@@ -18,6 +18,13 @@ namespace VirtualFairProject.Profiles.Producer
         {
             InitializeComponent();
 
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
+
+            lblFechaDecision.Visible = false;
+            btnDiscardParticipation.Visible = false;
             LoadDetails();
             //LoadParticipate();
             LoadParticipants();
@@ -42,8 +49,8 @@ namespace VirtualFairProject.Profiles.Producer
                 numericPeso.Name = String.Concat("nudPesoOfrecido", item);
                 numericPeso.Location = new Point(9, y1);
                 numericPeso.Size = new Size(103,20);
-                //9, 55
                 numericPeso.Visible = true;
+                numericPeso.Maximum = 1000000;
                 groupBox1.Controls.Add(numericPeso);
                // this.Controls.Add(numericPeso);
                 y1 = y1 + 26;
@@ -57,6 +64,7 @@ namespace VirtualFairProject.Profiles.Producer
                 numericValor.Location = new Point(136, y2);
                 numericValor.Size = new Size(103, 20);
                 numericValor.Visible = true;
+                numericValor.Maximum = 1000000;
                 groupBox1.Controls.Add(numericValor);
                 //this.Controls.Add(numericValor);
                 y2 = y2 + 26;
@@ -95,7 +103,8 @@ namespace VirtualFairProject.Profiles.Producer
 
             if (findByIdPurchaseRequest.countRows != 0)
             {
-                lblFechaDecision.Text = "";
+                lblFechaDecision.Visible = true;
+                lblFechaDecision.Text = findByIdPurchaseRequest.purchaseRequestProducts[0].purchaseRequest.desiredDate.ToString();
 
                 foreach (var item in findByIdPurchaseRequest.purchaseRequestProducts)
                 {
@@ -146,11 +155,6 @@ namespace VirtualFairProject.Profiles.Producer
 
         }
 
-        private void LoadParticipants() 
-        { 
-        
-        }
-
         private void lblCerrarSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             string text = "Has cerrado tu sesión";
@@ -169,6 +173,65 @@ namespace VirtualFairProject.Profiles.Producer
 
             var salesProcesses = new SalesProcesses();
             salesProcesses.Show();
+        }
+
+        private void LoadParticipants() 
+        {
+            string token = Session.Token;
+
+            dynamic parameters = new System.Dynamic.ExpandoObject();
+            parameters.idPurchaseRequest = Session.id;
+
+            var getFindByIdPurchaseRequest = VirtualFairIntegration.GetFindByIdPurchaseRequest(token, parameters);
+            //GetFindByIdPurchaseRequest
+
+            List<string> lstNamesProducts = new List<string>();
+
+            List<AddProducts> lstSalesProcessesDetails = new List<AddProducts>();
+            List<AddProducts> lstAddProducts = new List<AddProducts>();
+
+            if (getFindByIdPurchaseRequest.countRows != 0)
+            {
+                foreach (var item in getFindByIdPurchaseRequest.purchaseRequestProducers)
+                {
+                    AddProducts pRobject = new AddProducts();
+                    pRobject.nameClient = item.producer.fullName;
+                    pRobject.nameProduct = item.purchaseRequestProduct.product.name;
+
+                    lstSalesProcessesDetails.Add(pRobject);
+                    //lstNamesProducts.Add(item.product.name.ToString());
+                }
+            }
+
+            dgParticipants.AutoGenerateColumns = false;
+
+            //var productsElements = from element in lstSalesProcessesDetails where 
+
+            dgParticipants.DataSource = lstSalesProcessesDetails;
+
+            string[] arrayString = new string[] { "nameClient", "nameProduct" };
+
+            foreach (var item in arrayString)
+            {
+                DataGridViewTextBoxColumn dataGrid = new DataGridViewTextBoxColumn();
+
+                dataGrid.DataPropertyName = item;
+                dataGrid.ReadOnly = true;
+
+                if (item == "nameClient")
+                {
+                    dataGrid.HeaderText = "Nombre participante";
+                }
+                if (item == "nameProduct")
+                {
+                    dataGrid.HeaderText = "Nombre producto";
+                }
+
+                dataGrid.Name = item;
+
+                dgParticipants.Columns.Add(dataGrid);
+
+            }
         }
 
         private void btnSaveChanges_Click(object sender, EventArgs e)

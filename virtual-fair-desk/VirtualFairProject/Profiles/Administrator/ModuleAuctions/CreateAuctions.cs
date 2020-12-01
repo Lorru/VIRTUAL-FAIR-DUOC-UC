@@ -18,6 +18,11 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleAuctions
         {
             InitializeComponent();
             LoadPurchaseRequestPublic();
+
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
         }
 
         private void LoadPurchaseRequestPublic() 
@@ -112,23 +117,29 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleAuctions
 
                 dynamic objectCreate = new System.Dynamic.ExpandoObject();
                 objectCreate.idPurchaseRequest = adminApi.id;
+                objectCreate.desiredDate = Convert.ToDateTime(adminApi.dateA);
+                objectCreate.isPublic = 0;
                 //objectCreate.isPublic = 1; //SE PUEDE PASAR ALTIRO EN 1 Y SE PUBLICARÍA DE INMEDIATO
 
                 var createTransportAuc = VirtualFairIntegration.createTransportAuction(token, objectCreate);
 
-                if (createTransportAuc.statusCode == 200)
+                if (createTransportAuc.statusCode == 201)
                 {
                     string text = createTransportAuc.message;
                     string title = "Información";
                     MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
+
+                    var auctions = new Auctions();
+                    auctions.Show();
+
                 }
                 else if(createTransportAuc.statusCode == 500)
                 {
                     string text = "Error al intentar crear la subasta";
                     string title = "Información";
                     MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
+                    
                 }
 
             }

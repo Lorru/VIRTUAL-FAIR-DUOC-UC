@@ -42,7 +42,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(145, 113);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 15);
+            this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Desde:";
             // 
@@ -65,7 +65,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(436, 113);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 15);
+            this.label3.Size = new System.Drawing.Size(38, 13);
             this.label3.TabIndex = 3;
             this.label3.Text = "Hasta:";
             // 
@@ -92,10 +92,10 @@
             // lblCerrarSesion
             // 
             this.lblCerrarSesion.AutoSize = true;
-            this.lblCerrarSesion.Location = new System.Drawing.Point(626, 9);
+            this.lblCerrarSesion.Location = new System.Drawing.Point(626, 35);
             this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCerrarSesion.Name = "lblCerrarSesion";
-            this.lblCerrarSesion.Size = new System.Drawing.Size(82, 15);
+            this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
             this.lblCerrarSesion.TabIndex = 21;
             this.lblCerrarSesion.TabStop = true;
             this.lblCerrarSesion.Text = "Cerrar Sesión";

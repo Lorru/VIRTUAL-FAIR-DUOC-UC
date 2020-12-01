@@ -38,8 +38,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblParticipando = new System.Windows.Forms.Label();
             this.dgvParticipating = new System.Windows.Forms.DataGridView();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.lblBienvenido = new System.Windows.Forms.Label();
+            this.lblWinners = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvParticipants)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvParticipating)).BeginInit();
@@ -48,9 +52,9 @@
             // lblFechaDecision
             // 
             this.lblFechaDecision.AutoSize = true;
-            this.lblFechaDecision.Location = new System.Drawing.Point(596, 64);
+            this.lblFechaDecision.Location = new System.Drawing.Point(596, 76);
             this.lblFechaDecision.Name = "lblFechaDecision";
-            this.lblFechaDecision.Size = new System.Drawing.Size(21, 15);
+            this.lblFechaDecision.Size = new System.Drawing.Size(19, 13);
             this.lblFechaDecision.TabIndex = 45;
             this.lblFechaDecision.Text = "<>";
             // 
@@ -67,10 +71,10 @@
             // lblCerrarSesion
             // 
             this.lblCerrarSesion.AutoSize = true;
-            this.lblCerrarSesion.Location = new System.Drawing.Point(617, 37);
+            this.lblCerrarSesion.Location = new System.Drawing.Point(617, 49);
             this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCerrarSesion.Name = "lblCerrarSesion";
-            this.lblCerrarSesion.Size = new System.Drawing.Size(82, 15);
+            this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
             this.lblCerrarSesion.TabIndex = 42;
             this.lblCerrarSesion.TabStop = true;
             this.lblCerrarSesion.Text = "Cerrar Sesión";
@@ -81,7 +85,7 @@
             this.dgvParticipants.AllowUserToDeleteRows = false;
             this.dgvParticipants.AllowUserToOrderColumns = true;
             this.dgvParticipants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvParticipants.Location = new System.Drawing.Point(265, 459);
+            this.dgvParticipants.Location = new System.Drawing.Point(265, 425);
             this.dgvParticipants.Margin = new System.Windows.Forms.Padding(2);
             this.dgvParticipants.Name = "dgvParticipants";
             this.dgvParticipants.ReadOnly = true;
@@ -93,10 +97,10 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(356, 432);
+            this.label5.Location = new System.Drawing.Point(348, 397);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(78, 15);
+            this.label5.Size = new System.Drawing.Size(68, 13);
             this.label5.TabIndex = 40;
             this.label5.Text = "Participantes";
             // 
@@ -132,39 +136,39 @@
             this.label3.Location = new System.Drawing.Point(102, 117);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 15);
+            this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 36;
             this.label3.Text = "Detalles";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(508, 64);
+            this.label2.Location = new System.Drawing.Point(508, 76);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(93, 15);
+            this.label2.Size = new System.Drawing.Size(82, 13);
             this.label2.TabIndex = 35;
             this.label2.Text = "Fecha decision:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(102, 64);
+            this.label1.Location = new System.Drawing.Point(102, 49);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 15);
+            this.label1.Size = new System.Drawing.Size(91, 13);
             this.label1.TabIndex = 34;
             this.label1.Text = "Proceso de venta";
             // 
-            // label4
+            // lblParticipando
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(464, 117);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(76, 15);
-            this.label4.TabIndex = 46;
-            this.label4.Text = "Participando";
+            this.lblParticipando.AutoSize = true;
+            this.lblParticipando.Location = new System.Drawing.Point(464, 117);
+            this.lblParticipando.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblParticipando.Name = "lblParticipando";
+            this.lblParticipando.Size = new System.Drawing.Size(66, 13);
+            this.lblParticipando.TabIndex = 46;
+            this.lblParticipando.Text = "Participando";
             // 
             // dgvParticipating
             // 
@@ -181,13 +185,57 @@
             this.dgvParticipating.Size = new System.Drawing.Size(238, 170);
             this.dgvParticipating.TabIndex = 47;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(101, 84);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(46, 13);
+            this.label6.TabIndex = 48;
+            this.label6.Text = "Estado: ";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(151, 84);
+            this.lblStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(13, 13);
+            this.lblStatus.TabIndex = 49;
+            this.lblStatus.Text = "<";
+            // 
+            // lblBienvenido
+            // 
+            this.lblBienvenido.AutoSize = true;
+            this.lblBienvenido.Location = new System.Drawing.Point(596, 19);
+            this.lblBienvenido.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblBienvenido.Name = "lblBienvenido";
+            this.lblBienvenido.Size = new System.Drawing.Size(35, 13);
+            this.lblBienvenido.TabIndex = 54;
+            this.lblBienvenido.Text = "label2";
+            // 
+            // lblWinners
+            // 
+            this.lblWinners.AutoSize = true;
+            this.lblWinners.Location = new System.Drawing.Point(389, 52);
+            this.lblWinners.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblWinners.Name = "lblWinners";
+            this.lblWinners.Size = new System.Drawing.Size(13, 13);
+            this.lblWinners.TabIndex = 55;
+            this.lblWinners.Text = "<";
+            // 
             // SalesProcessesParticipatingDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 704);
+            this.Controls.Add(this.lblWinners);
+            this.Controls.Add(this.lblBienvenido);
+            this.Controls.Add(this.lblStatus);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.dgvParticipating);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lblParticipando);
             this.Controls.Add(this.lblFechaDecision);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblCerrarSesion);
@@ -199,7 +247,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "SalesProcessesParticipatingDetails";
-            this.Text = "SalesProcessesParticipatingDetails";
+            this.Text = "Detalle Proceso de Venta";
             ((System.ComponentModel.ISupportInitialize)(this.dgvParticipants)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetails)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvParticipating)).EndInit();
@@ -220,7 +268,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblParticipando;
         private System.Windows.Forms.DataGridView dgvParticipating;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label lblBienvenido;
+        private System.Windows.Forms.Label lblWinners;
     }
 }

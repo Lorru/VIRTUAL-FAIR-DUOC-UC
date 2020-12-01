@@ -37,6 +37,7 @@
             this.lblCerrarSesion = new System.Windows.Forms.LinkLabel();
             this.ofdContract = new System.Windows.Forms.OpenFileDialog();
             this.btnSearchContract = new System.Windows.Forms.Button();
+            this.lblBienvenido = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -44,7 +45,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(240, 229);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 15);
+            this.label1.Size = new System.Drawing.Size(43, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Usuario";
             // 
@@ -53,7 +54,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(187, 280);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 15);
+            this.label2.Size = new System.Drawing.Size(106, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Fecha de expiración:";
             // 
@@ -95,10 +96,10 @@
             // lblCerrarSesion
             // 
             this.lblCerrarSesion.AutoSize = true;
-            this.lblCerrarSesion.Location = new System.Drawing.Point(641, 39);
+            this.lblCerrarSesion.Location = new System.Drawing.Point(640, 67);
             this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCerrarSesion.Name = "lblCerrarSesion";
-            this.lblCerrarSesion.Size = new System.Drawing.Size(82, 15);
+            this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
             this.lblCerrarSesion.TabIndex = 11;
             this.lblCerrarSesion.TabStop = true;
             this.lblCerrarSesion.Text = "Cerrar Sesión";
@@ -118,11 +119,22 @@
             this.btnSearchContract.UseVisualStyleBackColor = true;
             this.btnSearchContract.Click += new System.EventHandler(this.btnSearchContract_Click);
             // 
+            // lblBienvenido
+            // 
+            this.lblBienvenido.AutoSize = true;
+            this.lblBienvenido.Location = new System.Drawing.Point(585, 26);
+            this.lblBienvenido.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblBienvenido.Name = "lblBienvenido";
+            this.lblBienvenido.Size = new System.Drawing.Size(35, 13);
+            this.lblBienvenido.TabIndex = 54;
+            this.lblBienvenido.Text = "label2";
+            // 
             // SaveContract
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(835, 486);
+            this.Controls.Add(this.lblBienvenido);
             this.Controls.Add(this.btnSearchContract);
             this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.cmbUsers);
@@ -149,5 +161,6 @@
         private System.Windows.Forms.LinkLabel lblCerrarSesion;
         private System.Windows.Forms.OpenFileDialog ofdContract;
         private System.Windows.Forms.Button btnSearchContract;
+        private System.Windows.Forms.Label lblBienvenido;
     }
 }

@@ -33,6 +33,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnVolver = new System.Windows.Forms.Button();
             this.lblCerrarSesion = new System.Windows.Forms.LinkLabel();
+            this.btnComprarSaldo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPurchaseRequest)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,7 +53,7 @@
             // 
             // btnNewRequest
             // 
-            this.btnNewRequest.Location = new System.Drawing.Point(333, 110);
+            this.btnNewRequest.Location = new System.Drawing.Point(431, 111);
             this.btnNewRequest.Name = "btnNewRequest";
             this.btnNewRequest.Size = new System.Drawing.Size(116, 32);
             this.btnNewRequest.TabIndex = 10;
@@ -91,11 +92,22 @@
             this.lblCerrarSesion.Text = "Cerrar Sesión";
             this.lblCerrarSesion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblCerrarSesion_LinkClicked);
             // 
+            // btnComprarSaldo
+            // 
+            this.btnComprarSaldo.Location = new System.Drawing.Point(272, 111);
+            this.btnComprarSaldo.Name = "btnComprarSaldo";
+            this.btnComprarSaldo.Size = new System.Drawing.Size(116, 32);
+            this.btnComprarSaldo.TabIndex = 29;
+            this.btnComprarSaldo.Text = "Comprar Saldo";
+            this.btnComprarSaldo.UseVisualStyleBackColor = true;
+            this.btnComprarSaldo.Click += new System.EventHandler(this.btnComprarSaldo_Click);
+            // 
             // PurchaseRequestExternal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(778, 453);
+            this.Controls.Add(this.btnComprarSaldo);
             this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.label1);
@@ -117,5 +129,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.LinkLabel lblCerrarSesion;
+        private System.Windows.Forms.Button btnComprarSaldo;
     }
 }

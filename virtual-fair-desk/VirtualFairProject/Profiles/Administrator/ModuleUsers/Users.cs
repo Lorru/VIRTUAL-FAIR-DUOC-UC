@@ -22,17 +22,14 @@ namespace VirtualFairProject.Profiles.Administrator
 
             InitializeComponent();
 
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
+
             LoadGrid();
 
-            //if (dgvPrueba.Columns.Contains(actualizarEstado.Name = "Habilitar"))
-            //{
-
-            //}
-            //else
-            //{
-            //    dgvPrueba.Columns.Add(actualizarEstado);
-            //}
-
+            
         }
 
         private void LimpiarGrid() 
@@ -53,31 +50,35 @@ namespace VirtualFairProject.Profiles.Administrator
 
             List<AdminApi> lstUsers = new List<AdminApi>();
 
-            foreach (var item in findAllUsers.users)
+            if (findAllUsers.countRows != 0)
             {
-                AdminApi users = new AdminApi();
-                users.country = item.country.ToString();
-                users.id = Convert.ToInt32(item.id.ToString());
-                users.status = Convert.ToInt32(item.status.ToString());
-                users.idProfile = Convert.ToInt32(item.idProfile.ToString());
-                users.email = item.email.ToString();
-                users.password = item.password.ToString();
-                users.fullName = item.fullName.ToString();
-                users.city = item.city.ToString();
-                users.nameProfile = item.profile.name.ToString();
-                users.address = item.address.ToString();
-
-                if (users.status == 1)
+                foreach (var item in findAllUsers.users)
                 {
-                    users.statusName = "ACTIVO";
-                }
-                else
-                {
-                    users.statusName = "INACTIVO";
-                }
+                    AdminApi users = new AdminApi();
+                    users.country = item.country.ToString();
+                    users.id = Convert.ToInt32(item.id.ToString());
+                    users.status = Convert.ToInt32(item.status.ToString());
+                    users.idProfile = Convert.ToInt32(item.idProfile.ToString());
+                    users.email = item.email.ToString();
+                    users.password = item.password.ToString();
+                    users.fullName = item.fullName.ToString();
+                    users.city = item.city.ToString();
+                    users.nameProfile = item.profile.name.ToString();
+                    users.address = item.address.ToString();
 
-                lstUsers.Add(users);
+                    if (users.status == 1)
+                    {
+                        users.statusName = "ACTIVO";
+                    }
+                    else
+                    {
+                        users.statusName = "INACTIVO";
+                    }
+
+                    lstUsers.Add(users);
+                }
             }
+            
 
             dgvPrueba.AutoGenerateColumns = false;
 

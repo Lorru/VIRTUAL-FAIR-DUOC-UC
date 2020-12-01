@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VirtualFairProject.Api.Integration;
 using VirtualFairProject.Class;
+using VirtualFairProject.Profiles.Client;
 
 namespace VirtualFairProject.Profiles.InternalCustomer
 {
@@ -17,6 +18,11 @@ namespace VirtualFairProject.Profiles.InternalCustomer
         public RefuseDelivery()
         {
             InitializeComponent();
+
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
 
         }
 
@@ -43,6 +49,9 @@ namespace VirtualFairProject.Profiles.InternalCustomer
                         string text = updateStatusById.message;
                         string title = "Información";
                         MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        var purchaseRequestBack = new PurchaseRequest();
+                        purchaseRequestBack.Show();
                         this.Close();
                     }
                 }

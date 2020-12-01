@@ -84,7 +84,7 @@ namespace VirtualFairProject.Api.Integration
             var paramApi = urlMethod;
             var response = clientAPI.HttpClient.GetAsync(paramApi);
             var result = clientAPI.Deserialize<dynamic>(response.Result);
-           
+
             return result;
         }
         #endregion
@@ -139,6 +139,62 @@ namespace VirtualFairProject.Api.Integration
 
             var paramApi = urlMethod;
             var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+
+        //getParticipantByIdPurchaseRequest/{idPurchaseRequest
+        //Servicio para obtener el transportista ganador de la subasta de transporte, de una solicitud de compra por IdPurchaseRequest(Calcula)
+        public static dynamic GetParticipantByIdPurchaseRequest(string token, dynamic parameters)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_TRANSPORTAUCTIONCARRIER;
+            var urlMethod = "getParticipantByIdPurchaseRequest";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = String.Concat(urlMethod,"/",parameters.idPurchaseRequest);
+            var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+
+        //findByIdPurchaseRequestAndIsParticipantEqualToOne/{idPurchaseRequest
+        //Servicio para obtener el transportista ganador de la subasta de transporte, de una solicitud de compra por IdPurchaseRequest(No Calcula)
+        public static dynamic FindByIdPurchaseRequestAndIsParticipantEqualToOneAuctions(string token, dynamic parameters)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_TRANSPORTAUCTIONCARRIER;
+            var urlMethod = "findByIdPurchaseRequestAndIsParticipantEqualToOne";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = String.Concat(urlMethod, "/", parameters.idPurchaseRequest);
+            var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+
+        //updateIsPublicById/{id
+        //Servicio para actualizar la propiedad IsPublic de una subasta de transporte existente por Id
+        public static dynamic UpdateIsPublicByIdAuctions(string token, dynamic objectUpdate)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_TRANSPORTAUCTION;
+            var urlMethod = "updateIsPublicById";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = String.Concat(urlMethod, "/", objectUpdate.id);
+            var content = JsonConvert.SerializeObject(objectUpdate);
+            var body = new StringContent(content, Encoding.UTF8, UtilWebApiMethod.TypeJson);
+            var response = clientAPI.HttpClient.PutAsync(paramApi, body);
             var result = clientAPI.Deserialize<dynamic>(response.Result);
 
             return result;
@@ -426,13 +482,31 @@ namespace VirtualFairProject.Api.Integration
         public static dynamic FindByIdPurchaseRequestAndIdCarrierAndIsParticipantEqualToOneCarrierAuction(string token, dynamic parameters) 
         {
             //GET
-            var url = URL_VIRTUAL_FAIR_TRANSPORTAUCTION;
+            var url = URL_VIRTUAL_FAIR_TRANSPORTAUCTIONCARRIER;
             var urlMethod = "findByIdPurchaseRequestAndIdCarrierAndIsParticipantEqualToOne";
             WebAPIClient clientAPI = new WebAPIClient(url);
             //era necesario un Authorization
             clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
 
             var paramApi = String.Concat(urlMethod, "/", parameters.idPurchaseRequest,"/", parameters.idCarrier);
+            var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+
+        //PurchaseRequestProducer/findByIdPurchaseRequestAndIdProducerAndIsParticipantEqualToOne/{idPurchaseRequest/{idProducer
+        //Servicio para saber si el productor es participante ganador de una solicitud de compra por IdPurchaseRequest y por IdProducer
+        public static dynamic FindByIdPurchaseRequestAndIdProducerAndIsParticipantEqualToOneProducer(string token, dynamic parameters)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_PURCHASEREQUESTPRODUCER;
+            var urlMethod = "findByIdPurchaseRequestAndIdProducerAndIsParticipantEqualToOne";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = String.Concat(urlMethod, "/", parameters.idPurchaseRequest, "/", parameters.idProducer);
             var response = clientAPI.HttpClient.GetAsync(paramApi);
             var result = clientAPI.Deserialize<dynamic>(response.Result);
 
@@ -495,6 +569,26 @@ namespace VirtualFairProject.Api.Integration
             return result;
         }
 
+        //PurchaseRequestProducer/getParticipantsByIdPurchaseRequest/{idPurchaseRequest
+        //Servicio para obtener una lista de todos los productores ganadores de la participación de la solicitud de compra por IdPurchaseRequest(Calcula)
+        public static dynamic GetParticipantsByIdPurchaseRequestProducers(string token, dynamic parameters)
+        {
+            //GET
+            var url = URL_VIRTUAL_FAIR_PURCHASEREQUESTPRODUCER;
+            var urlMethod = "getParticipantsByIdPurchaseRequest";
+            WebAPIClient clientAPI = new WebAPIClient(url);
+            //era necesario un Authorization
+            clientAPI.HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+
+            var paramApi = String.Concat(urlMethod, "/", parameters.idPurchaseRequest);
+            var response = clientAPI.HttpClient.GetAsync(paramApi);
+            var result = clientAPI.Deserialize<dynamic>(response.Result);
+
+            return result;
+        }
+
+        //getParticipantByIdPurchaseRequest/{idPurchaseRequest
+        //Servicio para obtener el transportista ganador de la subasta de transporte, de una solicitud de compra por IdPurchaseRequest(Calcula)
         //Servicio para obtener una lista de la participación del productor que estan participando en la solicitud de compra por IdPurchaseRequest y por IdProducer
         public static dynamic FindByIdPurchaseRequestAndIdProducer(string token, dynamic parameters)
         {
@@ -586,7 +680,7 @@ namespace VirtualFairProject.Api.Integration
 
         //createBalancePurchaseRequest
         //Servicio para crear compra de saldo
-        public static dynamic CreateBalancePurchaseRequest(string token, BalancePurchaseRequest purchaseRequest)
+        public static dynamic CreateBalancePurchaseRequest(string token, dynamic purchaseRequest)
         {
             //POST
             var url = URL_VIRTUAL_FAIR_PURCHASEREQUEST;

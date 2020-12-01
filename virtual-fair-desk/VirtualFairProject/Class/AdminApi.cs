@@ -47,6 +47,9 @@ namespace VirtualFairProject.Class
 
         public string idDetails { get; set; }
 
+        public string price { get; set; }
+
+        public string idPurchaseRequest { get; set; }
         //public int statusCode { get; set; }
     }
 }

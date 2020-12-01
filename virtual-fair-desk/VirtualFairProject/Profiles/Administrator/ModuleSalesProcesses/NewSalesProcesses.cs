@@ -20,6 +20,11 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleSalesProcesses
             InitializeComponent();
 
             LoadgvSalesProcessesPublic();
+
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -40,7 +45,7 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleSalesProcesses
             List<AdminApi> lstAll = new List<AdminApi>();
             dgvSalesProcessesPublic.AutoGenerateColumns = false;
 
-            if (findByIsPublic != null)
+            if (findByIsPublic.countRows != 0)
             {
                 foreach (var item in findByIsPublic.purchaseRequests)
                 {

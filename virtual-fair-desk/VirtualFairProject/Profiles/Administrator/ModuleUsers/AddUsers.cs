@@ -24,6 +24,11 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleUsers
 
             InitializeComponent();
 
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
+
             string token = Session.Token;
 
             var allProfiles = VirtualFairIntegration.GetFindAllProfiles(token);

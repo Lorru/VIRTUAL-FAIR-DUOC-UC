@@ -114,14 +114,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VirtualFairProject.exe" size="310264">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VirtualFairProject.exe" size="361464">
       <assemblyIdentity name="VirtualFairProject" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>mOzs2o1Anlo4hTMBDxl/TuumT3A57ROEggGMMzyT12Q=</dsig:DigestValue>
+        <dsig:DigestValue>9POkVcjDX6xHvH5ySbx6ybQQ7JVY8UUazPloFPMjp2Q=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

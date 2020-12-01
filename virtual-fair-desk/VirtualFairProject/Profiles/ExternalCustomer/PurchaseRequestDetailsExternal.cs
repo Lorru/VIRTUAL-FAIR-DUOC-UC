@@ -31,36 +31,39 @@ namespace VirtualFairProject.Profiles.ExternalCustomer
 
             var findByIdPurchaseRequest = VirtualFairIntegration.FindByIdPurchaseRequest(token, idPurchaseRequest);
 
-            lblEstado.Text = String.Concat("Estado: ", findByIdPurchaseRequest.purchaseRequestProducts[0].purchaseRequest.purchaseRequestStatus.name);
-            lblDesiredDate.Text = String.Concat("Fecha desea de entrega: ", findByIdPurchaseRequest.purchaseRequestProducts[0].purchaseRequest.desiredDate);
-
-
             List<AddProducts> listPurchaseRequestDetials = new List<AddProducts>();
 
-            foreach (var item in findByIdPurchaseRequest.purchaseRequestProducts)
+            if (findByIdPurchaseRequest.countRows != 0)
             {
-                AddProducts pRobject = new AddProducts();
-                pRobject.nameProduct = item.product.name.ToString();
-                pRobject.weight = item.weight;
-                //pRobject.idPurchaseRequestType = purchaseRequest.purchaseRequests[0].idPurchaseRequestType.ToString();
-                pRobject.remark = item.remark.ToString();
-                pRobject.requieresRefrigerationBool = item.requiresRefrigeration;
 
-                if (pRobject.requieresRefrigerationBool == 1)
+                lblEstado.Text = String.Concat("Estado: ", findByIdPurchaseRequest.purchaseRequestProducts[0].purchaseRequest.purchaseRequestStatus.name);
+                lblDesiredDate.Text = String.Concat("Fecha desea de entrega: ", findByIdPurchaseRequest.purchaseRequestProducts[0].purchaseRequest.desiredDate);
+
+
+                foreach (var item in findByIdPurchaseRequest.purchaseRequestProducts)
                 {
-                    pRobject.requiresRefrigeration = "Si";
+                    AddProducts pRobject = new AddProducts();
+                    pRobject.nameProduct = item.product.name.ToString();
+                    pRobject.weight = item.weight;
+                    //pRobject.idPurchaseRequestType = purchaseRequest.purchaseRequests[0].idPurchaseRequestType.ToString();
+                    pRobject.remark = item.remark.ToString();
+                    pRobject.requieresRefrigerationBool = item.requiresRefrigeration;
+
+                    if (pRobject.requieresRefrigerationBool == 1)
+                    {
+                        pRobject.requiresRefrigeration = "Si";
+                    }
+                    else if (pRobject.requieresRefrigerationBool == 0)
+                    {
+                        pRobject.requiresRefrigeration = "No";
+                    }
+
+
+                    pRobject.agreedPrice = item.agreedPrice.ToString();
+
+                    listPurchaseRequestDetials.Add(pRobject);
                 }
-                else if (pRobject.requieresRefrigerationBool == 0)
-                {
-                    pRobject.requiresRefrigeration = "No";
-                }
-
-
-                pRobject.agreedPrice = item.agreedPrice.ToString();
-
-                listPurchaseRequestDetials.Add(pRobject);
             }
-
 
             dgvPurchaseRequestDetails.AutoGenerateColumns = false;
 
@@ -113,7 +116,30 @@ namespace VirtualFairProject.Profiles.ExternalCustomer
 
         private void btnRecibirEntrega_Click(object sender, EventArgs e)
         {
+            string token = Session.Token;
+            int idClient = Session.IdProfile;
+            Session.id = lblNSolicitudCompra.Text;
+            int id = Convert.ToInt32(Session.id);
+            //var comentario = txtComentario.Text;
 
+            dynamic purchaseRequest = new System.Dynamic.ExpandoObject();
+            purchaseRequest.id = id;
+            purchaseRequest.idPurchaseRequestStatus = 8;
+
+            var updateStatusById = VirtualFairIntegration.UpdateStatusById(token, purchaseRequest);
+
+            if (updateStatusById.statusCode == 200)
+            {
+                string text = updateStatusById.message;
+                string title = "Información";
+                MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                var purchaseRequestBack = new PurchaseRequestExternal();
+                purchaseRequestBack.Show();
+                this.Close();
+
+
+            }
         }
 
         private void btnVolver_Click(object sender, EventArgs e)

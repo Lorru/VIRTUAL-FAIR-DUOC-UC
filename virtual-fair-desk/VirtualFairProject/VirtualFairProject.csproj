@@ -161,11 +161,23 @@
     <Compile Include="Profiles\Administrator\ModuleAuctions\Auctions.Designer.cs">
       <DependentUpon>Auctions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Profiles\Administrator\ModuleAuctions\AuctionsDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Administrator\ModuleAuctions\AuctionsDetails.Designer.cs">
+      <DependentUpon>AuctionsDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Profiles\Administrator\ModuleAuctions\CreateAuctions.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Profiles\Administrator\ModuleAuctions\CreateAuctions.Designer.cs">
       <DependentUpon>CreateAuctions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Administrator\ModuleAuctions\RemoveAuctionsPublish.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Administrator\ModuleAuctions\RemoveAuctionsPublish.Designer.cs">
+      <DependentUpon>RemoveAuctionsPublish.cs</DependentUpon>
     </Compile>
     <Compile Include="Profiles\Administrator\ModuleAuctions\UpdateAuctionsNotPublic.cs">
       <SubType>Form</SubType>
@@ -268,6 +280,12 @@
     </Compile>
     <Compile Include="Profiles\Consultant\MyProfile.Designer.cs">
       <DependentUpon>MyProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\ExternalCustomer\BuyBalanceExternal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\ExternalCustomer\BuyBalanceExternal.Designer.cs">
+      <DependentUpon>BuyBalanceExternal.cs</DependentUpon>
     </Compile>
     <Compile Include="Profiles\ExternalCustomer\MyProfile.cs">
       <SubType>Form</SubType>
@@ -385,8 +403,14 @@
     <EmbeddedResource Include="Profiles\Administrator\ModuleAuctions\Auctions.resx">
       <DependentUpon>Auctions.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Administrator\ModuleAuctions\AuctionsDetails.resx">
+      <DependentUpon>AuctionsDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Administrator\ModuleAuctions\CreateAuctions.resx">
       <DependentUpon>CreateAuctions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Administrator\ModuleAuctions\RemoveAuctionsPublish.resx">
+      <DependentUpon>RemoveAuctionsPublish.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Administrator\ModuleAuctions\UpdateAuctionsNotPublic.resx">
       <DependentUpon>UpdateAuctionsNotPublic.cs</DependentUpon>
@@ -438,6 +462,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Consultant\MyProfile.resx">
       <DependentUpon>MyProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\ExternalCustomer\BuyBalanceExternal.resx">
+      <DependentUpon>BuyBalanceExternal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\ExternalCustomer\MyProfile.resx">
       <DependentUpon>MyProfile.cs</DependentUpon>

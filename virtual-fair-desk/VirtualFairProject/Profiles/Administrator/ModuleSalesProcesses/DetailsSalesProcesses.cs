@@ -17,9 +17,16 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleSalesProcesses
         public DetailsSalesProcesses()
         {
             InitializeComponent();
+            lblIDProcesoVenta.Visible = false;
 
             LoadDgvDetails();
             LoadParticipants();
+            LoadProducersWinners();
+
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
         }
 
         private void LoadDgvDetails() 
@@ -28,13 +35,16 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleSalesProcesses
 
             var idPurchaseRequest = Session.id;
 
+            lblIDProcesoVenta.Visible = true;
+            lblIDProcesoVenta.Text = Session.id;
+
             // lblNSolicitudCompra.Text = _loginData.id;
 
             var findByIdPurchaseRequest = VirtualFairIntegration.FindByIdPurchaseRequest(token, idPurchaseRequest);
 
             List<AddProducts> lstSalesProcessesDetails = new List<AddProducts>();
 
-            if (findByIdPurchaseRequest != null)
+            if (findByIdPurchaseRequest.countRows != 0)
             {
                 foreach (var item in findByIdPurchaseRequest.purchaseRequestProducts)
                 {
@@ -144,6 +154,79 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleSalesProcesses
 
             }
 
+        }
+
+        private void LoadProducersWinners()
+        {
+            string token = Session.Token;
+
+            dynamic parameters = new System.Dynamic.ExpandoObject();
+            parameters.idPurchaseRequest = Session.id;
+
+            var getParticipants = VirtualFairIntegration.GetParticipantsByIdPurchaseRequestProducers(token, parameters);
+
+            List<string> lstNamesProducts = new List<string>();
+
+            List<AddProducts> lstSalesProcessesDetails = new List<AddProducts>();
+            List<AddProducts> lstAddProducts = new List<AddProducts>();
+
+            if (getParticipants.countRows != 0)
+            {
+                foreach (var item in getParticipants.purchaseRequestProducers)
+                {
+                    AddProducts pRobject = new AddProducts();
+                    pRobject.id = Convert.ToInt32(item.id.ToString());
+                    pRobject.nameClient = item.producer.fullName;
+                    pRobject.nameProduct = item.purchaseRequestProduct.product.name;
+                    pRobject.weight = Convert.ToInt32(item.weight.ToString());
+                    pRobject.price = item.price.ToString();
+
+                    lstSalesProcessesDetails.Add(pRobject);
+                    //lstNamesProducts.Add(item.product.name.ToString());
+                }
+            }
+
+            dgvWinners.AutoGenerateColumns = false;
+
+            //var productsElements = from element in lstSalesProcessesDetails where 
+
+            dgvWinners.DataSource = lstSalesProcessesDetails;
+
+            string[] arrayString = new string[] { "id","nameClient", "nameProduct" ,"weight" , "price" };
+
+            foreach (var item in arrayString)
+            {
+                DataGridViewTextBoxColumn dataGrid = new DataGridViewTextBoxColumn();
+
+                dataGrid.DataPropertyName = item;
+                dataGrid.ReadOnly = true;
+
+                if (item == "id")
+                {
+                    dataGrid.HeaderText = "ID";
+                }
+                if (item == "nameClient")
+                {
+                    dataGrid.HeaderText = "Nombre productor";
+                }
+                if (item == "nameProduct")
+                {
+                    dataGrid.HeaderText = "Producto";
+                }
+                if (item == "weight")
+                {
+                    dataGrid.HeaderText = "Peso ofrecido Kg";
+                }
+                if (item == "price")
+                {
+                    dataGrid.HeaderText = "$ Valor por Kg";
+                }
+
+                dataGrid.Name = item;
+
+                dgvWinners.Columns.Add(dataGrid);
+
+            }
         }
 
         private void btnVolver_Click(object sender, EventArgs e)

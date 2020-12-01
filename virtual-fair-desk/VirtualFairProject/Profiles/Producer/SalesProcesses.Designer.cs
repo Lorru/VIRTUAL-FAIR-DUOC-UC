@@ -38,6 +38,7 @@
             this.lblCerrarSesion = new System.Windows.Forms.LinkLabel();
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
+            this.lblBienvenido = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAllSalesProcesses)).BeginInit();
             this.SuspendLayout();
@@ -128,7 +129,7 @@
             // lblCerrarSesion
             // 
             this.lblCerrarSesion.AutoSize = true;
-            this.lblCerrarSesion.Location = new System.Drawing.Point(658, 18);
+            this.lblCerrarSesion.Location = new System.Drawing.Point(657, 36);
             this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCerrarSesion.Name = "lblCerrarSesion";
             this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
@@ -157,11 +158,22 @@
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
+            // lblBienvenido
+            // 
+            this.lblBienvenido.AutoSize = true;
+            this.lblBienvenido.Location = new System.Drawing.Point(596, 18);
+            this.lblBienvenido.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblBienvenido.Name = "lblBienvenido";
+            this.lblBienvenido.Size = new System.Drawing.Size(35, 13);
+            this.lblBienvenido.TabIndex = 54;
+            this.lblBienvenido.Text = "label2";
+            // 
             // SalesProcesses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(818, 624);
+            this.Controls.Add(this.lblBienvenido);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnFiltrar);
             this.Controls.Add(this.lblCerrarSesion);
@@ -173,7 +185,7 @@
             this.Controls.Add(this.rbForeignProcesses);
             this.Controls.Add(this.label1);
             this.Name = "SalesProcesses";
-            this.Text = "SalesProcesses";
+            this.Text = "Proceso de Venta";
             ((System.ComponentModel.ISupportInitialize)(this.dgvSP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAllSalesProcesses)).EndInit();
             this.ResumeLayout(false);
@@ -192,5 +204,6 @@
         private System.Windows.Forms.LinkLabel lblCerrarSesion;
         private System.Windows.Forms.Button btnFiltrar;
         private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.Label lblBienvenido;
     }
 }

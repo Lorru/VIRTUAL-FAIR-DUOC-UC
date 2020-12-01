@@ -44,6 +44,7 @@
             this.txtNombreCompleto = new System.Windows.Forms.TextBox();
             this.lblNombreCompleto = new System.Windows.Forms.Label();
             this.lblRegistrarUsuario = new System.Windows.Forms.Label();
+            this.lblBienvenido = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblCerrarSesion
@@ -52,7 +53,7 @@
             this.lblCerrarSesion.Location = new System.Drawing.Point(708, 76);
             this.lblCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCerrarSesion.Name = "lblCerrarSesion";
-            this.lblCerrarSesion.Size = new System.Drawing.Size(82, 15);
+            this.lblCerrarSesion.Size = new System.Drawing.Size(70, 13);
             this.lblCerrarSesion.TabIndex = 36;
             this.lblCerrarSesion.TabStop = true;
             this.lblCerrarSesion.Text = "Cerrar Sesión";
@@ -82,7 +83,7 @@
             this.lblPassword.AutoSize = true;
             this.lblPassword.Location = new System.Drawing.Point(112, 323);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(61, 15);
+            this.lblPassword.Size = new System.Drawing.Size(53, 13);
             this.lblPassword.TabIndex = 34;
             this.lblPassword.Text = "Password";
             // 
@@ -108,7 +109,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(497, 323);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 15);
+            this.label4.Size = new System.Drawing.Size(52, 13);
             this.label4.TabIndex = 31;
             this.label4.Text = "Dirección";
             // 
@@ -124,7 +125,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(497, 273);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 15);
+            this.label3.Size = new System.Drawing.Size(40, 13);
             this.label3.TabIndex = 29;
             this.label3.Text = "Ciudad";
             // 
@@ -140,7 +141,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(497, 227);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 15);
+            this.label2.Size = new System.Drawing.Size(29, 13);
             this.label2.TabIndex = 26;
             this.label2.Text = "País";
             // 
@@ -156,7 +157,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(112, 273);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 15);
+            this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 22;
             this.label1.Text = "E-mail";
             // 
@@ -172,7 +173,7 @@
             this.lblNombreCompleto.AutoSize = true;
             this.lblNombreCompleto.Location = new System.Drawing.Point(112, 227);
             this.lblNombreCompleto.Name = "lblNombreCompleto";
-            this.lblNombreCompleto.Size = new System.Drawing.Size(108, 15);
+            this.lblNombreCompleto.Size = new System.Drawing.Size(91, 13);
             this.lblNombreCompleto.TabIndex = 20;
             this.lblNombreCompleto.Text = "Nombre Completo";
             // 
@@ -181,15 +182,26 @@
             this.lblRegistrarUsuario.AutoSize = true;
             this.lblRegistrarUsuario.Location = new System.Drawing.Point(408, 156);
             this.lblRegistrarUsuario.Name = "lblRegistrarUsuario";
-            this.lblRegistrarUsuario.Size = new System.Drawing.Size(104, 15);
+            this.lblRegistrarUsuario.Size = new System.Drawing.Size(89, 13);
             this.lblRegistrarUsuario.TabIndex = 18;
             this.lblRegistrarUsuario.Text = "Modificar Usuario";
+            // 
+            // lblBienvenido
+            // 
+            this.lblBienvenido.AutoSize = true;
+            this.lblBienvenido.Location = new System.Drawing.Point(679, 23);
+            this.lblBienvenido.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblBienvenido.Name = "lblBienvenido";
+            this.lblBienvenido.Size = new System.Drawing.Size(35, 13);
+            this.lblBienvenido.TabIndex = 54;
+            this.lblBienvenido.Text = "label2";
             // 
             // MyProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(892, 571);
+            this.Controls.Add(this.lblBienvenido);
             this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.txtPassword);
@@ -231,5 +243,6 @@
         private System.Windows.Forms.TextBox txtNombreCompleto;
         private System.Windows.Forms.Label lblNombreCompleto;
         private System.Windows.Forms.Label lblRegistrarUsuario;
+        private System.Windows.Forms.Label lblBienvenido;
     }
 }

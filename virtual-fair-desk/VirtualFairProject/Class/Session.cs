@@ -42,5 +42,11 @@ namespace VirtualFairProject.Class
         public static string password { get; set; }
 
         public static string idTransportAuction { get; set; }
+
+        public static string base64 { get; set; }
+
+        public static string status { get; set; }
+
+        public static string idPurchaseRequest { get; set; }
     }
 }

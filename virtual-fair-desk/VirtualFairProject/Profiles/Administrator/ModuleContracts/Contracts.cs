@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,6 +21,11 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleContracts
             InitializeComponent();
 
             LoadDgvContracts();
+
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
         }
 
         private void btnAgregarContrato_Click(object sender, EventArgs e)
@@ -160,9 +167,24 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleContracts
 
                 if (findById.statusCode == 200)
                 {
-                    if (findById.contract.contractPath != "")
+                    if (findById.contract.contractPath != "{}" || findById.contract.contractPath != "")
                     {
                         //Descarga archivo
+                        SaveFileDialog sfdArchive = new SaveFileDialog();
+
+                        if (sfdArchive.ShowDialog() == DialogResult.OK) 
+                        { 
+                            using (WebClient client = new WebClient())
+                            {
+                                //client.DownloadFile(new Uri(findById.contract.contractPath.ToString()), sfdArchive.FileName);
+                                // OR 
+                                client.DownloadFileAsync(new Uri(findById.contract.contractPath.ToString()), sfdArchive.FileName);
+                            }
+
+                            string text = "Contrato descargado con éxito.";
+                            string title = "Información";
+                            MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
                     else
                     {

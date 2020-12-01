@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using VirtualFairProject.Api.Integration;
 using VirtualFairProject.Class;
 using VirtualFairProject.Class.InternalCustomer.PurchaseRequest;
+using VirtualFairProject.Profiles.Client;
+using VirtualFairProject.Profiles.InternalCustomer;
 
 namespace VirtualFairProject.Profiles.InternalCustomer
 {
@@ -22,6 +24,11 @@ namespace VirtualFairProject.Profiles.InternalCustomer
             _loginData = loginData;
             InitializeComponent();
 
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
+
             string token = Session.Token;
             string idPurchaseRequest = _loginData.id;
 
@@ -29,35 +36,40 @@ namespace VirtualFairProject.Profiles.InternalCustomer
 
             var findByIdPurchaseRequest = VirtualFairIntegration.FindByIdPurchaseRequest(token, idPurchaseRequest);
 
-            lblEstado.Text = String.Concat("Estado: ", findByIdPurchaseRequest.purchaseRequestProducts[0].purchaseRequest.purchaseRequestStatus.name);
-            lblDesiredDate.Text = String.Concat("Fecha desea de entrega: ", findByIdPurchaseRequest.purchaseRequestProducts[0].purchaseRequest.desiredDate);
-
+            
 
             List<AddProducts> listPurchaseRequestDetials = new List<AddProducts>();
 
-            foreach (var item in findByIdPurchaseRequest.purchaseRequestProducts)
+            if (findByIdPurchaseRequest.countRows != 0)
             {
-                AddProducts pRobject = new AddProducts();
-                pRobject.nameProduct = item.product.name.ToString();
-                pRobject.weight = item.weight;
-                //pRobject.idPurchaseRequestType = purchaseRequest.purchaseRequests[0].idPurchaseRequestType.ToString();
-                pRobject.remark = item.remark.ToString();
-                pRobject.requieresRefrigerationBool = item.requiresRefrigeration;
+                lblEstado.Text = String.Concat("Estado: ", findByIdPurchaseRequest.purchaseRequestProducts[0].purchaseRequest.purchaseRequestStatus.name);
+                lblDesiredDate.Text = String.Concat("Fecha desea de entrega: ", findByIdPurchaseRequest.purchaseRequestProducts[0].purchaseRequest.desiredDate);
 
-                if (pRobject.requieresRefrigerationBool == 1)
+                foreach (var item in findByIdPurchaseRequest.purchaseRequestProducts)
                 {
-                    pRobject.requiresRefrigeration = "Si";
-                }
-                else if (pRobject.requieresRefrigerationBool == 0)
-                {
-                    pRobject.requiresRefrigeration = "No";
-                }
+                    AddProducts pRobject = new AddProducts();
+                    pRobject.nameProduct = item.product.name.ToString();
+                    pRobject.weight = item.weight;
+                    //pRobject.idPurchaseRequestType = purchaseRequest.purchaseRequests[0].idPurchaseRequestType.ToString();
+                    pRobject.remark = item.remark.ToString();
+                    pRobject.requieresRefrigerationBool = item.requiresRefrigeration;
 
-                
-                pRobject.agreedPrice = item.agreedPrice.ToString();
+                    if (pRobject.requieresRefrigerationBool == 1)
+                    {
+                        pRobject.requiresRefrigeration = "Si";
+                    }
+                    else if (pRobject.requieresRefrigerationBool == 0)
+                    {
+                        pRobject.requiresRefrigeration = "No";
+                    }
 
-                listPurchaseRequestDetials.Add(pRobject);
+
+                    pRobject.agreedPrice = item.agreedPrice.ToString();
+
+                    listPurchaseRequestDetials.Add(pRobject);
+                }
             }
+            
 
 
             dgvPurchaseRequestDetails.AutoGenerateColumns = false;
@@ -109,7 +121,7 @@ namespace VirtualFairProject.Profiles.InternalCustomer
 
             var refuseDevilery = new RefuseDelivery();
             refuseDevilery.Show();
-            //this.Hide();
+            //this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -131,13 +143,20 @@ namespace VirtualFairProject.Profiles.InternalCustomer
                 string text = updateStatusById.message;
                 string title = "Información";
                 MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                var purchaseRequestBack = new PurchaseRequest();
+                purchaseRequestBack.Show();
                 this.Close();
+
+
             }
 
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
+            var purchaseRequest = new PurchaseRequest();
+            purchaseRequest.Show();
             this.Close();
         }
 

@@ -28,7 +28,12 @@ namespace VirtualFairProject.Profiles.Carrier
             LoadDetailsAuctions();
             LoadParticipants();
 
-            
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
+
+
         }
 
         private void LoadDetailsAuctions() 

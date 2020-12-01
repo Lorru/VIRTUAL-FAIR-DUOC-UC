@@ -40,6 +40,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblTipoSubasta = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.lblWinner = new System.Windows.Forms.Label();
+            this.lblBienvenido = new System.Windows.Forms.Label();
+            this.lblWinners = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvParticipants)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetailsAuctions)).BeginInit();
             this.SuspendLayout();
@@ -160,7 +165,7 @@
             // lblTipoSubasta
             // 
             this.lblTipoSubasta.AutoSize = true;
-            this.lblTipoSubasta.Location = new System.Drawing.Point(173, 102);
+            this.lblTipoSubasta.Location = new System.Drawing.Point(173, 79);
             this.lblTipoSubasta.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTipoSubasta.Name = "lblTipoSubasta";
             this.lblTipoSubasta.Size = new System.Drawing.Size(19, 13);
@@ -170,18 +175,70 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(94, 102);
+            this.label1.Location = new System.Drawing.Point(94, 79);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 13);
             this.label1.TabIndex = 21;
             this.label1.Text = "Subasta tipo";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(94, 118);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(46, 13);
+            this.label5.TabIndex = 38;
+            this.label5.Text = "Estado: ";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(144, 118);
+            this.lblStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(19, 13);
+            this.lblStatus.TabIndex = 39;
+            this.lblStatus.Text = "<>";
+            // 
+            // lblWinner
+            // 
+            this.lblWinner.AutoSize = true;
+            this.lblWinner.Location = new System.Drawing.Point(350, 460);
+            this.lblWinner.Name = "lblWinner";
+            this.lblWinner.Size = new System.Drawing.Size(13, 13);
+            this.lblWinner.TabIndex = 40;
+            this.lblWinner.Text = "<";
+            // 
+            // lblBienvenido
+            // 
+            this.lblBienvenido.AutoSize = true;
+            this.lblBienvenido.Location = new System.Drawing.Point(571, 22);
+            this.lblBienvenido.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblBienvenido.Name = "lblBienvenido";
+            this.lblBienvenido.Size = new System.Drawing.Size(35, 13);
+            this.lblBienvenido.TabIndex = 70;
+            this.lblBienvenido.Text = "label2";
+            // 
+            // lblWinners
+            // 
+            this.lblWinners.AutoSize = true;
+            this.lblWinners.Location = new System.Drawing.Point(363, 134);
+            this.lblWinners.Name = "lblWinners";
+            this.lblWinners.Size = new System.Drawing.Size(0, 10);
+            this.lblWinners.TabIndex = 71;
+            // 
             // CarrierDetailsParticipatingAuctions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 910);
+            this.ClientSize = new System.Drawing.Size(800, 845);
+            this.Controls.Add(this.lblWinners);
+            this.Controls.Add(this.lblBienvenido);
+            this.Controls.Add(this.lblWinner);
+            this.Controls.Add(this.lblStatus);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.dgvParticipants);
@@ -217,5 +274,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblTipoSubasta;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label lblWinner;
+        private System.Windows.Forms.Label lblBienvenido;
+        private System.Windows.Forms.Label lblWinners;
     }
 }

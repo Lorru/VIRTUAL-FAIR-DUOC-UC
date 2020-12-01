@@ -136,3 +136,7 @@ D:\gyanez\Portafolio\Git\VIRTUAL-FAIR-DUOC-UC\virtual-fair-desk\VirtualFairProje
 D:\gyanez\Portafolio\Git\VIRTUAL-FAIR-DUOC-UC\virtual-fair-desk\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.ExternalCustomer.MyProfile.resources
 D:\gyanez\Portafolio\Git\VIRTUAL-FAIR-DUOC-UC\virtual-fair-desk\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Producer.MyProfile.resources
 D:\gyanez\Portafolio\Git\VIRTUAL-FAIR-DUOC-UC\virtual-fair-desk\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Carrier.CarrierDetailsParticipatingAuctions.resources
+D:\gyanez\Portafolio\Git\VIRTUAL-FAIR-DUOC-UC\virtual-fair-desk\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.ModuleAuctions.AuctionsDetails.resources
+D:\gyanez\Portafolio\Git\VIRTUAL-FAIR-DUOC-UC\virtual-fair-desk\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.Administrator.ModuleAuctions.RemoveAuctionsPublish.resources
+D:\gyanez\Portafolio\Git\VIRTUAL-FAIR-DUOC-UC\virtual-fair-desk\VirtualFairProject\obj\Debug\VirtualFairProject.Profiles.ExternalCustomer.BuyBalanceExternal.resources
+D:\gyanez\Portafolio\Git\VIRTUAL-FAIR-DUOC-UC\virtual-fair-desk\VirtualFairProject\obj\Debug\VirtualFairProject.csprojAssemblyReference.cache

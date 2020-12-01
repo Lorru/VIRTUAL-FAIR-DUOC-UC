@@ -19,6 +19,11 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleAuctions
             InitializeComponent();
 
             LoadAllAuctions();
+
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
         }
 
         private void btnBuscarSubasta_Click(object sender, EventArgs e)
@@ -50,10 +55,11 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleAuctions
                 {
                     AdminApi allAuctionsObject = new AdminApi();
                     allAuctionsObject.id = Convert.ToInt32(item.id.ToString());
-                    allAuctionsObject.fullName = item.client.fullName.ToString();
-                    allAuctionsObject.totalWeight = item.totalWeight.ToString();
+                    allAuctionsObject.idProfile = Convert.ToInt32(item.purchaseRequest.id);
+                    allAuctionsObject.fullName = item.purchaseRequest.client.fullName.ToString();
+                    allAuctionsObject.totalWeight = item.purchaseRequest.totalWeight.ToString();
                     allAuctionsObject.dateA = item.desiredDate;
-                    allAuctionsObject.nameStatus = item.purchaseRequestStatus.name.ToString(); //STATUS
+                    allAuctionsObject.nameStatus = item.purchaseRequest.purchaseRequestStatus.name.ToString(); //STATUS
                     allAuctionsObject.isPublic = item.isPublic.ToString();
                     lstAllAuctions.Add(allAuctionsObject);
                 }
@@ -61,7 +67,7 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleAuctions
                 dgvAuctions.DataSource = lstAllAuctions;
             }
 
-            string[] arrayString = new string[] { "id", "fullName", "totalWeight", "dateA", "nameStatus" };
+            string[] arrayString = new string[] { "id", "idProfile","fullName", "totalWeight", "dateA", "nameStatus" };
 
             foreach (var item in arrayString)
             {
@@ -71,6 +77,10 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleAuctions
                 if (item == "id")
                 {
                     dataGrid.HeaderText = "ID";
+                }
+                if (item == "idProfile")
+                {
+                    dataGrid.HeaderText = "ID Venta";
                 }
                 else if (item == "fullName")
                 {
@@ -138,6 +148,35 @@ namespace VirtualFairProject.Profiles.Administrator.ModuleAuctions
 
             var login = new Login();
             login.Show();
+
+            this.Close();
+        }
+
+        private void dgvAuctions_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 6)
+            {
+                int rowIndex = dgvAuctions.CurrentCell.RowIndex;
+                //Session.Edit = true;
+
+                var purchaseRequest = dgvAuctions.CurrentRow.DataBoundItem;
+                AdminApi purRequest = (AdminApi)purchaseRequest;
+
+                Session.id = Convert.ToString(purRequest.id);
+
+                var auctionsDetails = new AuctionsDetails();
+
+                auctionsDetails.Show();
+
+                this.Close();
+
+            }
+        }
+
+        private void btnRemoveAuctions_Click(object sender, EventArgs e)
+        {
+            var remoteAuctions = new RemoveAuctionsPublish();
+            remoteAuctions.Show();
 
             this.Close();
         }

@@ -35,23 +35,26 @@ namespace VirtualFairProject.Profiles.ExternalCustomer
 
             List<PurchaseRequestDTO> listPurchaseRequest = new List<PurchaseRequestDTO>();
 
-            foreach (var item in purchaseRequest.purchaseRequests)
+            if (purchaseRequest.countRows != 0)
             {
-                PurchaseRequestDTO pRobject = new PurchaseRequestDTO();
-                pRobject.id = item.id.ToString();
-                pRobject.idClient = item.idClient.ToString();
-                //pRobject.idPurchaseRequestType = purchaseRequest.purchaseRequests[0].idPurchaseRequestType.ToString();
-                pRobject.desiredDate = item.desiredDate.ToString();
-                pRobject.updateDate = item.updateDate.ToString();
-                pRobject.totalWeight = item.totalWeight.ToString();
-                //pRobject.idPurchaseRequestStatus = purchaseRequest.purchaseRequests[0].idPurchaseRequestStatus.ToString();
-                pRobject.totalPrice = item.totalPrice.ToString();
-                // pRobject.idRequestStatus = purchaseRequest.purchaseRequests[0].purchaseRequestStatus.id.ToString();
-                pRobject.nameRequestStatus = item.purchaseRequestStatus.name.ToString();
+                foreach (var item in purchaseRequest.purchaseRequests)
+                {
+                    PurchaseRequestDTO pRobject = new PurchaseRequestDTO();
+                    pRobject.id = item.id.ToString();
+                    pRobject.idClient = item.idClient.ToString();
+                    //pRobject.idPurchaseRequestType = purchaseRequest.purchaseRequests[0].idPurchaseRequestType.ToString();
+                    pRobject.desiredDate = item.desiredDate.ToString();
+                    pRobject.updateDate = item.updateDate.ToString();
+                    pRobject.totalWeight = item.totalWeight.ToString();
+                    //pRobject.idPurchaseRequestStatus = purchaseRequest.purchaseRequests[0].idPurchaseRequestStatus.ToString();
+                    pRobject.totalPrice = item.totalPrice.ToString();
+                    // pRobject.idRequestStatus = purchaseRequest.purchaseRequests[0].purchaseRequestStatus.id.ToString();
+                    pRobject.nameRequestStatus = item.purchaseRequestStatus.name.ToString();
 
-                listPurchaseRequest.Add(pRobject);
+                    listPurchaseRequest.Add(pRobject);
+                }
             }
-
+            
 
             dgvPurchaseRequest.AutoGenerateColumns = false;
 
@@ -166,6 +169,14 @@ namespace VirtualFairProject.Profiles.ExternalCustomer
 
             var login = new Login();
             login.Show();
+
+            this.Close();
+        }
+
+        private void btnComprarSaldo_Click(object sender, EventArgs e)
+        {
+            var buyBalance = new BuyBalanceExternal();
+            buyBalance.Show();
 
             this.Close();
         }

@@ -22,6 +22,11 @@ namespace VirtualFairProject.Profiles.InternalCustomer
         {
             InitializeComponent();
 
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
+
             dgvProducts1.AutoGenerateColumns = false;
 
             string[] arrayString = new string[] { "idProduct", "nameProduct","weight", "remark", "requiresRefrigeration" };

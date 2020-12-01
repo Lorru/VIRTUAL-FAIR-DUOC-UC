@@ -18,6 +18,10 @@ namespace VirtualFairProject.Profiles.Producer
         public MyProfile()
         {
             InitializeComponent();
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
             LoadProfile();
         }
 

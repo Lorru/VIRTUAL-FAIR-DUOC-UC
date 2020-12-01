@@ -20,9 +20,38 @@ namespace VirtualFairProject.Profiles.Carrier
             lblTipoSubasta.Visible = false;
             lblFechaDecision.Visible = false;
             lblFechaDeseada.Visible = false;
+            lblStatus.Visible = false;
+            lblWinner.Visible = false;
             LoadDetailsAuctions();
             LoadParticipants();
+            LoadWinners();
 
+            var nameUser = Session.NameUser;
+            var nameProfile = Session.NameProfile;
+
+            lblBienvenido.Text = String.Concat("Bienvenido ", nameUser, " | ", nameProfile.ToUpper());
+
+
+        }
+
+        private void LoadWinners() 
+        {
+            string token = Session.Token;
+            dynamic parameters = new System.Dynamic.ExpandoObject();
+            parameters.idPurchaseRequest = Session.idPurchaseRequest;
+            parameters.idCarrier = Session.IdProfile;
+
+            var findByIdPurchaseRequest = VirtualFairIntegration.FindByIdPurchaseRequestAndIdCarrierAndIsParticipantEqualToOneCarrierAuction(token, parameters);
+
+
+            if (findByIdPurchaseRequest.result == "False")
+            {
+                lblWinners.Text = "No eres un ganador";
+            }
+            else if (findByIdPurchaseRequest.result == "True")
+            {
+                lblWinners.Text = "Eres un ganador";
+            }
             
         }
 
@@ -49,6 +78,15 @@ namespace VirtualFairProject.Profiles.Carrier
                 lblFechaDeseada.Text = findByIdTransportAuction.purchaseRequestProducts[0].purchaseRequest.desiredDate;
                 lblFechaDecision.Text = findByIdTransportAuction.purchaseRequestProducts[0].purchaseRequest.creationDate;
                 lblTipoSubasta.Text = String.Concat(findByIdTransportAuction.purchaseRequestProducts[0].purchaseRequest.purchaseRequestType.name, " ", findByIdTransportAuction.purchaseRequestProducts[0].idPurchaseRequest);
+
+                lblStatus.Visible = true;
+                lblStatus.Text = findByIdTransportAuction.purchaseRequestProducts[0].purchaseRequest.purchaseRequestStatus.name.ToString();
+
+                //if (lblStatus.Text == "ACEPTADO POR EL CLIENTE")
+               // {
+                //    lblWinner.Visible = true;
+               //     lblWinner.Text = "Eres el ganador";
+                //}
 
                 foreach (var item in findByIdTransportAuction.purchaseRequestProducts)
                 {
