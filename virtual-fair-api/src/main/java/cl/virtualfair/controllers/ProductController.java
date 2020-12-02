@@ -23,6 +23,7 @@ import cl.virtualfair.services.virtualfair.EventLogService;
 import cl.virtualfair.services.virtualfair.ProductService;
 import cl.virtualfair.services.virtualfair.SessionTokenService;
 import cl.virtualfair.services.virtualfair.UserService;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api/Product/")
@@ -41,6 +42,7 @@ public class ProductController {
 	@Autowired
 	private EventLogService eventLogService;
 	
+	@ApiOperation(value = "Servicio para obtener una lista de todos los productos")
 	@GetMapping("findAll")
 	public ResponseEntity<Map<String, Object>> findAll(@RequestHeader(name = "Authorization", required = true)String token, HttpServletRequest httpServletRequest){
 		

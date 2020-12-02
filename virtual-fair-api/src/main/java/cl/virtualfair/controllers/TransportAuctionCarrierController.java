@@ -32,6 +32,7 @@ import cl.virtualfair.services.virtualfair.SessionTokenService;
 import cl.virtualfair.services.virtualfair.TransportAuctionCarrierService;
 import cl.virtualfair.services.virtualfair.TransportAuctionService;
 import cl.virtualfair.services.virtualfair.UserService;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api/TransportAuctionCarrier/")
@@ -59,6 +60,7 @@ public class TransportAuctionCarrierController {
 	@Autowired
 	private EventLogService eventLogService;
 	
+	@ApiOperation(value = "Servicio para obtener una lista de los transportistas que estan participando de una subasta de transporte")
 	@GetMapping("findByIdTransportAuction/{idTransportAuction}")
 	public ResponseEntity<Map<String, Object>> findByIdTransportAuction(@RequestHeader(name = "Authorization", required = true)String token, @PathVariable("idTransportAuction") long idTransportAuction, HttpServletRequest httpServletRequest){
 		
@@ -72,7 +74,7 @@ public class TransportAuctionCarrierController {
 			
 			User user = sessionToken != null ? userService.findById(sessionToken.getIdUser()) : null;
 			
-			if(sessionToken != null && user != null && user.getIdProfile() == 4 && user.getStatus() == 1) {
+			if(sessionToken != null && user != null && (user.getIdProfile() == 1 || user.getIdProfile() == 4) && user.getStatus() == 1) {
 			
 				List<TransportAuctionCarrier> transportAuctionCarriers = transportAuctionCarrierService.findByIdTransportAuction(idTransportAuction);
 				
@@ -134,6 +136,157 @@ public class TransportAuctionCarrierController {
 		}
 	}
 	
+	@ApiOperation(value = "Servicio para obtener una lista de los transportistas que estan participando de una subasta de transporte, por IdPurchaseRequest")
+	@GetMapping("findByIdPurchaseRequest/{idPurchaseRequest}")
+	public ResponseEntity<Map<String, Object>> findByIdPurchaseRequest(@RequestHeader(name = "Authorization", required = true)String token, @PathVariable("idPurchaseRequest") long idPurchaseRequest, HttpServletRequest httpServletRequest){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		try {
+			
+			String host = httpServletRequest.getRemoteAddr();
+			
+			SessionToken sessionToken = sessionTokenService.findByTokenAndHost(token, host);
+			
+			User user = sessionToken != null ? userService.findById(sessionToken.getIdUser()) : null;
+			
+			if(sessionToken != null && user != null && user.getIdProfile() == 1 && user.getStatus() == 1) {
+			
+				List<TransportAuctionCarrier> transportAuctionCarriers = transportAuctionCarrierService.findByIdPurchaseRequest(idPurchaseRequest);
+				
+				if(transportAuctionCarriers.size() > 0) {
+
+					EventLog eventLog = new EventLog();
+					
+					eventLog.setIdEventType(1);
+					eventLog.setIdUser(sessionToken.getIdUser());
+					eventLog.setHost(httpServletRequest.getRemoteAddr());
+					eventLog.setHttpMethod(httpServletRequest.getMethod());
+					eventLog.setController(httpServletRequest.getRequestURI().split("/")[2]);
+					eventLog.setMethod(httpServletRequest.getRequestURI().split("/")[3]);
+					
+					eventLogService.create(eventLog);
+					
+					map.put("transportAuctionCarriers", transportAuctionCarriers);
+					map.put("countRows", transportAuctionCarriers.size());
+					map.put("statusCode", HttpStatus.OK.value());
+					
+					return ResponseEntity.ok().body(map);
+					
+				}else {
+
+					map.put("transportAuctionCarriers", transportAuctionCarriers);
+					map.put("countRows", transportAuctionCarriers.size());
+					map.put("statusCode", HttpStatus.NO_CONTENT.value());
+				
+					return ResponseEntity.ok().body(map);
+				}
+				
+			}else {
+
+				map.put("message", "Token no Permitido.");
+				map.put("statusCode", HttpStatus.FORBIDDEN.value());
+			
+				return ResponseEntity.ok().body(map);
+				
+			}
+			
+		}catch(Exception exception) {
+			
+			EventLog eventLog = new EventLog();
+			
+			eventLog.setIdEventType(2);
+			eventLog.setHost(httpServletRequest.getRemoteAddr());
+			eventLog.setHttpMethod(httpServletRequest.getMethod());
+			eventLog.setController(httpServletRequest.getRequestURI().split("/")[2]);
+			eventLog.setMethod(httpServletRequest.getRequestURI().split("/")[3]);
+			eventLog.setMessage(exception.getMessage());
+			
+			eventLogService.create(eventLog);
+			
+			map.put("message", exception.getMessage());
+			map.put("statusCode", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			
+			return ResponseEntity.ok().body(map);
+			
+		}
+	}
+
+	@ApiOperation(value = "Servicio para saber si el transportista es participante ganador de la subasta de transporte, de una solicitud de compra por IdPurchaseRequest y por IdCarrier")
+	@GetMapping("findByIdPurchaseRequestAndIdCarrierAndIsParticipantEqualToOne/{idPurchaseRequest}/{idCarrier}")
+	public ResponseEntity<Map<String, Object>> findByIdPurchaseRequestAndIdCarrierAndIsParticipantEqualToOne(@RequestHeader(name = "Authorization", required = true)String token, @PathVariable("idPurchaseRequest") long idPurchaseRequest, @PathVariable("idCarrier") long idCarrier, HttpServletRequest httpServletRequest){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		try {
+			
+			String host = httpServletRequest.getRemoteAddr();
+			
+			SessionToken sessionToken = sessionTokenService.findByTokenAndHost(token, host);
+			
+			User user = sessionToken != null ? userService.findById(sessionToken.getIdUser()) : null;
+			
+			if(sessionToken != null && user != null && user.getIdProfile() == 4 && user.getStatus() == 1) {
+			
+				TransportAuctionCarrier transportAuctionCarrier = transportAuctionCarrierService.findByIdPurchaseRequestAndIdCarrierAndIsParticipantEqualToOne(idPurchaseRequest, idCarrier);
+				
+				if(transportAuctionCarrier != null) {
+
+					EventLog eventLog = new EventLog();
+					
+					eventLog.setIdEventType(1);
+					eventLog.setIdUser(sessionToken.getIdUser());
+					eventLog.setHost(httpServletRequest.getRemoteAddr());
+					eventLog.setHttpMethod(httpServletRequest.getMethod());
+					eventLog.setController(httpServletRequest.getRequestURI().split("/")[2]);
+					eventLog.setMethod(httpServletRequest.getRequestURI().split("/")[3]);
+					
+					eventLogService.create(eventLog);
+					
+					map.put("result", true);
+					map.put("statusCode", HttpStatus.OK.value());
+					
+					return ResponseEntity.ok().body(map);
+					
+				}else {
+
+					map.put("result", false);
+					map.put("statusCode", HttpStatus.NOT_FOUND.value());
+				
+					return ResponseEntity.ok().body(map);
+				}
+				
+			}else {
+
+				map.put("message", "Token no Permitido.");
+				map.put("statusCode", HttpStatus.FORBIDDEN.value());
+			
+				return ResponseEntity.ok().body(map);
+				
+			}
+			
+		}catch(Exception exception) {
+			
+			EventLog eventLog = new EventLog();
+			
+			eventLog.setIdEventType(2);
+			eventLog.setHost(httpServletRequest.getRemoteAddr());
+			eventLog.setHttpMethod(httpServletRequest.getMethod());
+			eventLog.setController(httpServletRequest.getRequestURI().split("/")[2]);
+			eventLog.setMethod(httpServletRequest.getRequestURI().split("/")[3]);
+			eventLog.setMessage(exception.getMessage());
+			
+			eventLogService.create(eventLog);
+			
+			map.put("message", exception.getMessage());
+			map.put("statusCode", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			
+			return ResponseEntity.ok().body(map);
+			
+		}
+	}
+	
+	@ApiOperation(value = "Servicio para obtener el transportista ganador de la subasta de transporte, de una solicitud de compra por IdPurchaseRequest (Calcula)")
 	@GetMapping("getParticipantByIdPurchaseRequest/{idPurchaseRequest}")
 	public ResponseEntity<Map<String, Object>> getParticipantByIdPurchaseRequest(@RequestHeader(name = "Authorization", required = true)String token, @PathVariable("idPurchaseRequest") long idPurchaseRequest, HttpServletRequest httpServletRequest){
 		
@@ -206,7 +359,82 @@ public class TransportAuctionCarrierController {
 			
 		}
 	}
+
+	@ApiOperation(value = "Servicio para obtener el transportista ganador de la subasta de transporte, de una solicitud de compra por IdPurchaseRequest (No Calcula)")
+	@GetMapping("findByIdPurchaseRequestAndIsParticipantEqualToOne/{idPurchaseRequest}")
+	public ResponseEntity<Map<String, Object>> findByIdPurchaseRequestAndIsParticipantEqualToOne(@RequestHeader(name = "Authorization", required = true)String token, @PathVariable("idPurchaseRequest") long idPurchaseRequest, HttpServletRequest httpServletRequest){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		try {
+			
+			String host = httpServletRequest.getRemoteAddr();
+			
+			SessionToken sessionToken = sessionTokenService.findByTokenAndHost(token, host);
+			
+			User user = sessionToken != null ? userService.findById(sessionToken.getIdUser()) : null;
+			
+			if(sessionToken != null && user != null && user.getIdProfile() == 1 && user.getStatus() == 1) {
+			
+				TransportAuctionCarrier transportAuctionCarrier = transportAuctionCarrierService.findByIdPurchaseRequestAndIsParticipantEqualToOne(idPurchaseRequest);
+				
+				if(transportAuctionCarrier != null) {
+
+					EventLog eventLog = new EventLog();
+					
+					eventLog.setIdEventType(1);
+					eventLog.setIdUser(sessionToken.getIdUser());
+					eventLog.setHost(httpServletRequest.getRemoteAddr());
+					eventLog.setHttpMethod(httpServletRequest.getMethod());
+					eventLog.setController(httpServletRequest.getRequestURI().split("/")[2]);
+					eventLog.setMethod(httpServletRequest.getRequestURI().split("/")[3]);
+					
+					eventLogService.create(eventLog);
+					
+					map.put("transportAuctionCarrier", transportAuctionCarrier);
+					map.put("statusCode", HttpStatus.OK.value());
+					
+					return ResponseEntity.ok().body(map);
+					
+				}else {
+
+					map.put("message", "No existe ningún participante para esta solicitud de compra.");
+					map.put("statusCode", HttpStatus.NOT_FOUND.value());
+				
+					return ResponseEntity.ok().body(map);
+				}
+				
+			}else {
+
+				map.put("message", "Token no Permitido.");
+				map.put("statusCode", HttpStatus.FORBIDDEN.value());
+			
+				return ResponseEntity.ok().body(map);
+				
+			}
+			
+		}catch(Exception exception) {
+			
+			EventLog eventLog = new EventLog();
+			
+			eventLog.setIdEventType(2);
+			eventLog.setHost(httpServletRequest.getRemoteAddr());
+			eventLog.setHttpMethod(httpServletRequest.getMethod());
+			eventLog.setController(httpServletRequest.getRequestURI().split("/")[2]);
+			eventLog.setMethod(httpServletRequest.getRequestURI().split("/")[3]);
+			eventLog.setMessage(exception.getMessage());
+			
+			eventLogService.create(eventLog);
+			
+			map.put("message", exception.getMessage());
+			map.put("statusCode", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			
+			return ResponseEntity.ok().body(map);
+			
+		}
+	}
 	
+	@ApiOperation(value = "Servicio para crear una participación de subasta de transporte")
 	@PostMapping("create")
 	public ResponseEntity<Map<String, Object>> create(@RequestHeader(name = "Authorization", required = true)String token, @RequestBody TransportAuctionCarrier transportAuctionCarrier, HttpServletRequest httpServletRequest){
 		
@@ -259,45 +487,34 @@ public class TransportAuctionCarrierController {
 								
 								if(purchaseRequest.getIdPurchaseRequestType() == 2) {
 									
-									Contract contract = contractService.findByIdUser(user.getId());
+									Contract contract = contractService.findByIdUserAndIsValidEqualToOne(user.getId());
 									
 									if(contract != null) {
 										
-										if(contract.getIsValid() == 1) {
+										transportAuctionCarrier = transportAuctionCarrierService.create(transportAuctionCarrier);
+										
+										if(transportAuctionCarrier != null && transportAuctionCarrier.getId() != 0) {
+										
+											EventLog eventLog = new EventLog();
 											
-											transportAuctionCarrier = transportAuctionCarrierService.create(transportAuctionCarrier);
+											eventLog.setIdEventType(1);
+											eventLog.setIdUser(sessionToken.getIdUser());
+											eventLog.setHost(httpServletRequest.getRemoteAddr());
+											eventLog.setHttpMethod(httpServletRequest.getMethod());
+											eventLog.setController(httpServletRequest.getRequestURI().split("/")[2]);
+											eventLog.setMethod(httpServletRequest.getRequestURI().split("/")[3]);
 											
-											if(transportAuctionCarrier != null && transportAuctionCarrier.getId() != 0) {
+											eventLogService.create(eventLog);
 											
-												EventLog eventLog = new EventLog();
-												
-												eventLog.setIdEventType(1);
-												eventLog.setIdUser(sessionToken.getIdUser());
-												eventLog.setHost(httpServletRequest.getRemoteAddr());
-												eventLog.setHttpMethod(httpServletRequest.getMethod());
-												eventLog.setController(httpServletRequest.getRequestURI().split("/")[2]);
-												eventLog.setMethod(httpServletRequest.getRequestURI().split("/")[3]);
-												
-												eventLogService.create(eventLog);
-												
-												map.put("message", "Tu oferta se registró con éxito, Ya estás participando.");
-												map.put("statusCode", HttpStatus.CREATED.value());
-											
-												return ResponseEntity.ok().body(map);
+											map.put("message", "Tu oferta se registró con éxito, Ya estás participando.");
+											map.put("statusCode", HttpStatus.CREATED.value());
+										
+											return ResponseEntity.ok().body(map);
 
-												
-											}else {
-												
-												map.put("message", "Hubo un problema al intentar registrar la oferta, Inténtalo de nuevo.");
-												map.put("statusCode", HttpStatus.NOT_FOUND.value());
-											
-												return ResponseEntity.ok().body(map);
-												
-											}
 											
 										}else {
 											
-											map.put("message", "El contrato para poder realizar una oferta de una solicitud de compra hacia el extranjero no es válido.");
+											map.put("message", "Hubo un problema al intentar registrar la oferta, Inténtalo de nuevo.");
 											map.put("statusCode", HttpStatus.NOT_FOUND.value());
 										
 											return ResponseEntity.ok().body(map);

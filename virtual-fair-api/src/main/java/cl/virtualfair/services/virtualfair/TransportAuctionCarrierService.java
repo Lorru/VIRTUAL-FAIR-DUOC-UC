@@ -17,6 +17,9 @@ public class TransportAuctionCarrierService {
 	@Autowired
 	private ITransportAuctionCarrierRepository iTransportAuctionCarrierRepository;
 	
+	@Autowired
+	private PurchaseRequestService purchaseRequestService;
+	
 	public TransportAuctionCarrierService() {
 		
 	}
@@ -24,6 +27,14 @@ public class TransportAuctionCarrierService {
 	public List<TransportAuctionCarrier> findByIdTransportAuction(long idTransportAuction){
 		
 		List<TransportAuctionCarrier> transportAuctionCarriers = iTransportAuctionCarrierRepository.findByIdTransportAuction(idTransportAuction);
+		
+		return transportAuctionCarriers;
+		
+	}
+	
+	public List<TransportAuctionCarrier> findByIdPurchaseRequest(long idPurchaseRequest){
+		
+		List<TransportAuctionCarrier> transportAuctionCarriers = iTransportAuctionCarrierRepository.findByIdPurchaseRequest(idPurchaseRequest);
 		
 		return transportAuctionCarriers;
 		
@@ -38,6 +49,8 @@ public class TransportAuctionCarrierService {
 	}
 	
 	public TransportAuctionCarrier create(TransportAuctionCarrier transportAuctionCarrier) {
+		
+		transportAuctionCarrier.setIsParticipant(0);
 		
 		transportAuctionCarrier = iTransportAuctionCarrierRepository.save(transportAuctionCarrier);
 		
@@ -67,6 +80,8 @@ public class TransportAuctionCarrierService {
 				
 			}
 			
+		
+			purchaseRequestService.updateTotalPriceById(transportAuctionCarrierParticipant.getTransportAuction().getIdPurchaseRequest());
 		}
 		
 		
@@ -76,6 +91,14 @@ public class TransportAuctionCarrierService {
 	public TransportAuctionCarrier findByIdPurchaseRequestAndIsParticipantEqualToOne(long idPurchaseRequest) {
 		
 		TransportAuctionCarrier transportAuctionCarrier = iTransportAuctionCarrierRepository.findByIdPurchaseRequestAndIsParticipantEqualToOne(idPurchaseRequest);
+		
+		return transportAuctionCarrier;
+		
+	}
+	
+	public TransportAuctionCarrier findByIdPurchaseRequestAndIdCarrierAndIsParticipantEqualToOne(long idPurchaseRequest, long idCarrier) {
+		
+		TransportAuctionCarrier transportAuctionCarrier = iTransportAuctionCarrierRepository.findByIdPurchaseRequestAndIdCarrierAndIsParticipantEqualToOne(idPurchaseRequest, idCarrier);
 		
 		return transportAuctionCarrier;
 		

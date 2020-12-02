@@ -1,6 +1,9 @@
 package cl.virtualfair.services.virtualfair;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,9 @@ public class PurchaseRequestProductService {
 	@Autowired
 	private PurchaseRequestProducerService purchaseRequestProducerService;
 	
+	@Autowired
+	private PurchaseRequestService purchaseRequestService;
+	
 	public PurchaseRequestProductService() {
 		
 	}
@@ -25,6 +31,20 @@ public class PurchaseRequestProductService {
 	public List<PurchaseRequestProduct> findByIdPurchaseRequest(long idPurchaseRequest){
 		
 		List<PurchaseRequestProduct> purchaseRequestProducts = iPurchaseRequestProductRepository.findByIdPurchaseRequest(idPurchaseRequest);
+		
+		return purchaseRequestProducts;
+	}
+	
+	public List<PurchaseRequestProduct> findByIdPurchaseRequestStatusInTwoNineAndUpdateDate(String updateDateOf, String updateDateTo){
+		
+		List<PurchaseRequestProduct> purchaseRequestProducts = iPurchaseRequestProductRepository.findByIdPurchaseRequestStatusInTwoNineAndUpdateDate(updateDateOf, updateDateTo);
+		
+		return purchaseRequestProducts;
+	}
+	
+	public List<PurchaseRequestProduct> findByIdPurchaseRequestStatusInTwoNineAndExpirationDateGreatherThanNow(){
+		
+		List<PurchaseRequestProduct> purchaseRequestProducts = iPurchaseRequestProductRepository.findByIdPurchaseRequestStatusInTwoNineAndExpirationDateGreatherThanNow();
 		
 		return purchaseRequestProducts;
 	}
@@ -51,15 +71,43 @@ public class PurchaseRequestProductService {
 		return purchaseRequestProduct;
 	}
 	
+	public PurchaseRequestProduct updateById(PurchaseRequestProduct purchaseRequestProduct) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+	
+		PurchaseRequestProduct purchaseRequestProductExisting = findById(purchaseRequestProduct.getId());
+		
+		List<Field> fields = Arrays.stream(purchaseRequestProductExisting.getClass().getDeclaredFields()).filter(x -> 
+		x.getName() != "serialVersionUID" && 
+		x.getName() != "Id"
+		).collect(Collectors.toList());
+
+		for (Field field : fields) {
+		
+			Field fieldObject = purchaseRequestProduct.getClass().getDeclaredField(field.getName());
+			
+			fieldObject.setAccessible(true);
+			field.setAccessible(true);
+			
+			field.set(purchaseRequestProductExisting, fieldObject.get(purchaseRequestProduct));
+		}
+		
+		purchaseRequestProductExisting = iPurchaseRequestProductRepository.save(purchaseRequestProductExisting);
+		
+		return purchaseRequestProductExisting;
+	}
+	
 	public PurchaseRequestProduct updateAgreedPriceById(long id) {
 		
 		PurchaseRequestProduct purchaseRequestProduct = findById(id);
 		
-		PurchaseRequestProducer purchaseRequestProducer = purchaseRequestProducerService.findByIdPurchaseRequestProductAndIsParticipantEqualToOne(purchaseRequestProduct.getId());
+		List<PurchaseRequestProducer> purchaseRequestProducers = purchaseRequestProducerService.findByIdPurchaseRequestProductAndIsParticipantEqualToOne(purchaseRequestProduct.getId());
 		
-		if(purchaseRequestProducer != null) {
+		if(purchaseRequestProducers.size() > 0) {
 			
-			purchaseRequestProduct.setAgreedPrice(purchaseRequestProducer.getPrice());
+			long agreedPrice = purchaseRequestProducers.stream().mapToLong(x -> x.getPrice()).sum();
+			
+			purchaseRequestProduct.setAgreedPrice(agreedPrice);
+			
+			purchaseRequestService.updateTotalPriceById(purchaseRequestProduct.getIdPurchaseRequest());
 			
 			purchaseRequestProduct = iPurchaseRequestProductRepository.save(purchaseRequestProduct);
 			

@@ -47,7 +47,7 @@ public class Contract implements Serializable {
 
 	@javax.persistence.Transient
 	private String ContractPath;
-    
+	
 	public Contract() {
 	}    
     
@@ -55,15 +55,15 @@ public class Contract implements Serializable {
 		Id = id;
 	}
 
-	public Contract(Long id, Long idUser, String contractPath, LocalDateTime creationDate, LocalDateTime expirationDate,
-			Integer isValid, cl.virtualfair.models.virtualfair.User user) {
+	public Contract(Long id, Long idUser, LocalDateTime creationDate, LocalDateTime expirationDate, Integer isValid,
+			cl.virtualfair.models.virtualfair.User user, String contractPath) {
 		Id = id;
 		IdUser = idUser;
-		ContractPath = contractPath;
 		CreationDate = creationDate;
 		ExpirationDate = expirationDate;
 		IsValid = isValid;
 		User = user;
+		ContractPath = contractPath;
 	}
 
 	public Long getId() {
@@ -80,14 +80,6 @@ public class Contract implements Serializable {
 
 	public void setIdUser(Long idUser) {
 		IdUser = idUser;
-	}
-
-	public String getContractPath() {
-		return ContractPath;
-	}
-
-	public void setContractPath(String contractPath) {
-		ContractPath = contractPath;
 	}
 
 	public LocalDateTime getCreationDate() {
@@ -120,5 +112,13 @@ public class Contract implements Serializable {
 
 	public void setUser(User user) {
 		User = user;
+	}
+
+	public String getContractPath() {
+		return ContractPath;
+	}
+
+	public void setContractPath(String contractPath) {
+		ContractPath = contractPath;
 	}
 }

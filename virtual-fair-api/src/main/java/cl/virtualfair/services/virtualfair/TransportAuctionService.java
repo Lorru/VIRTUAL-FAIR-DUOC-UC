@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cl.virtualfair.models.virtualfair.PurchaseRequest;
 import cl.virtualfair.models.virtualfair.TransportAuction;
 import cl.virtualfair.repositories.ITransportAuctionRepository;
 
@@ -14,6 +15,9 @@ public class TransportAuctionService {
 
 	@Autowired
 	private ITransportAuctionRepository iTransportAuctionRepository;
+	
+	@Autowired
+	private PurchaseRequestService purchaseRequestService;
 	
 	public TransportAuctionService() {
 		
@@ -33,6 +37,13 @@ public class TransportAuctionService {
 		return transportAuctions;
 	}
 	
+	public List<TransportAuction> findByIsPublicEqualToZero(){
+		
+		List<TransportAuction> transportAuctions = iTransportAuctionRepository.findByIsPublicEqualToZero();
+		
+		return transportAuctions;
+	}
+	
 
 	public List<TransportAuction> findByIdCarrierAndIsPublicEqualToOne(long idCarrier){
 		
@@ -43,8 +54,20 @@ public class TransportAuctionService {
 	
 	public TransportAuction create(TransportAuction transportAuction) {
 		
+		transportAuction.setCreationDate(LocalDateTime.now());
 		transportAuction.setUpdateDate(LocalDateTime.now());
-		transportAuction.setUpdateDate(LocalDateTime.now());
+		
+		PurchaseRequest purchaseRequest = purchaseRequestService.findById(transportAuction.getIdPurchaseRequest());
+		
+		if(purchaseRequest != null) {
+			
+			long idPurchaseRequestStatus = 4;
+			
+			purchaseRequest.setIdPurchaseRequestStatus(idPurchaseRequestStatus);
+			
+			purchaseRequestService.updateStatusById(purchaseRequest);
+			
+		}
 		
 		transportAuction = iTransportAuctionRepository.save(transportAuction);
 		

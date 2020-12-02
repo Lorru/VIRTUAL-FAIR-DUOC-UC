@@ -32,6 +32,9 @@ public class TransportAuction implements Serializable {
 	@Column(name="ID_PURCHASE_REQUEST")
 	private Long IdPurchaseRequest;
 	
+	@Column(name="DESIRED_DATE")
+	private LocalDateTime DesiredDate;
+	
 	@Column(name="CREATION_DATE")
 	private LocalDateTime CreationDate;
 	
@@ -52,10 +55,12 @@ public class TransportAuction implements Serializable {
 		Id = id;
 	}
 
-	public TransportAuction(Long id, Long idPurchaseRequest, LocalDateTime creationDate, LocalDateTime updateDate,
-			Integer isPublic, cl.virtualfair.models.virtualfair.PurchaseRequest purchaseRequest) {
+	public TransportAuction(Long id, Long idPurchaseRequest, LocalDateTime desiredDate, LocalDateTime creationDate,
+			LocalDateTime updateDate, Integer isPublic,
+			cl.virtualfair.models.virtualfair.PurchaseRequest purchaseRequest) {
 		Id = id;
 		IdPurchaseRequest = idPurchaseRequest;
+		DesiredDate = desiredDate;
 		CreationDate = creationDate;
 		UpdateDate = updateDate;
 		IsPublic = isPublic;
@@ -76,6 +81,14 @@ public class TransportAuction implements Serializable {
 
 	public void setIdPurchaseRequest(Long idPurchaseRequest) {
 		IdPurchaseRequest = idPurchaseRequest;
+	}
+
+	public LocalDateTime getDesiredDate() {
+		return DesiredDate;
+	}
+
+	public void setDesiredDate(LocalDateTime desiredDate) {
+		DesiredDate = desiredDate;
 	}
 
 	public LocalDateTime getCreationDate() {
@@ -108,9 +121,5 @@ public class TransportAuction implements Serializable {
 
 	public void setPurchaseRequest(PurchaseRequest purchaseRequest) {
 		PurchaseRequest = purchaseRequest;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 }

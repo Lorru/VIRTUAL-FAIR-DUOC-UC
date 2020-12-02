@@ -14,7 +14,10 @@ public interface IContractRepository extends JpaRepository<Contract, Long> {
 	List<Contract> findAll();
 	
 	@Query("SELECT C FROM Contract C WHERE C.IdUser = :idUser")
-	Contract findByIdUser(@Param("idUser") long idUser);
+	List<Contract> findByIdUser(@Param("idUser") long idUser);
+	
+	@Query("SELECT C FROM Contract C WHERE C.IdUser = :idUser AND C.IsValid = 1")
+	Contract findByIdUserAndIsValidEqualToOne(@Param("idUser") long idUser);
 	
 	@Query("SELECT C FROM Contract C WHERE C.Id = :id")
 	Contract findById(@Param("id") long id);

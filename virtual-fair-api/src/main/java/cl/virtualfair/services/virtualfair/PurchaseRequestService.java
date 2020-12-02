@@ -29,6 +29,13 @@ public class PurchaseRequestService {
 	public PurchaseRequestService() {
 		
 	}
+
+	public List<PurchaseRequest> findAll(){
+		
+		List<PurchaseRequest> purchaseRequests = iPurchaseRequestRepository.findAll();
+		
+		return purchaseRequests;
+	}
 	
 	public List<PurchaseRequest> findByIsPublicEqualToZero(){
 		
@@ -153,7 +160,7 @@ public class PurchaseRequestService {
 		
 		purchaseRequestExisting.setUpdateDate(LocalDateTime.now());
 		purchaseRequestExisting.setIsPublic(purchaseRequest.getIsPublic());
-
+		
 		purchaseRequestExisting = iPurchaseRequestRepository.save(purchaseRequestExisting);
 		
 		return purchaseRequestExisting;
@@ -170,17 +177,15 @@ public class PurchaseRequestService {
 		
 		TransportAuctionCarrier transportAuctionCarrier = transportAuctionCarrierService.findByIdPurchaseRequestAndIsParticipantEqualToOne(id);
 		
-		for (PurchaseRequestProduct purchaseRequestProduct : purchaseRequestProducts) {
-			
-			totalPrice = totalPrice + purchaseRequestProduct.getAgreedPrice();
-			
-		}
+		totalPrice = purchaseRequestProducts.stream().mapToLong(x -> x.getAgreedPrice()).sum();
 		
 		if(transportAuctionCarrier != null) {
 			
 			totalPrice = totalPrice + transportAuctionCarrier.getPrice();
 			
 		}
+		
+		totalPrice = (long)(totalPrice * 1.16);
 		
 		purchaseRequest.setUpdateDate(LocalDateTime.now());
 		

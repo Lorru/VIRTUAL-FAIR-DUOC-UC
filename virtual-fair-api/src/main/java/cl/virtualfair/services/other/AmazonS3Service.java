@@ -3,6 +3,7 @@ package cl.virtualfair.services.other;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -10,8 +11,12 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.amazonaws.util.Base64;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -19,8 +24,8 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 @Service
 public class AmazonS3Service {
 	
-	private String accessKey = "AKIAIFXSNFVW3Q6X754Q";
-	private String secretKey = "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";
+	private String accessKey = "AKIAJOZJATDKZH7NQUBA";
+	private String secretKey = "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";
 	private String bucketName = "virtual-fair";
 	
 	private AmazonS3 amazonS3;
@@ -40,9 +45,16 @@ public class AmazonS3Service {
 		
 		if(amazonS3.doesBucketExistV2(bucketName)) {
 			
-			if(amazonS3.doesObjectExist(bucketName, fileName)) {
+			ListObjectsV2Result listObjectsV2Result =  amazonS3.listObjectsV2(bucketName);
 			
-				s3Object = amazonS3.getObject(bucketName, fileName);
+			List<S3ObjectSummary> s3ObjectSummaries = listObjectsV2Result.getObjectSummaries();
+			
+			if(s3ObjectSummaries.stream().filter(x -> x.getKey().toLowerCase().contains(fileName.toLowerCase())).count() > 0) {
+				
+				S3ObjectSummary s3ObjectSummary = s3ObjectSummaries.stream().filter(x -> x.getKey().toLowerCase().contains(fileName.toLowerCase())).findFirst().get();
+			
+				s3Object = amazonS3.getObject(bucketName, s3ObjectSummary.getKey());
+				
 			}
 			
 		}
@@ -56,15 +68,25 @@ public class AmazonS3Service {
 		
 		if(amazonS3.doesBucketExistV2(bucketName)) {
 			
-			if(amazonS3.doesObjectExist(bucketName, fileName)) {
+			ListObjectsV2Result listObjectsV2Result =  amazonS3.listObjectsV2(bucketName);
 			
-				S3Object s3Object = amazonS3.getObject(bucketName, fileName);
+			List<S3ObjectSummary> s3ObjectSummaries = listObjectsV2Result.getObjectSummaries();
 			
-				//GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(s3Object.getBucketName(), s3Object.getKey()).withMethod(HttpMethod.GET);
+			if(s3ObjectSummaries.stream().filter(x -> x.getKey().toLowerCase().contains(fileName.toLowerCase())).count() > 0) {
 				
-				//url = amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString();
+				S3ObjectSummary s3ObjectSummary = s3ObjectSummaries.stream().filter(x -> x.getKey().toLowerCase().contains(fileName.toLowerCase())).findFirst().get();
+			
+				S3Object s3Object = amazonS3.getObject(bucketName, s3ObjectSummary.getKey());
 				
-				url = "https://" + s3Object.getBucketName() + ".s3." + amazonS3.getRegionName() + ".amazonaws.com/" + s3Object.getKey();
+				if(s3Object != null) {
+				
+					//GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(s3Object.getBucketName(), s3Object.getKey()).withMethod(HttpMethod.GET);
+					
+					//url = amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString();
+					
+					url = "https://" + s3Object.getBucketName() + ".s3." + amazonS3.getRegionName() + ".amazonaws.com/" + s3Object.getKey();
+					
+				}
 			}
 			
 		}
@@ -86,7 +108,7 @@ public class AmazonS3Service {
 				
 				InputStream inputStream = new ByteArrayInputStream(bytes);
 				
-				amazonS3.putObject(bucketName, fileName, inputStream, new ObjectMetadata());
+				amazonS3.putObject(new PutObjectRequest(bucketName, fileName, inputStream, new ObjectMetadata()).withCannedAcl(CannedAccessControlList.PublicRead));
 				
 				inputStream.close();
 				
@@ -98,7 +120,7 @@ public class AmazonS3Service {
 				
 				InputStream inputStream = new ByteArrayInputStream(bytes);
 				
-				amazonS3.putObject(bucketName, fileName, inputStream, new ObjectMetadata());
+				amazonS3.putObject(new PutObjectRequest(bucketName, fileName, inputStream, new ObjectMetadata()).withCannedAcl(CannedAccessControlList.PublicRead));
 				
 				result = true;
 			}
@@ -115,13 +137,20 @@ public class AmazonS3Service {
 		
 		if(amazonS3.doesBucketExistV2(bucketName)) {
 			
-			if(amazonS3.doesObjectExist(bucketName, fileName)) {
+			ListObjectsV2Result listObjectsV2Result =  amazonS3.listObjectsV2(bucketName);
+			
+			List<S3ObjectSummary> s3ObjectSummaries = listObjectsV2Result.getObjectSummaries();
+			
+			if(s3ObjectSummaries.stream().filter(x -> x.getKey().toLowerCase().contains(fileName.toLowerCase())).count() > 0) {
 				
-				S3Object s3Object = amazonS3.getObject(bucketName, fileName);
+				S3ObjectSummary s3ObjectSummary = s3ObjectSummaries.stream().filter(x -> x.getKey().toLowerCase().contains(fileName.toLowerCase())).findFirst().get();
+				
+				S3Object s3Object = amazonS3.getObject(bucketName, s3ObjectSummary.getKey());
 				
 				amazonS3.deleteObject(s3Object.getBucketName(), s3Object.getKey());
 				
 				result = true;
+				
 			}
 			
 		}

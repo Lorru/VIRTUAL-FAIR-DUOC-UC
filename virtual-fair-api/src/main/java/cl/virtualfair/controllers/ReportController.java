@@ -1,7 +1,6 @@
 package cl.virtualfair.controllers;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,27 +10,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cl.virtualfair.models.virtualfair.EventLog;
-import cl.virtualfair.models.virtualfair.PurchaseRequestType;
 import cl.virtualfair.models.virtualfair.SessionToken;
 import cl.virtualfair.models.virtualfair.User;
+import cl.virtualfair.services.other.ReportService;
 import cl.virtualfair.services.virtualfair.EventLogService;
-import cl.virtualfair.services.virtualfair.PurchaseRequestTypeService;
 import cl.virtualfair.services.virtualfair.SessionTokenService;
 import cl.virtualfair.services.virtualfair.UserService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/api/PurchaseRequestType/")
+@RequestMapping("/api/Report/")
 @CrossOrigin
-public class PurchaseRequestTypeController {
+public class ReportController {
 
 	@Autowired
-	private PurchaseRequestTypeService purchaseRequestTypeService;
+	private ReportService reportService;
 	
 	@Autowired
 	private UserService userService;
@@ -41,10 +40,10 @@ public class PurchaseRequestTypeController {
 	
 	@Autowired
 	private EventLogService eventLogService;
-
-	@ApiOperation(value = "Servicio para obtener una lista de todos los tipos de solicitud de compra")
-	@GetMapping("findAll")
-	public ResponseEntity<Map<String, Object>> findAll(@RequestHeader(name = "Authorization", required = true)String token, HttpServletRequest httpServletRequest){
+	
+	@ApiOperation(value = "Servicio para mandar reporte a todos los participantes por IdPurchaseRequest")
+	@GetMapping("sendReportToParticipantsByIdPurchaseRequest/{idPurchaseRequest}")
+	public ResponseEntity<Map<String, Object>> sendReportToParticipantsByIdPurchaseRequest(@RequestHeader(name = "Authorization", required = true)String token, @PathVariable("idPurchaseRequest")long idPurchaseRequest, HttpServletRequest httpServletRequest){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -56,36 +55,47 @@ public class PurchaseRequestTypeController {
 			
 			User user = sessionToken != null ? userService.findById(sessionToken.getIdUser()) : null;
 			
-			if(sessionToken != null && user != null && user.getStatus() == 1) {
+			if(sessionToken != null && user != null && user.getIdProfile() == 1 && user.getStatus() == 1) {
 			
-				List<PurchaseRequestType> purchaseRequestTypes = purchaseRequestTypeService.findAll();
+				Boolean existsParticipants = reportService.existsParticipantsByIdPurchaseRequest(idPurchaseRequest);
 				
-				if(purchaseRequestTypes.size() > 0) {
+				if(existsParticipants) {
+				
+					Boolean result = reportService.sendReportToParticipantsByIdPurchaseRequest(idPurchaseRequest);
+					
+					if(result) {
 
-					EventLog eventLog = new EventLog();
+						EventLog eventLog = new EventLog();
+						
+						eventLog.setIdEventType(1);
+						eventLog.setIdUser(sessionToken.getIdUser());
+						eventLog.setHost(httpServletRequest.getRemoteAddr());
+						eventLog.setHttpMethod(httpServletRequest.getMethod());
+						eventLog.setController(httpServletRequest.getRequestURI().split("/")[2]);
+						eventLog.setMethod(httpServletRequest.getRequestURI().split("/")[3]);
+						
+						eventLogService.create(eventLog);
+						
+						map.put("message", "El reporte se envió con éxito");
+						map.put("statusCode", HttpStatus.OK.value());
+						
+						return ResponseEntity.ok().body(map);
+						
+					}else {
+
+						map.put("message", "Hubo un problema al intentar enviar el reporte, Inténtalo de nuevo.");
+						map.put("statusCode", HttpStatus.NOT_FOUND.value());
 					
-					eventLog.setIdEventType(1);
-					eventLog.setIdUser(sessionToken.getIdUser());
-					eventLog.setHost(httpServletRequest.getRemoteAddr());
-					eventLog.setHttpMethod(httpServletRequest.getMethod());
-					eventLog.setController(httpServletRequest.getRequestURI().split("/")[2]);
-					eventLog.setMethod(httpServletRequest.getRequestURI().split("/")[3]);
-					
-					eventLogService.create(eventLog);
-					
-					map.put("purchaseRequestTypes", purchaseRequestTypes);
-					map.put("countRows", purchaseRequestTypes.size());
-					map.put("statusCode", HttpStatus.OK.value());
-					
-					return ResponseEntity.ok().body(map);
+						return ResponseEntity.ok().body(map);
+					}
 					
 				}else {
-
-					map.put("purchaseRequestTypes", purchaseRequestTypes);
-					map.put("countRows", purchaseRequestTypes.size());
-					map.put("statusCode", HttpStatus.NO_CONTENT.value());
+					
+					map.put("message", "No existen participantes para enviar reporte.");
+					map.put("statusCode", HttpStatus.NOT_FOUND.value());
 				
 					return ResponseEntity.ok().body(map);
+					
 				}
 				
 			}else {

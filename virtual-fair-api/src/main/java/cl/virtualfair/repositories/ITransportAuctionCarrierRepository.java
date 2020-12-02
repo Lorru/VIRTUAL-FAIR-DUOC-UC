@@ -21,4 +21,7 @@ public interface ITransportAuctionCarrierRepository extends JpaRepository<Transp
 	
 	@Query("SELECT TAC FROM TransportAuctionCarrier TAC JOIN TAC.TransportAuction TA WHERE TA.IdPurchaseRequest = :idPurchaseRequest AND TAC.IsParticipant = 1")
 	TransportAuctionCarrier findByIdPurchaseRequestAndIsParticipantEqualToOne(@Param("idPurchaseRequest")long idPurchaseRequest);
+	
+	@Query("SELECT TAC FROM TransportAuctionCarrier TAC JOIN TAC.TransportAuction TA WHERE TAC.IdCarrier = :idCarrier AND TA.IdPurchaseRequest = :idPurchaseRequest AND TAC.IsParticipant = 1")
+	TransportAuctionCarrier findByIdPurchaseRequestAndIdCarrierAndIsParticipantEqualToOne(@Param("idPurchaseRequest")long idPurchaseRequest, @Param("idCarrier")long idCarrier);
 }

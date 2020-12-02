@@ -25,6 +25,7 @@ import cl.virtualfair.services.virtualfair.PurchaseRequestRemarkService;
 import cl.virtualfair.services.virtualfair.PurchaseRequestService;
 import cl.virtualfair.services.virtualfair.SessionTokenService;
 import cl.virtualfair.services.virtualfair.UserService;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api/PurchaseRequestRemark/")
@@ -46,6 +47,7 @@ public class PurchaseRequestRemarkController {
 	@Autowired
 	private EventLogService eventLogService;
 	
+	@ApiOperation(value = "Servicio para crear un nuevo comentario para una solicitud de compra")
 	@PostMapping("create")
 	public ResponseEntity<Map<String, Object>> create(@RequestHeader(name = "Authorization", required = true)String token, @RequestBody PurchaseRequestRemark purchaseRequestRemark, HttpServletRequest httpServletRequest){
 		

@@ -28,6 +28,7 @@ import cl.virtualfair.services.virtualfair.ContractService;
 import cl.virtualfair.services.virtualfair.EventLogService;
 import cl.virtualfair.services.virtualfair.SessionTokenService;
 import cl.virtualfair.services.virtualfair.UserService;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api/Contract/")
@@ -46,6 +47,7 @@ public class ContractController {
 	@Autowired
 	private EventLogService eventLogService;
 	
+	@ApiOperation(value = "Servicio para obtener una lista de todos los contratos")
 	@GetMapping("findAll")
 	public ResponseEntity<Map<String, Object>> findAll(@RequestHeader(name = "Authorization", required = true)String token, HttpServletRequest httpServletRequest){
 		
@@ -121,6 +123,81 @@ public class ContractController {
 		}
 	}
 	
+	@ApiOperation(value = "Servicio para obtener un contrato existente por Id")
+	@GetMapping("findById/{id}")
+	public ResponseEntity<Map<String, Object>> findById(@RequestHeader(name = "Authorization", required = true)String token, @PathVariable("id") long id, HttpServletRequest httpServletRequest){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		try {
+			
+			String host = httpServletRequest.getRemoteAddr();
+			
+			SessionToken sessionToken = sessionTokenService.findByTokenAndHost(token, host);
+			
+			User user = sessionToken != null ? userService.findById(sessionToken.getIdUser()) : null;
+			
+			if(sessionToken != null && user  != null && user.getIdProfile() == 1 && user.getStatus() == 1) {
+
+				Contract contractExisting = contractService.findById(id);
+				
+				if(contractExisting != null) {
+				
+					EventLog eventLog = new EventLog();
+					
+					eventLog.setIdEventType(1);
+					eventLog.setIdUser(sessionToken.getIdUser());
+					eventLog.setHost(httpServletRequest.getRemoteAddr());
+					eventLog.setHttpMethod(httpServletRequest.getMethod());
+					eventLog.setController(httpServletRequest.getRequestURI().split("/")[2]);
+					eventLog.setMethod(httpServletRequest.getRequestURI().split("/")[3]);
+					
+					eventLogService.create(eventLog);
+					
+					map.put("contract", contractExisting);
+					map.put("statusCode", HttpStatus.OK.value());
+				
+					return ResponseEntity.ok().body(map);
+					
+				}else {
+
+					map.put("message", "El contrato no existe.");
+					map.put("statusCode", HttpStatus.NOT_FOUND.value());
+				
+					return ResponseEntity.ok().body(map);
+				}
+				
+			}else {
+
+				map.put("message", "Token no Permitido.");
+				map.put("statusCode", HttpStatus.FORBIDDEN.value());
+			
+				return ResponseEntity.ok().body(map);
+				
+			}
+			
+		}catch(Exception exception) {
+			
+			EventLog eventLog = new EventLog();
+			
+			eventLog.setIdEventType(2);
+			eventLog.setHost(httpServletRequest.getRemoteAddr());
+			eventLog.setHttpMethod(httpServletRequest.getMethod());
+			eventLog.setController(httpServletRequest.getRequestURI().split("/")[2]);
+			eventLog.setMethod(httpServletRequest.getRequestURI().split("/")[3]);
+			eventLog.setMessage(exception.getMessage());
+			
+			eventLogService.create(eventLog);
+			
+			map.put("message", exception.getMessage());
+			map.put("statusCode", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			
+			return ResponseEntity.ok().body(map);
+			
+		}
+	}
+	
+	@ApiOperation(value = "Servicio para crear un nuevo contrato")
 	@PostMapping("create")
 	public ResponseEntity<Map<String, Object>> create(@RequestHeader(name = "Authorization", required = true)String token, @RequestBody Contract contract, HttpServletRequest httpServletRequest){
 		
@@ -150,52 +227,32 @@ public class ContractController {
 				
 					return ResponseEntity.ok().body(map);
 					
-				}else if(contract.getIsValid() == null) {
-					
-					map.put("message", "El IsValid es obligatorio.");
-					map.put("statusCode", HttpStatus.NO_CONTENT.value());
-				
-					return ResponseEntity.ok().body(map);
-					
 				}else {
 				
-					Contract contractExisting = contractService.findByIdUser(contract.getIdUser());
+					contract = contractService.create(contract);
 					
-					if(contractExisting == null) {
+					if(contract != null && contract.getId() != 0) {
 						
-						contract = contractService.create(contract);
+						EventLog eventLog = new EventLog();
 						
-						if(contract != null && contract.getId() != 0) {
-							
-							EventLog eventLog = new EventLog();
-							
-							eventLog.setIdEventType(1);
-							eventLog.setIdUser(sessionToken.getIdUser());
-							eventLog.setHost(httpServletRequest.getRemoteAddr());
-							eventLog.setHttpMethod(httpServletRequest.getMethod());
-							eventLog.setController(httpServletRequest.getRequestURI().split("/")[2]);
-							eventLog.setMethod(httpServletRequest.getRequestURI().split("/")[3]);
-							
-							eventLogService.create(eventLog);
-							
-							map.put("message", "El contrato se ha registrado con éxito.");
-							map.put("statusCode", HttpStatus.CREATED.value());
+						eventLog.setIdEventType(1);
+						eventLog.setIdUser(sessionToken.getIdUser());
+						eventLog.setHost(httpServletRequest.getRemoteAddr());
+						eventLog.setHttpMethod(httpServletRequest.getMethod());
+						eventLog.setController(httpServletRequest.getRequestURI().split("/")[2]);
+						eventLog.setMethod(httpServletRequest.getRequestURI().split("/")[3]);
 						
-							return ResponseEntity.ok().body(map);
-							
-						}else {
-
-							map.put("message", "Hubo un problema al intentar registrar el contrato, Inténtalo de nuevo.");
-							map.put("statusCode", HttpStatus.NOT_FOUND.value());
+						eventLogService.create(eventLog);
 						
-							return ResponseEntity.ok().body(map);
-							
-						}
+						map.put("message", "El contrato se ha registrado con éxito.");
+						map.put("statusCode", HttpStatus.CREATED.value());
+					
+						return ResponseEntity.ok().body(map);
 						
 					}else {
-					
-						map.put("message", "Contrato ya existe.");
-						map.put("statusCode", HttpStatus.CONFLICT.value());
+
+						map.put("message", "Hubo un problema al intentar registrar el contrato, Inténtalo de nuevo.");
+						map.put("statusCode", HttpStatus.NOT_FOUND.value());
 					
 						return ResponseEntity.ok().body(map);
 						
@@ -233,6 +290,7 @@ public class ContractController {
 		}
 	}
 	
+	@ApiOperation(value = "Servicio para actualizar un contrato existente por Id")
 	@PutMapping("updateById/{id}")
 	public ResponseEntity<Map<String, Object>> updateById(@RequestHeader(name = "Authorization", required = true)String token, @PathVariable("id") long id, @RequestBody Contract contract, HttpServletRequest httpServletRequest){
 		
@@ -270,67 +328,48 @@ public class ContractController {
 				
 					return ResponseEntity.ok().body(map);
 					
-				}else if(contract.getIsValid() == null) {
-					
-					map.put("message", "El IsValid es obligatorio.");
-					map.put("statusCode", HttpStatus.NO_CONTENT.value());
-				
-					return ResponseEntity.ok().body(map);
-					
 				}else {
 				
-					Contract contractExistingId = contractService.findById(id);
+					Contract contractExisting = contractService.findById(id);
 					
-					if(contractExistingId != null) {
-					
-						Contract contractExisting = contractService.findByIdUser(contract.getIdUser());
+					if(contractExisting == null) {
 						
-						if(contractExisting == null || contractExisting.getId() == id) {
+						Contract contractUpdated = contractService.updateById(contract);
+						
+						if(contractUpdated != null) {
 							
-							Contract contractUpdated = contractService.updateById(contract);
+							EventLog eventLog = new EventLog();
 							
-							if(contractUpdated != null) {
-								
-								EventLog eventLog = new EventLog();
-								
-								eventLog.setIdEventType(1);
-								eventLog.setIdUser(sessionToken.getIdUser());
-								eventLog.setHost(httpServletRequest.getRemoteAddr());
-								eventLog.setHttpMethod(httpServletRequest.getMethod());
-								eventLog.setController(httpServletRequest.getRequestURI().split("/")[2]);
-								eventLog.setMethod(httpServletRequest.getRequestURI().split("/")[3]);
-								
-								eventLogService.create(eventLog);
-								
-								map.put("message", "El contrato se actualizo con éxito.");
-								map.put("statusCode", HttpStatus.OK.value());
+							eventLog.setIdEventType(1);
+							eventLog.setIdUser(sessionToken.getIdUser());
+							eventLog.setHost(httpServletRequest.getRemoteAddr());
+							eventLog.setHttpMethod(httpServletRequest.getMethod());
+							eventLog.setController(httpServletRequest.getRequestURI().split("/")[2]);
+							eventLog.setMethod(httpServletRequest.getRequestURI().split("/")[3]);
 							
-								return ResponseEntity.ok().body(map);
-								
-							}else {
-
-								map.put("message", "Hubo un problema al intentar actualizar el contrato, Inténtalo de nuevo..");
-								map.put("statusCode", HttpStatus.NOT_FOUND.value());
+							eventLogService.create(eventLog);
 							
-								return ResponseEntity.ok().body(map);
-								
-							}
+							map.put("message", "El contrato se actualizo con éxito.");
+							map.put("statusCode", HttpStatus.OK.value());
+						
+							return ResponseEntity.ok().body(map);
 							
 						}else {
-						
-							map.put("message", "Contrato ya existe.");
-							map.put("statusCode", HttpStatus.CONFLICT.value());
+
+							map.put("message", "Hubo un problema al intentar actualizar el contrato, Inténtalo de nuevo..");
+							map.put("statusCode", HttpStatus.NOT_FOUND.value());
 						
 							return ResponseEntity.ok().body(map);
 							
 						}
 						
 					}else {
-
+					
 						map.put("message", "El contrato no existe.");
 						map.put("statusCode", HttpStatus.NOT_FOUND.value());
 					
 						return ResponseEntity.ok().body(map);
+						
 					}
 					
 				}	
@@ -365,6 +404,7 @@ public class ContractController {
 		}
 	}
 	
+	@ApiOperation(value = "Servicio para eliminar un contrato existente por Id")
 	@DeleteMapping("destroyById/{id}")
 	public ResponseEntity<Map<String, Object>> destroyById(@RequestHeader(name = "Authorization", required = true)String token, @PathVariable("id") long id, HttpServletRequest httpServletRequest){
 		

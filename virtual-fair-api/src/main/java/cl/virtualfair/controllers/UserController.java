@@ -26,6 +26,7 @@ import cl.virtualfair.models.virtualfair.User;
 import cl.virtualfair.services.virtualfair.EventLogService;
 import cl.virtualfair.services.virtualfair.SessionTokenService;
 import cl.virtualfair.services.virtualfair.UserService;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api/User/")
@@ -41,6 +42,7 @@ public class UserController {
 	@Autowired
 	private EventLogService eventLogService;
 
+	@ApiOperation(value = "Servicio para obtener una lista de todos los usuarios")
 	@GetMapping("findAll")
 	public ResponseEntity<Map<String, Object>> findAll(@RequestHeader(name = "Authorization", required = true)String token, @RequestParam(name = "searcher", required = false)String searcher, HttpServletRequest httpServletRequest){
 		
@@ -116,6 +118,7 @@ public class UserController {
 		}
 	}
 	
+	@ApiOperation(value = "Servicio para autenticarse y para obtener el token y el usuario")
 	@PostMapping("findByEmailAndPassword")
 	public ResponseEntity<Map<String, Object>> findByEmailAndPassword(@RequestBody User user, HttpServletRequest httpServletRequest){
 		
@@ -209,6 +212,7 @@ public class UserController {
 		
 	}
 	
+	@ApiOperation(value = "Servicio para crear un nuevo usuario")
 	@PostMapping("create")
 	public ResponseEntity<Map<String, Object>> create(@RequestHeader(name = "Authorization", required = true)String token, @RequestBody User user, HttpServletRequest httpServletRequest){
 		
@@ -349,6 +353,7 @@ public class UserController {
 		}
 	}
 	
+	@ApiOperation(value = "Servicio para actualizar un usuario existente por Id")
 	@PutMapping("updateById/{id}")
 	public ResponseEntity<Map<String, Object>> updateById(@RequestHeader(name = "Authorization", required = true)String token, @PathVariable("id") long id, @RequestBody User user, HttpServletRequest httpServletRequest){
 		
@@ -502,6 +507,7 @@ public class UserController {
 		}
 	}
 	
+	@ApiOperation(value = "Servicio para actualizar la propiedad Status de un usuario existente por Id")
 	@PutMapping("updateStatusById/{id}")
 	public ResponseEntity<Map<String, Object>> updateStatusById(@RequestHeader(name = "Authorization", required = true)String token, @PathVariable("id") long id, HttpServletRequest httpServletRequest){
 		

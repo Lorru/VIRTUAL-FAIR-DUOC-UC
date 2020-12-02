@@ -10,6 +10,9 @@ import cl.virtualfair.models.virtualfair.PurchaseRequest;
 
 public interface IPurchaseRequestRepository extends JpaRepository<PurchaseRequest, Long> {
 	
+	@Query("SELECT PR FROM PurchaseRequest PR")
+	List<PurchaseRequest> findAll();
+	
 	@Query("SELECT PR FROM PurchaseRequest PR WHERE PR.IdPurchaseRequestType = :idPurchaseRequestType AND PR.IsPublic = 1")
 	List<PurchaseRequest> findByIdPurchaseRequestTypeAndIsPublicEqualToOne(@Param("idPurchaseRequestType")long idPurchaseRequestType);
 	
