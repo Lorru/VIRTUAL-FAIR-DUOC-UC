@@ -1,0 +1,39 @@
+<div class="logo simple-text">
+  <a href="#" class="simple-text">
+    <div class="logo-img">
+      <img src="/assets/img/logo_transparent.png" />
+    </div>
+  </a>
+</div>
+<div class="sidebar-wrapper">
+  <a
+    class="download-app btn btn-outline-info w-100"
+    href="https://virtual-fair.s3-sa-east-1.amazonaws.com/app-desktop/app-desktop.rar"
+    >Descargar Desk-App
+  </a>
+  <ul class="nav m-0">
+    <ng-container *ngFor="let menuItem of menuItems">
+      <li
+        *ngIf="
+          (menuItem.requiredProfile &&
+            menuItem.requiredProfile.indexOf(_userService.getUser().idProfile) >
+              -1) ||
+          !menuItem.requiredProfile
+        "
+        routerLinkActive="active"
+        class="{{ menuItem.class }} nav-item"
+      >
+        <a class="nav-link" [routerLink]="[menuItem.path]">
+          <i class="material-icons">{{ menuItem.icon }}</i>
+          <p>{{ menuItem.title }}</p>
+        </a>
+      </li>
+    </ng-container>
+    <li class="active-pro nav-item" (click)="logout()">
+      <a class="nav-link" href="javascript:void(0)">
+        <i class="material-icons">power_settings_new</i>
+        <p>Cerrar Sesión</p>
+      </a>
+    </li>
+  </ul>
+</div>

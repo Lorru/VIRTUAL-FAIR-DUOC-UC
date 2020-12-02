@@ -1,0 +1,214 @@
+<div class="card">
+  <div
+    class="card-header py-3 card-header-info row justify-content-between align-items-center"
+  >
+    <div class="col">
+      <h4 class="card-title m-0">Guardar Contrato</h4>
+    </div>
+    <div class="col-2">
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="dialogRef.close()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="form-group container">
+      <div class="row py-2">
+        <div class="center">
+          <ngx-file-drop
+            dropZoneLabel="Drop files here"
+            (onFileDrop)="dropped($event)"
+          >
+            <ng-template
+              ngx-file-drop-content-tmp
+              let-openFileSelector="openFileSelector"
+            >
+              <div
+                (click)="openFileSelector()"
+                class="px-4 py-2 text-center"
+                style="min-width: 400px; color: #25d1c9;"
+              >
+                <span *ngIf="files[0]?.relativePath">
+                  {{ files[0]?.relativePath }}</span
+                >
+                <span *ngIf="!files[0]?.relativePath">
+                  Arrastra el archivo aquí o has click para buscarlo
+                </span>
+              </div>
+            </ng-template>
+          </ngx-file-drop>
+          <div class="p-3">
+            <form class="example-form">
+              <mat-form-field
+                class="example-full-width"
+                style="margin-bottom: -20px"
+              >
+                <input
+                  type="text"
+                  placeholder="Usuario"
+                  aria-label="Usuario"
+                  matInput
+                  [formControl]="myControl"
+                  [matAutocomplete]="auto"
+                />
+                <mat-autocomplete
+                  [displayWith]="displayFn"
+                  autoActiveFirstOption
+                  #auto="matAutocomplete"
+                >
+                  <mat-option
+                    *ngFor="let option of filteredOptions | async"
+                    [value]="option"
+                  >
+                    {{ option.fullName }} - {{ option.profile.name }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </form>
+          </div>
+          <div
+            class="p-2 input-group align-middle justify-content-center align-items-center"
+          >
+            * Fecha de expiración:
+            <input
+              style="margin-left: 5px; max-width: 150px"
+              id="date-input"
+              type="date"
+              class="form-control"
+              [(ngModel)]="contract.expirationDate"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-info"
+      (click)="dialogRef.close()"
+    >
+      Cerrar
+    </button>
+    <button [disabled]="processing" type="button" class="btn btn-success" (click)="saveContract()">
+      <mat-spinner class="white-spinner" [diameter]="17" *ngIf="processing"></mat-spinner>
+      <span *ngIf="!processing">Guardar</span>
+    </button>
+  </div>
+</div>
+<!-- 
+
+<div class="modal-header">
+  <h4 class="modal-title">Guardar contrato</h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="dialogRef.close()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="form-group container">
+    <div class="row py-2">
+      <div class="center">
+        <ngx-file-drop
+          dropZoneLabel="Drop files here"
+          (onFileDrop)="dropped($event)"
+        >
+          <ng-template
+            ngx-file-drop-content-tmp
+            let-openFileSelector="openFileSelector"
+          >
+            <div
+              (click)="openFileSelector()"
+              class="px-4 py-2 text-center"
+              style="min-width: 400px"
+            >
+              <span *ngIf="files[0]?.relativePath">
+                {{ files[0]?.relativePath }}</span
+              >
+              <span *ngIf="!files[0]?.relativePath">
+                Arrastra el archivo aquí o has click para buscarlo
+              </span>
+            </div>
+          </ng-template>
+        </ngx-file-drop>
+        <div class="p-3">
+          <form class="example-form">
+            <mat-form-field
+              class="example-full-width"
+              style="margin-bottom: -20px"
+            >
+              <input
+                type="text"
+                placeholder="Usuario"
+                aria-label="Usuario"
+                matInput
+                [formControl]="myControl"
+                [matAutocomplete]="auto"
+              />
+              <mat-autocomplete
+                [displayWith]="displayFn"
+                autoActiveFirstOption
+                #auto="matAutocomplete"
+              >
+                <mat-option
+                  *ngFor="let option of filteredOptions | async"
+                  [value]="option"
+                >
+                  {{ option.fullName }} - {{ option.profile.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+        </div>
+        <div
+          class="p-2 input-group align-middle justify-content-center align-items-center"
+        >
+          * Fecha de expiración:
+          <input
+            style="margin-left: 5px; max-width: 150px"
+            id="date-input"
+            type="date"
+            class="form-control"
+            [(ngModel)]="contract.expirationDate"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="dialogRef.close()"
+    >
+      Cerrar
+    </button>
+    <button
+      [disabled]="
+        processing ||
+        !myControl.value ||
+        !contract.expirationDate ||
+        files.length === 0
+      "
+      type="button"
+      class="btn btn-primary"
+      (click)="saveContract()"
+    >
+      <mat-spinner
+        class="white-spinner"
+        [diameter]="17"
+        *ngIf="processing"
+      ></mat-spinner>
+      <span *ngIf="!processing">Guardar</span>
+    </button>
+  </div>
+</div> -->

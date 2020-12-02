@@ -1,0 +1,33 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ data.title }}</h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="dialogRef.close()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body p-4 text-center">
+  <div style="font-size: 55px; padding: 15px">
+    <mat-icon [inline]="true"
+      *ngIf="data.resultType === 'success'"
+      style="color: green;"
+    >check_circle_outline</mat-icon>
+    <mat-icon [inline]="true"
+      *ngIf="data.resultType === 'failure'"
+      style="color: red;"
+    >highlight_off</mat-icon>
+  </div>
+  {{ data.message }}
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-outline-dark"
+    (click)="dialogRef.close(data.resultType)"
+  >
+    Cerrar
+  </button>
+</div>

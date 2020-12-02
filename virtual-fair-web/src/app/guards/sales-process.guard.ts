@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class SalesProcessGuard implements CanActivate {
 
-  constructor(private router: Router){}
+  constructor(public router: Router){}
 
   canActivate( ): Observable<boolean> | Promise<boolean> | boolean {
     

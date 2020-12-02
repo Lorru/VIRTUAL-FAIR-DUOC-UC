@@ -1,0 +1,61 @@
+<div
+  class="container-fluid bg-white text-dark h-100 w-100 harvest-background"
+  (keypress)="keyPress($event)"
+>
+  <img class="logo" src="../../../assets/img/logo_transparent.png" />
+  <div class="login-box">
+    <div style="padding: 2.5rem !important">
+      <div class="form-group">
+        <mat-form-field appearance="fill">
+          <mat-label style="color: white">Usuarios de prueba</mat-label>
+          <mat-select [(ngModel)]="user">
+            <mat-option
+              *ngFor="let userTest of testingUsersLogin"
+              [value]="userTest"
+              >{{ userTest.rol }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <input
+          name="email-input"
+          type="email"
+          [(ngModel)]="user.email"
+          class="form-control"
+          placeholder="Correo"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          name="password-input"
+          type="password"
+          [(ngModel)]="user.password"
+          class="form-control"
+          placeholder="Contraseña"
+        />
+      </div>
+      <button
+        class="btn btn-success w-100 mt-3"
+        (click)="findByEmailAndPassword()"
+        [disabled]="
+          loadingFindByEmailAndPassword || (!user.password && !user.email)
+        "
+      >
+        <i
+          class="fa fa-circle-notch fa-spin"
+          *ngIf="loadingFindByEmailAndPassword"
+        ></i>
+        Ingresar
+      </button>
+      <a
+        href="https://virtual-fair.s3-sa-east-1.amazonaws.com/app-desktop/app-desktop.rar"
+        class="btn btn-outline-info w-100 mt-3 download-app"
+      >
+        Descarga la aplicación de escritorio
+      </a>
+      <!-- <div class="form-group text-center">
+          <a class="btn btn-link btn-sm text-dark" routerLink="/recovery-password">Recuperar contraseña</a>
+        </div> -->
+    </div>
+  </div>
+</div>
+<!-- <img src="https://expandemineria.cl/wp-content/uploads/2020/02/Escondida_HQ-550x550.jpg" class="bg-login"> -->

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UserGuard implements CanActivate {
 
-  constructor(private router: Router){}
+  constructor(public router: Router){}
 
   canActivate( ): Observable<boolean> | Promise<boolean> | boolean {
     
@@ -19,7 +19,7 @@ export class UserGuard implements CanActivate {
 
     }else{
 
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/main/dashboard');
       return false;
     }
 

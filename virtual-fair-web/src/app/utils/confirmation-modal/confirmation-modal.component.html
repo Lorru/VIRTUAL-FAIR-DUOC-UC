@@ -1,0 +1,38 @@
+<div class="card">
+  <div
+    class="card-header py-3 card-header-warning row justify-content-between align-items-center"
+  >
+    <div class="col">
+      <h4 class="card-title m-0">{{ data.title }}</h4>
+    </div>
+    <div class="col-2">
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="dialogRef.close()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="card-body p-4 text-center">
+    {{ data.message }}
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="dialogRef.close(false)"
+    >
+      No
+    </button>
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="dialogRef.close(true)"
+    >
+      <span>Sí</span>
+    </button>
+  </div>
+</div>

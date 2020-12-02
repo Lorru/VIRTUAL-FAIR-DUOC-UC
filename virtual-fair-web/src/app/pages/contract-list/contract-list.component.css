@@ -1,0 +1,11 @@
+.card-header .mat-icon {
+    margin-right: 5px;
+}
+
+.card-header-danger .placeholder {
+    color: whitesmoke;
+}
+
+::ng-deep .card-header-danger .mat-form-field-underline {
+    background-color: lightgray;
+}

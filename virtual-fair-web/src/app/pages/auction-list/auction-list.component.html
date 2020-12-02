@@ -1,0 +1,177 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row" *ngIf="profileId !== 1">
+      <div class="col-md-12">
+        <div class="card">
+          <div
+            class="card-header card-header-danger row justify-content-between align-items-center"
+          >
+            <div class="col-md-4">
+              <p class="card-category">
+                <mat-form-field style="height: 47px;">
+                  <mat-icon matPrefix>search</mat-icon>
+                  <input
+                    name="search-auction-participating"
+                    [(ngModel)]="searchTermParticipating"
+                    (ngModelChange)="searchAuctionsParticipating()"
+                    matInput
+                  />
+                  <mat-placeholder class="placeholder"
+                    >Buscar subasta</mat-placeholder
+                  >
+                </mat-form-field>
+              </p>
+            </div>
+            <div class="col" *ngIf="profileId !== 1">
+              <h4 class="card-title text-right">
+                Subastas de transportes en las que estás participando o has ganado.
+              </h4>
+              <p class="card-category text-right">
+                De esta lista puedes hacer seguimiento de tus ofertas y de los estados de transporte.
+              </p>
+            </div>
+            <div *ngIf="profileId === 1" class="col-md-4 justify-content-end d-flex">
+              <button
+                class="btn btn-success m-0"
+                (click)="addAuction()"
+              >
+                Crear subasta
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div
+            *ngIf="displayedParticipatingAuctionss.length === 0"
+            class="col text-center py-4"
+          >
+            No se encontraron subastas en las que hayas participado con el filtro
+            actual.
+          </div>
+            <div class="table-responsive" *ngIf="displayedParticipatingAuctionss.length > 0">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>ID Venta</th>
+                  <th>Solicitado por</th>
+                  <th>Fecha Decisión</th>
+                  <th>Estado</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let auction of displayedParticipatingAuctionss">
+                    <td>{{ auction.displayInfo.id }}</td>
+                    <td>{{ auction.displayInfo.idPurchaseRequest }}</td>
+                    <td>{{ auction.displayInfo.solicitedBy }}</td>
+                    <td>{{ auction.displayInfo.limitDate }}</td>
+                    <td>{{ auction.displayInfo.status }}</td>
+                    <td>
+                      <button
+                        [routerLink]="[
+                          '/main/auction-list/view',
+                          auction.id
+                        ]"
+                        class="btn btn-sm btn-outline-primary"
+                      >
+                        Ver detalle
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div
+            class="card-header card-header-danger row justify-content-between align-items-center"
+          >
+            <div class="col-md-4">
+              <p class="card-category">
+                <mat-form-field style="height: 47px;">
+                  <mat-icon matPrefix>search</mat-icon>
+                  <input
+                    name="search-auction"
+                    [(ngModel)]="searchTerm"
+                    (ngModelChange)="searchAuctions()"
+                    matInput
+                  />
+                  <mat-placeholder class="placeholder"
+                    >Buscar subasta</mat-placeholder
+                  >
+                </mat-form-field>
+              </p>
+            </div>
+            <div class="col" *ngIf="profileId !== 1">
+              <h4 class="card-title text-right">
+                Subastas de transportes en las que puedes optar a participar.
+              </h4>
+              <p class="card-category text-right">
+                Puedes registrar tu oferta y participar en las siguientes subastas
+              </p>
+            </div>
+            <div *ngIf="profileId === 1" class="col-md-4 justify-content-end d-flex">
+              <button
+                class="btn btn-success m-0"
+                (click)="addAuction()"
+              >
+                Crear subasta
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div
+            *ngIf="displayedAuctions.length === 0"
+            class="col text-center py-4"
+          >
+            No se encontraron subastas en las que puedas participar con el filtro
+            actual.
+          </div>
+            <div class="table-responsive" *ngIf="displayedAuctions.length > 0">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>ID Venta</th>
+                  <th>Solicitado por</th>
+                  <th>Fecha Decisión</th>
+                  <th>Estado</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let auction of displayedAuctions">
+                    <td>{{ auction.displayInfo.id }}</td>
+                    <td>{{ auction.displayInfo.idPurchaseRequest }}</td>
+                    <td>{{ auction.displayInfo.solicitedBy }}</td>
+                    <td>{{ auction.displayInfo.limitDate }}</td>
+                    <td>{{ auction.displayInfo.status }}</td>
+                    <td>
+                      <button
+                        [routerLink]="[
+                          '/main/auction-list/view',
+                          auction.id
+                        ]"
+                        class="btn btn-sm btn-outline-primary"
+                      >
+                        Ver detalle
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

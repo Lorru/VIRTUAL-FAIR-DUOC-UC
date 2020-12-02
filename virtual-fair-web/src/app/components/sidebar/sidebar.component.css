@@ -1,0 +1,15 @@
+.download-app {
+    background-image: url("https://www.shareicon.net/data/256x256/2016/07/10/119893_windows-phone_512x512.png");
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 33px;
+    padding-left: 46px;
+    background-color: #00bcd414!important;
+    margin: 0 0 20px;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+    text-transform: none;
+    font-size: 14px;
+
+}

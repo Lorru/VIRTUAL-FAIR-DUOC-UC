@@ -1,33 +1,51 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
-import { ToastrModule } from 'ngx-toastr';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app.routing';
+import { ComponentsModule } from './components/components.module';
+
 import { AppComponent } from './app.component';
-import { MenuModule } from './components/menu/menu.module';
-import { LoginComponent } from './components/login/login.component';
+import {
+  AgmCoreModule
+} from '@agm/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MainLayoutComponent } from './pages/main-layout/main-layout.component';
+import { LoginComponent } from './pages/login/login.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
+  imports: [
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ComponentsModule,
+    RouterModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatRippleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatDialogModule
+  ],
   declarations: [
     AppComponent,
+    MainLayoutComponent,
     LoginComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    CommonModule,
-    ToastrModule.forRoot({  positionClass: 'toast-center-center'  }),
-    NgbModule.forRoot(),
-    AppRoutingModule,
-    MenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

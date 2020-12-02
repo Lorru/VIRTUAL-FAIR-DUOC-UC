@@ -1,0 +1,263 @@
+<div class="main-content" *ngIf="auction">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="card mb-3">
+          <div [class.card-header-success]="auction && auction.purchaseRequest.idPurchaseRequestStatus === 8" [class.card-header-danger]="auction && auction.purchaseRequest.idPurchaseRequestStatus !== 8" class="card-header row">
+            <div class="col">
+              <h4 class="card-title">
+                Subasta {{ stringSalesProcessType }} ID:
+                <b> {{ auctionId }}</b>
+              </h4>
+              <p *ngIf="auction && auction.purchaseRequest.idPurchaseRequestStatus === 3" class="card-category">
+                Fecha límite decisión:
+                <b>
+                  {{
+                    auction
+                      ? (auction.desiredDate | date: "dd/MM/yyyy")
+                      : "Cargando..."
+                  }}</b
+                >
+              </p>
+              <p *ngIf="auction && auction.purchaseRequest.idPurchaseRequestStatus > 3" class="card-category">
+                Estado transporte: 
+                <b>
+                  {{
+                    auction.purchaseRequest.purchaseRequestStatus.name
+                  }}</b
+                >
+              </p>
+            </div>
+            <div class="col">
+              <h4 class="card-title text-right">
+                Solicitado por:
+                <b>
+                  {{
+                    requestedProducts[0]
+                      ? requestedProducts[0].purchaseRequest.client.fullName
+                      : "Cargando..."
+                  }}</b
+                >
+              </h4>
+              <p class="card-category text-right">
+                Fecha deseada entrega:
+                <b>
+                  {{
+                    requestedProducts[0]
+                      ? (requestedProducts[0].purchaseRequest.desiredDate
+                        | date: "dd/MM/yyyy")
+                      : "Cargando..."
+                  }}
+                </b>
+              </p>
+            </div>
+            <!-- <div class="col justify-content-end d-flex">
+              Fecha deseada:
+              <b>{{
+                requestedProducts[0].purchaseRequest.desiredDate
+                  | date: "dd/MM/yyyy"
+              }}</b>
+            </div> -->
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table" *ngIf="requestedProducts.length > 0">
+                <thead class="text-primary">
+                  <th>Nombre producto</th>
+                  <th class="text-center">Peso Kg</th>
+                  <th class="text-center">Comentario</th>
+                  <th class="text-center">Refrigerar</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let requestedProduct of requestedProducts">
+                    <td>{{ requestedProduct.product.name }}</td>
+                    <td class="text-center">{{ requestedProduct.weight }}</td>
+                    <td class="text-center">
+                      {{
+                        requestedProduct.remark
+                          ? requestedProduct.remark
+                          : "---"
+                      }}
+                    </td>
+                    <td class="text-center">
+                      <i class="material-icons">
+                        {{
+                          +requestedProduct.requiresRefrigeration
+                            ? "check_box"
+                            : "check_box_outline_blank"
+                        }}
+                      </i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div
+                *ngIf="requestedProducts.length === 0"
+                class="col text-center py-4"
+              >
+                Cargando...
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4" *ngIf="auction.purchaseRequest.idPurchaseRequestStatus !== 2">
+      <div
+        class="col text-center"
+        *ngIf="_userService.getUser().idProfile !== 1 && auction"
+      >
+        <mat-form-field
+          style="
+            max-width: 300px;
+            margin: auto;
+            font-size: 16px;
+            text-align: center;
+          "
+        >
+          <mat-label>$ Tu oferta costo de transporte</mat-label>
+          <input
+            [readonly]="!canSaveParticipation"
+            name="auction-offer"
+            [(ngModel)]="offer"
+            type="number"
+            matInput
+          />
+        </mat-form-field>
+        <button
+          *ngIf="canSaveParticipation"
+          [disabled]="!offer"
+          (click)="registerOffer()"
+          class="btn btn-md btn-success"
+        >
+          {{ isTransporterParticipating ? "Guardar " : "Registrar " }}
+          oferta
+        </button>
+        <button
+          *ngIf="isTransporterParticipating"
+          (click)="removeParticipation()"
+          class="ml-3 btn btn-md btn-danger"
+        >
+          Descartar participación
+        </button>
+        <button
+          *ngIf="
+            auction.isPublic === 1 &&
+            auction.purchaseRequest.idPurchaseRequestStatus === 5 &&
+            isUserWinner
+          "
+          (click)="initTransport()"
+          class="ml-3 btn btn-md btn-warning"
+        >
+          iniciar Transporte
+        </button>
+        <button
+          *ngIf="
+            auction.isPublic === 1 &&
+            auction.purchaseRequest.idPurchaseRequestStatus === 6 &&
+            isUserWinner
+          "
+          (click)="deliver()"
+          class="ml-3 btn btn-md btn-success"
+        >
+          Registrar Entrega
+        </button>
+      </div>
+
+      <div class="col text-center" *ngIf="isAdmin && auction">
+        <button
+          *ngIf="auction.isPublic === 0"
+          (click)="publish(auctionId)"
+          class="btn btn-md btn-primary"
+        >
+          Publicar subasta
+        </button>
+        <button
+          *ngIf="auction.isPublic === 1"
+          (click)="unpublish(auctionId)"
+          class="ml-3 btn btn-md btn-danger"
+        >
+          Quitar publicación
+        </button>
+        <button
+          *ngIf="
+            auction.isPublic === 1 &&
+            auction.purchaseRequest.idPurchaseRequestStatus === 4 &&
+            participants.length > 0
+          "
+          (click)="finalizeAuction()"
+          class="ml-3 btn btn-md btn-warning"
+        >
+          Aceptar mejor oferta
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="row"
+      *ngIf="
+        requestedProducts[0] &&
+        requestedProducts[0].purchaseRequest.isPublic === 1
+      "
+    >
+      <div class="col">
+        <div class="card">
+          <div class="card-header card-header-info row">
+            <div class="col" *ngIf="purchaseRequestStatus === 4">
+              <h4 class="card-title">Transportistas participantes</h4>
+              <p class="card-category">
+                Lista de transportistas participando en la subasta.
+              </p>
+            </div>
+            <div class="col" *ngIf="purchaseRequestStatus > 4">
+              <h4 class="card-title">Participante Ganador</h4>
+              <p class="card-category">
+                Datos de la oferta del participante ganador de la subasta.
+              </p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table" *ngIf="participants.length > 0">
+                <thead class="text-primary">
+                  <th>Posición</th>
+                  <th class="text-center">Nombre participante</th>
+                  <th class="text-center">Oferta</th>
+                </thead>
+                <tbody *ngIf="purchaseRequestStatus === 4">
+                  <tr *ngFor="let participant of participants; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td class="text-center">
+                      {{ participant.carrier.fullName }}
+                    </td>
+                    <td class="text-center">
+                      {{ participant.price }}
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="purchaseRequestStatus > 4">
+                  <tr>
+                    <td>1</td>
+                    <td class="text-center">
+                      {{ participants[0].carrier.fullName }}
+                    </td>
+                    <td class="text-center">
+                      {{ participants[0].price }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div
+                *ngIf="participants.length === 0"
+                class="col text-center py-4"
+              >
+                No se han encontrado participantes en este proceso de venta.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

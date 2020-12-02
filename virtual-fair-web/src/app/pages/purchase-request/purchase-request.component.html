@@ -1,0 +1,84 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div
+            class="card-header card-header-danger row justify-content-between align-items-center"
+          >
+            <div class="col-md-4">
+              <p class="card-category">
+                <mat-form-field style="height: 52px">
+                  <mat-icon matPrefix>search</mat-icon>
+                  <input
+                    name="search-user"
+                    [(ngModel)]="searchTerm"
+                    (ngModelChange)="searchByTerm()"
+                    matInput
+                  />
+                  <mat-placeholder class="placeholder"
+                    >Buscar solicitud</mat-placeholder
+                  >
+                </mat-form-field>
+              </p>
+            </div>
+            <div class="col justify-content-end d-flex">
+              <button *ngIf="_userService.getUser().idProfile === 5"
+                [routerLink]="['/main/purchase-request/create', 'residue']"
+                class="btn btn-info mr-3"
+              >
+                Comprar Saldo
+              </button>
+              <button
+                [routerLink]="['/main/purchase-request/create']"
+                class="btn btn-success"
+              >
+                Solicitar Producto
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>Peso Total Kg</th>
+                  <th>$ Total</th>
+                  <th>Fecha solicitud</th>
+                  <th>Actualizado</th>
+                  <th>Estado</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let purchaseRequest of displayedpurchaseRequests">
+                    <td>{{ purchaseRequest.displayInfo.id }}</td>
+                    <td>{{ purchaseRequest.displayInfo.totalWeight }}</td>
+                    <td>
+                      {{
+                        purchaseRequest.displayInfo.totalPrice || "Por Definir"
+                      }}
+                    </td>
+                    <td>{{ purchaseRequest.displayInfo.creationDate }}</td>
+                    <td>{{ purchaseRequest.displayInfo.updateDate }}</td>
+                    <td>{{ purchaseRequest.displayInfo.state }}</td>
+                    <td>
+                      <button
+                        [routerLink]="[
+                          '/main/purchase-request/view',
+                          purchaseRequest.displayInfo.id
+                        ]"
+                        class="btn btn-sm btn-outline-primary"
+                      >
+                        Ver detalle
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

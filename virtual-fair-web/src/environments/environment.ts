@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  URL_API: 'http://localhost:8080/api/',
+  URL_API: 'http://virtualfairapi-env.eba-izwgrmte.us-east-2.elasticbeanstalk.com/api/',
   MESSAGE_ERROR_INTERNAL_API: 'Vuelve a Intentarlo Nuevamente.'
 };
 

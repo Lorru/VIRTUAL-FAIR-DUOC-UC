@@ -1,0 +1,89 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div
+            class="card-header card-header-danger row justify-content-between align-items-center"
+          >
+            <div class="col-md-4">
+              <p class="card-category">
+                <mat-form-field style="height: 52px">
+                  <mat-icon matPrefix>search</mat-icon>
+                  <input
+                    name="search-contract"
+                    [(ngModel)]="searchTerm"
+                    (ngModelChange)="searchContract()"
+                    matInput
+                  />
+                  <mat-placeholder class="placeholder"
+                    >Buscar contrato</mat-placeholder
+                  >
+                </mat-form-field>
+              </p>
+            </div>
+            <div class="col-md-4 justify-content-end d-flex">
+              <button class="btn btn-primary" (click)="createContract()">
+                Agregar contrato
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <div
+                *ngIf="displayedContracts.length === 0"
+                class="col text-center py-4"
+              >
+                No se encontraron resultados con el filtro actual.
+              </div>
+              <table class="table" *ngIf="displayedContracts.length > 0">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th class="text-center">Nombre usuario</th>
+                  <th class="text-center">Rol usuario</th>
+                  <th class="text-center">Fecha expiración</th>
+                  <th class="text-center">Vigente</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let contract of displayedContracts">
+                    <td>{{ contract.displayInfo.id }}</td>
+                    <td class="text-center">
+                      {{ contract.displayInfo.userName }}
+                    </td>
+                    <td class="text-center">
+                      {{ contract.displayInfo.userRol }}
+                    </td>
+                    <td class="text-center">
+                      {{
+                        contract.displayInfo.expirationDate | date: "dd/MM/yyyy"
+                      }}
+                    </td>
+                    <td class="text-center">
+                      <i class="material-icons">
+                        {{
+                          +contract.displayInfo.isValid
+                            ? "check_circle_outline"
+                            : "highlight_off"
+                        }}
+                      </i>
+                    </td>
+                    <td>
+                      <button
+                        (click)="downloadContract(contract.id)"
+                
+                        class="btn btn-sm btn-outline-primary"
+                      >
+                        Descargar Contrato
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <ngx-slick-carousel
+          class="carousel"
+          #slickModal="slick-carousel"
+          [config]="slideConfig"
+          (init)="slickInit($event)"
+          (breakpoint)="breakpoint($event)"
+          (afterChange)="afterChange($event)"
+          (beforeChange)="beforeChange($event)"
+        >
+          <div ngxSlickItem *ngFor="let slide of slides" class="slide p-2">
+            <img src="{{ slide.img }}" alt="" width="100%" />
+          </div>
+        </ngx-slick-carousel>
+      </div>
+    </div>
+    <div class="row pt-3">
+        <div class="col">
+            <div class="card">
+                <div class="card-header card-header-info">
+                    <h4 class="card-title">¡Compra con nosotros!</h4>
+                    <p class="card-category">Todas las frutas y verduras que necesites</p>
+                </div>
+                <div class="card-body">
+                    Gracias a nuestros productores y transportistas asociados, con nosotros encontrarás las frutas y verduras de la mejor calidad y al mejor precio. No te arrepentirás.
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title">¡Trabaja con nosotros!</h4>
+                    <p class="card-category">Haste conocer en la industria</p>
+                </div>
+                <div class="card-body">
+                    Gracias a nuestros únicos y participativos procesos de venta, todos nuestros productores y transportistas asociados tienen la posibilidad de crecer y competir en el mercado.
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Mercado extranjero y local</h4>
+                    <p class="card-category">Crece con nosotros</p>
+                </div>
+                <div class="card-body">
+                    Ya seas de una gran o pequeña empresa, productor o transportista; todos tienen la oportunidad de crecer con nosotros en unas de las industrias más lucrativas del mundo.
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
