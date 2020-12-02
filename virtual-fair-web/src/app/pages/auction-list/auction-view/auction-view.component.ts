@@ -67,11 +67,11 @@ export class AuctionViewComponent implements OnInit {
           this.purchaseRequestStatus = this.auction.purchaseRequest.idPurchaseRequestStatus;
 
           this.setRequestedProducts((callback) => {
-            if (this.purchaseRequestStatus === 5 && this.isAdmin) {
+            if (this.isAdmin) {
               this.getWinners();
+              this.getAuctionParticipation();
             } else {
               this.getAuctionParticipation();
-              this.getWinners();
             }
           });
         } else {
