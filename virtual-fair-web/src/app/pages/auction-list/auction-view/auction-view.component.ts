@@ -71,6 +71,7 @@ export class AuctionViewComponent implements OnInit {
               this.getWinners();
             } else {
               this.getAuctionParticipation();
+              this.getWinners();
             }
           });
         } else {
