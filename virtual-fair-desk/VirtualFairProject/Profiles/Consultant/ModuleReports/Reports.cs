@@ -184,7 +184,7 @@ namespace VirtualFairProject.Profiles.Consultant.ModuleReports
 
                 if (sfdArchive.ShowDialog() == DialogResult.OK)
                 {
-                    sfdArchive.FileName = String.Concat(sfdArchive.FileName,".png");
+                    sfdArchive.FileName = String.Concat(sfdArchive.FileName,".pdf");
                     File.WriteAllBytes(sfdArchive.FileName, Convert.FromBase64String(downloadArchive.file.ToString()));
                 }
 
