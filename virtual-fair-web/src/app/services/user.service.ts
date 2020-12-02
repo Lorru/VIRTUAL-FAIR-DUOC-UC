@@ -8,16 +8,16 @@ import { Router } from "@angular/router";
   providedIn: "root",
 })
 export class UserService {
-  public httpHeaders: HttpHeaders = new HttpHeaders().set(
+  private httpHeaders: HttpHeaders = new HttpHeaders().set(
     "Content-Type",
     "application/json"
   );
 
   currentUser: any;
 
-  public URL_API: string = environment.URL_API + "User/";
+  private URL_API: string = environment.URL_API + "User/";
 
-  constructor(public httpClient: HttpClient, public _router: Router) {}
+  constructor(private httpClient: HttpClient, private _router: Router) {}
 
   findAll(searcher?: string): Observable<any> {
     let URL_USER: string = this.URL_API + "findAll";

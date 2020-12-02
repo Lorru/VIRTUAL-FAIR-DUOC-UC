@@ -23,12 +23,12 @@ export class LoginComponent implements OnInit {
       rol: "Consultor",
     },
     {
-      email: "productor@virtualfair.cl",
+      email: "adoh.astuh@gmail.com",
       password: "12345",
       rol: "Productor",
     },
     {
-      email: "transportista@virtualfair.cl",
+      email: "ad.astudillo@alumnos.duoc.cl",
       password: "12345",
       rol: "Transportista",
     },
@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
           this.loadingFindByEmailAndPassword = false;
           let notificationData = {
             message:
-              "Credenciales incorrectar",
+              "Credenciales incorrectas",
             resultType: "failure",
           };
 

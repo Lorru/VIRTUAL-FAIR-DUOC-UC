@@ -62,6 +62,7 @@ export class SalesProcessViewComponent implements OnInit {
         this.getProducerParticipation();
         if (this.isAdmin) {
           this.getTransportistParticipation();
+          this.getTransportWinners();
         }
       }
 
@@ -543,6 +544,13 @@ export class SalesProcessViewComponent implements OnInit {
       )
       .subscribe((res: any) => {
         this.participants = res.purchaseRequestProducers || [];
+      });
+  }
+
+  getTransportWinners() {
+    this._transportAuctionCarrier
+      .getParticipantByIdPurchaseRequest(this.purchaseRequestId)
+      .subscribe((res: any) => {
       });
   }
 }
